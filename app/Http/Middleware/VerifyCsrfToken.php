@@ -18,7 +18,8 @@ class VerifyCsrfToken extends Middleware
      *
      * @var array
      */
+     //Here, you can out anything you don't wanna target by CSRF token.
     protected $except = [
-        //
+         'line/*',
     ];
 }

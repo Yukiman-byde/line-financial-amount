@@ -29,5 +29,10 @@ return [
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
+    //Here, you can order where laravel should do reference, here is example, Line_Channel_Token, Line_Messenger_Secret, those which are connected to env file.
+     'line' => [
+        'channel_token'=>env('LINE_CHANNEL_TOKEN'),
+        'messenger_secret'=>env('LINE_MESSENGER_SECRET')
+    ],
 
 ];
