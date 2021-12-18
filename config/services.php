@@ -31,11 +31,12 @@ return [
     ],
     //Here, you can order where laravel should do reference, here is example, Line_Channel_Token, Line_Messenger_Secret, those which are connected to env file.
      'line' => [
-        'channel_token'=>env('LINE_CHANNEL_TOKEN'),
+        'channel_token' => env('LINE_CHANNEL_TOKEN'),
         'messenger_secret'=>env('LINE_MESSENGER_SECRET'),
         'client_id'     => env('LINE_CLIENT_ID'),
         'client_secret' => env('LINE_CLIENT_SECRET'),
         'redirect'      => '/login/line/callback',
+        'line_user'   => env('LINE_USER_ID'),
     ],
 
 ];

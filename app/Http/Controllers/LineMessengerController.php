@@ -13,16 +13,24 @@ class LineMessengerController extends Controller
         // LINEから送られた内容を$inputsに代入
         $inputs=$request->all();
         $reply_token=$inputs['events'][0]['replyToken'];
-        $http_client = new CurlHTTPClient(config('services.line.channel_token'));
-            $bot = new LINEBot($http_client, ['channelSecret' => config('services.line.messenger_secret')]);
-
-            // 送信するメッセージの設定
-            $reply_message='メッセージありがとうございます';
-
-            // ユーザーにメッセージを返す
-            $reply=$bot->replyText($reply_token, $reply_message);
-            
-            return 'ok';
-
+        $channel_token = config('services.line.channel_token');
+        $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient($channel_token);
+        $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => env('LINE_MESSENGER_SECRET')]);
+        $reply_message='メッセージありがとうございます';
+        $response=$bot->reply_message($reply_token, $reply_message);
+        echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
+    }
+    
+    public function message(){
+        $line_id = config('services.line.line_user');
+        $channel_token = config('services.line.channel_token');
+        $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient($channel_token);
+        $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => env('LINE_MESSENGER_SECRET')]);
+       // dd($bot);
+       // $textMessageBuilder = new TextMessageBuilder('ヤッホー');
+        $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('あれ？');
+        $response = $bot->pushMessage($line_id, $textMessageBuilder);
+        
+        echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
     }
 }
