@@ -16,8 +16,8 @@ class LineMessengerController extends Controller
         $channel_token = config('services.line.channel_token');
         $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient($channel_token);
         $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => env('LINE_MESSENGER_SECRET')]);
-        $reply_message='メッセージありがとうございます';
-        $response=$bot->reply_message($reply_token, $reply_message);
+        $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('あれ？');
+        $response=$bot->reply_message($reply_token, $textMessageBuilder);
         echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
     }
     
