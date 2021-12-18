@@ -11,7 +11,8 @@ class LineMessengerController extends Controller
 {
     public function webhook(Request $request) {
         //LINEから送られた内容を$inputsに代入
-        $reply_token = $request["events"][0]["replyToken"];
+        $inputs = $request->all();
+        $reply_token = $inputs["events"][0]["replyToken"];
         $channel_token = config('services.line.channel_token');
         $line_id = config('services.line.line_user');
         $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient($channel_token);
