@@ -19,7 +19,7 @@ class LineMessengerController extends Controller
         // $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('あれ？');
         // $response=$bot->replyMessage($reply_token, $textMessageBuilder);
         //echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
-       return $request;
+       return $request['events'];
     }
     
     public function message(){
