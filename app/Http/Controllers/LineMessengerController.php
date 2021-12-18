@@ -11,6 +11,7 @@ class LineMessengerController extends Controller
 {
     public function webhook(Request $request) {
         // LINEから送られた内容を$inputsに代入
+        return "200 ok";
         $inputs=$request->all();
 
         // そこからtypeをとりだし、$message_typeに代入
