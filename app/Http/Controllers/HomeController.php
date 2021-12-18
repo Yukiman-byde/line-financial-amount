@@ -21,8 +21,13 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function house()
     {
-        return view('home');
+        return view('house');
+    }
+    
+    public function calculate(Request $request)
+    {
+        
     }
 }

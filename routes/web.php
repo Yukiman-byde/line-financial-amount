@@ -14,9 +14,12 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/house', 'HomeController@house')->name('house');
+Route::get('/calculate', 'HomeController@calculate')->name('calculate');
+Route::post('/calculate', 'HomeController@calculate')->name('calculate');
 
-Route::get('/login/line', 'Auth\LoginController@redirectToProvider')->name('linelogin');
-Route::get('/login/line/callback', 'Auth\LoginController@handleProviderCallback');
+Route::get('/login/{provider}', 'Auth\LoginController@redirectToProvider')->name('linelogin');
+Route::get('/login/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 
 // LINE メッセージ受信

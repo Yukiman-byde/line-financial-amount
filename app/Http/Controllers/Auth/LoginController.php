@@ -71,7 +71,7 @@ class LoginController extends Controller
 
         Auth::login($user);
 
-        return redirect()->view('home');
+        return redirect()->route('house');
     }
 
     /**
@@ -83,6 +83,6 @@ class LoginController extends Controller
     {
         Auth::logout();
 
-        return redirect()->route('index');
+        return redirect()->route('house');
     }
 }
