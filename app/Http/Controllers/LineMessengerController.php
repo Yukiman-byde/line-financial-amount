@@ -11,13 +11,12 @@ class LineMessengerController extends Controller
 {
     public function webhook(Request $request) {
         // LINEから送られた内容を$inputsに代入
-        $inputs = $request->all();
-        $reply_token=$inputs['events'][0]['replyToken'];
+        // $reply_token=$inputs['events'][0]['replyToken'];
         $channel_token = config('services.line.channel_token');
         $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient($channel_token);
         $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => env('LINE_MESSENGER_SECRET')]);
         $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('あれ？');
-        $response=$bot->reply_message($reply_token, $textMessageBuilder);
+        $response=$bot->reply_message($request, $textMessageBuilder);
         echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
     }
     
