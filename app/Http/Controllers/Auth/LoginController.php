@@ -39,9 +39,6 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
-<<<<<<<<< saved version
-
-=========
     }
      public function redirectToProvider($provider)
     {
@@ -74,7 +71,7 @@ class LoginController extends Controller
 
         Auth::login($user);
 
-        return redirect()->route('index');
+        return redirect()->view('home');
     }
 
     /**

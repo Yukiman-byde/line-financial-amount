@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/login/line', 'Auth\LoginController@redirectToProvider')->name('linelogin');
+Route::get('/login/line/callback', 'Auth\LoginController@handleProviderCallback');
+Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
+
 // LINE メッセージ受信
 Route::get('/line/webhook', 'LineMessengerController@webhook')->name('line.webhook');
 Route::post('/line/webhook', 'LineMessengerController@webhook')->name('line.webhook');
