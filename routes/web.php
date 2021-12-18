@@ -23,7 +23,7 @@ Route::get('/login/{provider}/callback', 'Auth\LoginController@handleProviderCal
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 
 // LINE メッセージ受信
-//Route::get('/line/webhook', 'LineMessengerController@webhook')->name('line.webhook');
+Route::get('/line/webhook', 'LineMessengerController@webhook')->name('line.webhook');
 Route::post('/line/webhook', 'LineMessengerController@webhook')->name('line.webhook');
  
 // LINE メッセージ送信用
