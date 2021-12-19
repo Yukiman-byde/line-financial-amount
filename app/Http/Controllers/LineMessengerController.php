@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Controllers;
+require_once__DIR__ . '/vendor/autoload.php';
 use LINE\LINEBot\HTTPClient\CurlHTTPClient;
 use LINE\LINEBot;
 use App\Models\User;
@@ -15,25 +16,21 @@ class LineMessengerController extends Controller
         $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient(config('services.line.channel_token'));
         $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => env('LINE_MESSENGER_SECRET')]);
        // dd($bot);
-        $signature = $request->headers->get(HTTPHeader::LINE_SIGNATURE);
+       //$signature = $request->headers->get(HTTPHeader::LINE_SIGNATURE);
+       $signature = $_SERVER['HTTP' . HTTPHeader::LINE_SIGNATURE];
         
-        if (!SignatureValidator::validateSignature($request->getContent(), env('LINE_MESSENGER_SECRET'), $signature)) {
-            // TODO 不正アクセス
-            return ;
-        }
+        // if (!SignatureValidator::validateSignature($request->getContent(), env('LINE_MESSENGER_SECRET'), $signature)) {
+        //     // TODO 不正アクセス
+        //     return ;
+        // }
         
-        $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient(config('services.line.channel_token'));
+        //$httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient(config('services.line.channel_token'));
         //$bot = new \LINE\LINEBot($httpClient, ['channelSecret' => env('LINE_MESSENGER_SECRET')]);
-        try{
+       
         $events = $bot->parseEventRequest($request->getContent(), $signature);
         foreach($events as $event){
-            $replyToken = $event->getReplyToken();
             $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('あれ？');
-            $response=$bot->replyMessage($replyToken, $textMessageBuilder);
-           }
-        } catch (Exception $e) {
-            // TODO 例外
-            return $e;
+            $response=$bot->replyText($event->getReplyToken(), $textMessageBuilder);
         }
         
         echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
