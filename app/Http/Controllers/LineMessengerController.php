@@ -37,7 +37,7 @@ class LineMessengerController extends Controller
             $response = $bot->replyMessage($replyToken,$message);
             
             if(!$response->isSucceeded()){
-                error_log($response->getHTTPStatus. ' ' . $response->getRawBody);
+                error_log($response->getHTTPStatus. ' ' . $response->getRawBody());
             }
         }
        // echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
