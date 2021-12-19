@@ -18,7 +18,7 @@ class LineMessengerController extends Controller
         $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient($channel_token);
         $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => env('LINE_MESSENGER_SECRET')]);
         $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('あれ？');
-        $response=$bot->replyMessage($reply_token, $textMessageBuilder);
+        $response=$bot->replyMessage('https://linetestapiwebhook.free.beeceptor.com', $textMessageBuilder);
         echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
     }
     
