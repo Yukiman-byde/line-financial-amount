@@ -31,10 +31,12 @@ class LineMessengerController extends Controller
             // $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('おならはしてないけどゲップはしてない');
             // $response = $bot->replyMessage($event->getReplyToken(), $message);
             if(strval($event->getText()) == '割り勘'){
-                $response = $bot->replyMessage($event->getReplyToken(), '割り勘ですね！');
-            }else if(strval($event->getText()) == '特定の人へ'){
-                $response = $bot->replyMessage($event->getReplyToken(), '誰の分でしょうか？');
-              }
+                $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('割り勘ですね！');
+                $response = $bot->replyMessage($event->getReplyToken(), $message);
+            }elseif(strval($event->getText()) == '特定の人へ'){
+                $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('どなたにチャージしますか？');
+                $response = $bot->replyMessage($event->getReplyToken(), $message);
+            }
            }
          //関数で呼び出したいけどうまく行ってないやつ  
         // function replyTextMessage($bot, $replyToken, $text){
