@@ -8,6 +8,10 @@ use LINE\LINEBot\MessageBuilder\MultiMessageBuilder;
 use LINE\LINEBot\Constant\HTTPHeader;
 use LINE\LINEBot\SignatureValidator;
 use Illuminate\Http\Request;
+use LINE\LINEBot\TempleateActionBuilder\MessageTemplateActionBuilder;
+use LINE\LINEBot\TempleateActionBuilder\TemplateMessageBuilder;
+use LINE\LINEBot\TempleateActionBuilder\UriTemplateActionBuilder;
+use LINE\LINEBot\MessageBuilder\TemplateBuilder\ButtonTemplateBuilder;
 use Exception;
 
 class LineMessengerController extends Controller
@@ -28,22 +32,17 @@ class LineMessengerController extends Controller
         $events = $bot->parseEventRequest($request->getContent(), $signature);
         
         foreach($events as $event){
-        //     if(strval($event->getText()) == '特定の人へ！'){
-                
-        //         $response = $this->replyTextMessage($bot, $event->getReplyToken(), 'どなたにチャージしますか？');
-                
-        //     }elseif(strval($event->getText()) == '割り勘で！'){
-                
-        //         $response = $this->replyTextMessage($bot, $event->getReplyToken(), '割り勘ですね！');
-                
-        //     } else {
-                
-        //         $response = $this->replyTextMessage($bot, $event->getReplyToken(), '申し訳ございません。メニューの方からの入力のみとなっておりますので、そちらからお願いします。');
-        //         }
-        //   }
            switch(strval($event->getText())){
                case '特定の人へ！':
-                   $response = $this->replyTextMessage($bot, $event->getReplyToken(), 'どなたにチャージしますか？');
+                   $response = $this->replyMultiMessage(
+                        $bot, 
+                        $event->getReplyToken(), 
+                        '立替 - どなたの立替を行なったか下記のボタンで指名してください',
+                        '立替',
+                        'どなたの立替を行なったか下記のボタンで指名してください',
+                        new MessageTemplateActionBuilder('まっさん', 'まっさん'),
+                        new UriTemplateActionBuilder('Webで見る', 'https://www.youtube.com/results?search_query=messege+api+line+laravel'),
+                        );
                    break;
                    
                case '割り勘で！':
@@ -67,5 +66,18 @@ class LineMessengerController extends Controller
         if(!$response->isSucceeded()){
             error_log($response->getHTTPStatus. ' ' . $response->getRawBody());
           }
+      }
+      
+      private function replyMultiMessage($bot, $replyToken, $alternativeText, $title, $text, ...$actions){
+          $actionArray = array();
+          foreach($actions as $action){
+              array_push($actionArray, $action);
+          }
+          $builder = new TemplateMessageBuilder(
+              $alternativeText,
+              new ButtonTemplateBuilder($title, $text, $actionArray),
+              );
+          
+          $response = replyMessage($replyToken, $builder);
       }
 }
