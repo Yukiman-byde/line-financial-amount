@@ -31,9 +31,9 @@ class LineMessengerController extends Controller
             // $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('おならはしてないけどゲップはしてない');
             // $response = $bot->replyMessage($event->getReplyToken(), $message);
             if(strval($event->getText()) == '割り勘'){
-                $response = $bot->replyMessage($eveny->getReplyToken(), '割り勘ですね！');
+                $response = $bot->replyMessage($event->getReplyToken(), '割り勘ですね！');
             }else if(strval($event->getText()) == '特定の人へ'){
-                $response = $bot->replyMessage($eveny->getReplyToken(), '誰の分でしょうか？');
+                $response = $bot->replyMessage($event->getReplyToken(), '誰の分でしょうか？');
               }
            }
          //関数で呼び出したいけどうまく行ってないやつ  
@@ -45,7 +45,7 @@ class LineMessengerController extends Controller
         //         error_log($response->getHTTPStatus. ' ' . $response->getRawBody());
         //     }
         // }
-       // echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
+        echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
     }
     
     public function message(){
