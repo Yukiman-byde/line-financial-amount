@@ -40,7 +40,7 @@ class LineMessengerController extends Controller
                 //$message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('申し訳ございません。メニューの方からの入力のみとなっておりますので、そちらからお願いします。');
                 //$response = $bot->replyMessage($event->getReplyToken(), $message);
                 $replyToken = $event->getReplyToken();
-                replyTextMessage($bot, $replyToken, '申し訳ございません。メニューの方からの入力のみとなっておりますので、そちらからお願いします。');
+                $this->replyTextMessage($bot, $replyToken, '申し訳ございません。メニューの方からの入力のみとなっておりますので、そちらからお願いします。');
             }
            }
         echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
@@ -68,12 +68,14 @@ class LineMessengerController extends Controller
       }
       
              // 関数で呼び出したいけどうまく行ってないやつ  
-      public function replyTextMessage($bot, $replyToken, $text){
-        $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($text);
-        $response = $bot->replyMessage($replyToken, $message);
+      private function replyTextMessage($bot, $replyToken, $text){
+          echo $bot. " " . $replyToken. " ". $text;
+        // $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($text);
+        // $response = $bot->replyMessage($replyToken,$message);
         
-        if(!$response->isSucceeded()){
-            error_log($response->getHTTPStatus. ' ' . $response->getRawBody());
-           }
+        // if(!$response->isSucceeded()){
+        //     error_log($response->getHTTPStatus. ' ' . $response->getRawBody());
+        //   }
       }
+
 }
