@@ -27,7 +27,7 @@ class LineMessengerController extends Controller
         $events = $bot->parseEventRequest($request->getContent(), $signature);
         foreach($events as $event){
             $replyToken = $event->getReplyToken();
-            $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('あれ？');
+            $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('ヤッホー！！');
             $response=$bot->replyMessage($replyToken, $textMessageBuilder);
            }
         } catch (Exception $e) {
