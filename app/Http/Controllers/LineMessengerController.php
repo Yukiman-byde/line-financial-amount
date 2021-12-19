@@ -27,7 +27,7 @@ class LineMessengerController extends Controller
         $events = $bot->parseEventRequest($request->getContent(), $signature);
         
         foreach($events as $event){
-            $response=$bot->replyMessage($event->getReplyToken(), $textMessageBuilder);
+            $response=$bot->replyMessage($event->getReplyToken(), 'こんにちは');
               //replyTextMessage($bot, $event->getReplyToken(), 'TextMessage');
            }
            
