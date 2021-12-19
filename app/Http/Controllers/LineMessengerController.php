@@ -39,9 +39,8 @@ class LineMessengerController extends Controller
             } else {
                 //$message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('申し訳ございません。メニューの方からの入力のみとなっておりますので、そちらからお願いします。');
                 //$response = $bot->replyMessage($event->getReplyToken(), $message);
-                $replyToken = $event->getReplyToken();
-                $this->replyTextMessage($bot, $replyToken, '申し訳ございません。メニューの方からの入力のみとなっておりますので、そちらからお願いします。');
-            }
+                $response = $this->replyTextMessage($bot, $event->getReplyToken(), '申し訳ございません。メニューの方からの入力のみとなっておりますので、そちらからお願いします。');
+                }
            }
         echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
     }
@@ -77,5 +76,8 @@ class LineMessengerController extends Controller
         //     error_log($response->getHTTPStatus. ' ' . $response->getRawBody());
         //   }
       }
-
+      
+    //   public function try(){
+    //      return $this->replyTextMessage('unko', 'haha', 'ureshii');
+    //   }
 }
