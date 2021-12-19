@@ -14,6 +14,7 @@ class LineMessengerController extends Controller
     public function webhook(Request $request) {
         $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient(config('services.line.channel_token'));
         $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => env('LINE_MESSENGER_SECRET')]);
+       // dd($bot);
         $signature = $request->headers->get(HTTPHeader::LINE_SIGNATURE);
         
         if (!SignatureValidator::validateSignature($request->getContent(), env('LINE_MESSENGER_SECRET'), $signature)) {
@@ -22,7 +23,7 @@ class LineMessengerController extends Controller
         }
         
         $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient(config('services.line.channel_token'));
-        $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => env('LINE_MESSENGER_SECRET')]);
+        //$bot = new \LINE\LINEBot($httpClient, ['channelSecret' => env('LINE_MESSENGER_SECRET')]);
         try{
         $events = $bot->parseEventRequest($request->getContent(), $signature);
         foreach($events as $event){
