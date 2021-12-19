@@ -37,19 +37,12 @@ class LineMessengerController extends Controller
                 $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('どなたにチャージしますか？');
                 $response = $bot->replyMessage($event->getReplyToken(), $message);
             } else {
-                $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('申し訳ございません。メニューの方からの入力のみとなっておりますので、そちらからお願いします。');
-                $response = $bot->replyMessage($event->getReplyToken(), $message);
+                //$message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('申し訳ございません。メニューの方からの入力のみとなっておりますので、そちらからお願いします。');
+                //$response = $bot->replyMessage($event->getReplyToken(), $message);
+                $replyToken = $event->getReplyToken();
+                replyTextMessage($bot, $replyToken, '申し訳ございません。メニューの方からの入力のみとなっておりますので、そちらからお願いします。');
             }
            }
-         //関数で呼び出したいけどうまく行ってないやつ  
-        // function replyTextMessage($bot, $replyToken, $text){
-        //     $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($text);
-        //     $response = $bot->replyMessage($replyToken,$message);
-            
-        //     if(!$response->isSucceeded()){
-        //         error_log($response->getHTTPStatus. ' ' . $response->getRawBody());
-        //     }
-        // }
         echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
     }
     
@@ -72,5 +65,15 @@ class LineMessengerController extends Controller
             $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => '<channel secret>']);
             //$richMenuBuilder = new \LINE\LINEBot\RichMenuBuilder(...)
             //$response = $bot->createRichMenu($richMenuBuilder);
+      }
+      
+             // 関数で呼び出したいけどうまく行ってないやつ  
+      public function replyTextMessage($bot, $replyToken, $text){
+        $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($text);
+        $response = $bot->replyMessage($replyToken, $message);
+        
+        if(!$response->isSucceeded()){
+            error_log($response->getHTTPStatus. ' ' . $response->getRawBody());
+           }
       }
 }
