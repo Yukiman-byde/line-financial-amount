@@ -30,11 +30,14 @@ class LineMessengerController extends Controller
             //リプライメッセージの実装
             // $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('おならはしてないけどゲップはしてない');
             // $response = $bot->replyMessage($event->getReplyToken(), $message);
-            if(strval($event->getText()) == '割り勘'){
+            if(strval($event->getText()) == '割り勘で！'){
                 $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('割り勘ですね！');
                 $response = $bot->replyMessage($event->getReplyToken(), $message);
-            }elseif(strval($event->getText()) == '特定の人へ'){
+            }elseif(strval($event->getText()) == '特定の人へ！'){
                 $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('どなたにチャージしますか？');
+                $response = $bot->replyMessage($event->getReplyToken(), $message);
+            } else {
+                $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('申し訳ございません。メニューの方からの入力のみとなっておりますので、そちらからお願いします。');
                 $response = $bot->replyMessage($event->getReplyToken(), $message);
             }
            }
