@@ -7,18 +7,32 @@ use LINE\LINEBot\MessageBuilder\TextMessageBuilder;
 use LINE\LINEBot\Constant\HTTPHeader;
 use LINE\LINEBot\SignatureValidator;
 use Illuminate\Http\Request;
+use Exception;
 
 class LineMessengerController extends Controller
 {
     public function webhook(Request $request) {
-        $signature = $request->headers->get(HTTPHeader::LINE_SIGNATURE);
         $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient(config('services.line.channel_token'));
         $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => env('LINE_MESSENGER_SECRET')]);
+        $signature = $request->headers->get(HTTPHeader::LINE_SIGNATURE);
+        
+        if (!SignatureValidator::validateSignature($request->getContent(), env('LINE_MESSENGER_SECRET'), $signature)) {
+            // TODO 不正アクセス
+            return;
+        }
+        
+        $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient(config('services.line.channel_token'));
+        $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => env('LINE_MESSENGER_SECRET')]);
+        try{
         $events = $lineBot->parseEventRequest($request->getContent(), $signature);
         foreach($events as $event){
             $replyToken = $event->getReplyToken();
             $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('あれ？');
             $response=$bot->replyMessage($replyToken, $textMessageBuilder);
+           }
+        } catch (Exception $e) {
+            // TODO 例外
+            return $e;
         }
         
         echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
@@ -36,5 +50,5 @@ class LineMessengerController extends Controller
         $response = $bot->pushMessage($line_id, $textMessageBuilder);
         
         echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
-    }
+        }
 }
