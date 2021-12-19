@@ -11,11 +11,16 @@ use Illuminate\Http\Request;
 class LineMessengerController extends Controller
 {
     public function webhook(Request $request) {
+        $signature = $request->headers->get(HTTPHeader::LINE_SIGNATURE);
         $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient(config('services.line.channel_token'));
         $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => env('LINE_MESSENGER_SECRET')]);
-        $replyToken = $request->getReplyToken();
-        $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('あれ？');
-        $response=$bot->replyMessage($replyToken, $textMessageBuilder);
+        $events = $lineBot->parseEventRequest($request->getContent(), $signature);
+        foreach($events as $event){
+            $replyToken = $event->getReplyToken();
+            $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('あれ？');
+            $response=$bot->replyMessage($replyToken, $textMessageBuilder);
+        }
+        
         echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
     }
     
