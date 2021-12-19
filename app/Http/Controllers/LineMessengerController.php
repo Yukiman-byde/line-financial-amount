@@ -4,6 +4,7 @@ use LINE\LINEBot\HTTPClient\CurlHTTPClient;
 use LINE\LINEBot;
 use App\Models\User;
 use LINE\LINEBot\MessageBuilder\TextMessageBuilder;
+use LINE\LINEBot\MessageBuilder\MultiMessageBuilder;
 use LINE\LINEBot\Constant\HTTPHeader;
 use LINE\LINEBot\SignatureValidator;
 use Illuminate\Http\Request;
@@ -27,48 +28,38 @@ class LineMessengerController extends Controller
         $events = $bot->parseEventRequest($request->getContent(), $signature);
         
         foreach($events as $event){
-            //リプライメッセージの実装
-            // $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('おならはしてないけどゲップはしてない');
-            // $response = $bot->replyMessage($event->getReplyToken(), $message);
-            if(strval($event->getText()) == '特定の人へ！'){
+        //     if(strval($event->getText()) == '特定の人へ！'){
                 
-                $response = $this->replyTextMessage($bot, $event->getReplyToken(), 'どなたにチャージしますか？');
+        //         $response = $this->replyTextMessage($bot, $event->getReplyToken(), 'どなたにチャージしますか？');
                 
-            }elseif(strval($event->getText()) == '割り勘で！'){
+        //     }elseif(strval($event->getText()) == '割り勘で！'){
                 
-                $response = $this->replyTextMessage($bot, $event->getReplyToken(), '割り勘ですね！');
+        //         $response = $this->replyTextMessage($bot, $event->getReplyToken(), '割り勘ですね！');
                 
-            } else {
+        //     } else {
                 
-                $response = $this->replyTextMessage($bot, $event->getReplyToken(), '申し訳ございません。メニューの方からの入力のみとなっておりますので、そちらからお願いします。');
-                }
+        //         $response = $this->replyTextMessage($bot, $event->getReplyToken(), '申し訳ございません。メニューの方からの入力のみとなっておりますので、そちらからお願いします。');
+        //         }
+        //   }
+           switch(strval($event->getText())){
+               case '特定の人へ！':
+                   $response = $this->replyTextMessage($bot, $event->getReplyToken(), 'どなたにチャージしますか？');
+                   break;
+                   
+               case '割り勘で！':
+                   $response = $this->replyTextMessage($bot, $event->getReplyToken(), '割り勘ですね!');
+                   break;
+                   
+               default:
+                   $response = $this->replyTextMessage($bot, $event->getReplyToken(), '申し訳ございません。メニューの方からの入力のみとなっておりますので、そちらからお願いします.');
+                   break;
+             }
            }
            
         echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
     }
     
-    public function message(){
-        $line_id = config('services.line.line_user');
-        $channel_token = config('services.line.channel_token');
-     
-        $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient($channel_token);
-        $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => env('LINE_MESSENGER_SECRET')]);
-        //dd($bot);
-       // $textMessageBuilder = new TextMessageBuilder('ヤッホー');
-        $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('ehe？');
-        $response = $bot->pushMessage($line_id, $textMessageBuilder);
-        
-        echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
-      }
-      
-      public function richmenu(){
-          $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient('<channel access token>');
-            $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => '<channel secret>']);
-            //$richMenuBuilder = new \LINE\LINEBot\RichMenuBuilder(...)
-            //$response = $bot->createRichMenu($richMenuBuilder);
-      }
-      
-             // 関数で呼び出したいけどうまく行ってないやつ  
+     // 関数で呼び出したいけどうまく行ってないやつ  
       private function replyTextMessage($bot, $replyToken, $text){
         $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($text);
         $response = $bot->replyMessage($replyToken,$message);
@@ -77,8 +68,4 @@ class LineMessengerController extends Controller
             error_log($response->getHTTPStatus. ' ' . $response->getRawBody());
           }
       }
-      
-    //   public function try(){
-    //      return $this->replyTextMessage('unko', 'haha', 'ureshii');
-    //   }
 }
