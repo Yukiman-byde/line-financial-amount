@@ -15,7 +15,7 @@ class LineMessengerController extends Controller
         $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient(config('services.line.channel_token'));
         $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => env('LINE_MESSENGER_SECRET')]);
         $signature = $request->headers->get(HTTPHeader::LINE_SIGNATURE);
-        
+
         if (!SignatureValidator::validateSignature($request->getContent(), env('LINE_MESSENGER_SECRET'), $signature)) {
             // TODO 不正アクセス
             return ;
@@ -23,18 +23,14 @@ class LineMessengerController extends Controller
         
         $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient(config('services.line.channel_token'));
         $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => env('LINE_MESSENGER_SECRET')]);
-        try{
+    
         $events = $bot->parseEventRequest($request->getContent(), $signature);
+        
         foreach($events as $event){
             $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('あれ？');
-            $response=$bot->replyText($event->getReplyToken(), $textMessageBuilder);
+            $response=$bot->replyMessage($event->getReplyToken(), $textMessageBuilder);
            }
-        } catch (Exception $e) {
-            // TODO 例外
-            return $e;
-        }
-        
-        echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
+       // echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
     }
     
     public function message(){
