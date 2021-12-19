@@ -48,6 +48,8 @@ class LineMessengerController extends Controller
       }
       
       private function replyTextMessage($bot, $replyToken, $textMessageBuilder){
-          
+         $response = $bot->replyText($replyToken, $textMessageBuilder);
+         
+         echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
       }
 }
