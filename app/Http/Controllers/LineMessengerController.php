@@ -28,7 +28,7 @@ class LineMessengerController extends Controller
         
         foreach($events as $event){
             $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('おならはしてないけどゲップはしてない');
-            $response=$bot->replyMessage($event->getReplyToken(), $message);
+            //$response=$bot->replyMessage($event->getReplyToken(), 'こんにちは');
               //replyTextMessage($bot, $event->getReplyToken(), 'TextMessage');
            }
            
