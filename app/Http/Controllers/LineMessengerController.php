@@ -31,17 +31,19 @@ class LineMessengerController extends Controller
             // $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('おならはしてないけどゲップはしてない');
             // $response = $bot->replyMessage($event->getReplyToken(), $message);
             if(strval($event->getText()) == '特定の人へ！'){
-                $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('どなたにチャージしますか？');
-                $response = $bot->replyMessage($event->getReplyToken(), $message);
+                
+                $response = $this->replyTextMessage($bot, $event->getReplyToken(), 'どなたにチャージしますか？');
+                
             }elseif(strval($event->getText()) == '割り勘で！'){
-                $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('割り勘ですね！');
-                $response = $bot->replyMessage($event->getReplyToken(), $message);
+                
+                $response = $this->replyTextMessage($bot, $event->getReplyToken(), '割り勘ですね！');
+                
             } else {
-                //$message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('申し訳ございません。メニューの方からの入力のみとなっておりますので、そちらからお願いします。');
-                //$response = $bot->replyMessage($event->getReplyToken(), $message);
+                
                 $response = $this->replyTextMessage($bot, $event->getReplyToken(), '申し訳ございません。メニューの方からの入力のみとなっておりますので、そちらからお願いします。');
                 }
            }
+           
         echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
     }
     
