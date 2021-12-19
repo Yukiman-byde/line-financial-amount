@@ -25,8 +25,7 @@ Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 // LINE メッセージ受信
 Route::get('/line/webhook', 'LineMessengerController@webhook')->name('line.webhook');
 Route::post('/line/webhook', 'LineMessengerController@webhook')->name('line.webhook');
-Route::get('/line/richmenu', 'LineMessengerController@richmenu')->name('richmenu')
- 
+
 // LINE メッセージ送信用
 Route::get('/line/message', 'LineMessengerController@message');
 
