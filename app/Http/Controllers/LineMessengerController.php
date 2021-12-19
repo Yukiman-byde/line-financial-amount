@@ -15,11 +15,7 @@ class LineMessengerController extends Controller
         $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient(config('services.line.channel_token'));
         $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => env('LINE_MESSENGER_SECRET')]);
         $signature = $request->headers->get(HTTPHeader::LINE_SIGNATURE);
-        
-        if (!SignatureValidator::validateSignature($request->getContent(), env('LINE_MESSENGER_SECRET'), $signature)) {
-            // TODO 不正アクセス
-            return;
-        }
+
         
         $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient(config('services.line.channel_token'));
         $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => env('LINE_MESSENGER_SECRET')]);
@@ -50,5 +46,5 @@ class LineMessengerController extends Controller
         $response = $bot->pushMessage($line_id, $textMessageBuilder);
         
         echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
-        }
+      }
 }
