@@ -27,19 +27,24 @@ class LineMessengerController extends Controller
         $events = $bot->parseEventRequest($request->getContent(), $signature);
         
         foreach($events as $event){
-            $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('おならはしてないけどゲップはしてない');
-            $response = $bot->replyMessage($event->getReplyToken(), $message);
-            //replyTextMessage($bot, $event->getReplyToken(), 'おならはしてないけどゲップはしてない');
+            //リプライメッセージの実装
+            // $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('おならはしてないけどゲップはしてない');
+            // $response = $bot->replyMessage($event->getReplyToken(), $message);
+            if($event->getText() == "割り勘"){
+                $response = $bot->replyMessage($eveny->getReplyToken(), '割り勘ですね！');
+            }else if($event->getText() == "特定の人へ"){
+                $response = $bot->replyMessage($eveny->getReplyToken(), '誰の分でしょうか？');
+              }
            }
-           
-        function replyTextMessage($bot, $replyToken, $text){
-            $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($text);
-            $response = $bot->replyMessage($replyToken,$message);
+         //関数で呼び出したいけどうまく行ってないやつ  
+        // function replyTextMessage($bot, $replyToken, $text){
+        //     $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($text);
+        //     $response = $bot->replyMessage($replyToken,$message);
             
-            if(!$response->isSucceeded()){
-                error_log($response->getHTTPStatus. ' ' . $response->getRawBody());
-            }
-        }
+        //     if(!$response->isSucceeded()){
+        //         error_log($response->getHTTPStatus. ' ' . $response->getRawBody());
+        //     }
+        // }
        // echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
     }
     
