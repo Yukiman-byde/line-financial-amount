@@ -23,11 +23,15 @@ class LineMessengerController extends Controller
         
         $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient(config('services.line.channel_token'));
         $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => env('LINE_MESSENGER_SECRET')]);
-
+        try{
         $events = $bot->parseEventRequest($request->getContent(), $signature);
-        $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('ヤッホー！！');
         foreach($events as $event){
-              replyTextMessage($bot, $event->getReplyToken(), $textMessageBuilder);
+            $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('あれ？');
+            $response=$bot->replyText($revent->getReplyToken(), $textMessageBuilder);
+           }
+        } catch (Exception $e) {
+            // TODO 例外
+            return $e;
         }
         
         echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
@@ -45,9 +49,5 @@ class LineMessengerController extends Controller
         $response = $bot->pushMessage($line_id, $textMessageBuilder);
         
         echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
-      }
-      
-      private function replyTextMessage($bot, $replyToken, $textMessageBuilder){
-          $bot->replyText($replyToken, $textMessageBuilder);
       }
 }
