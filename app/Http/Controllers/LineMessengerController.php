@@ -35,11 +35,11 @@ class LineMessengerController extends Controller
         $events = $bot->parseEventRequest($request->getContent(), $signature);
         
         foreach($events as $event){
-            // $group_id = $event->getGroupId();
-            // Log::debug($event);
-            // $group = Group::where('groupID', $group_id)
-            // ->where('groupID', $group_id)
-            // ->first();
+            $group_id = $event->getGroupId();
+            
+            $group = Group::where('groupID', $group_id)
+            ->where('groupID', $group_id)
+            ->first();
             
             // if($group === null){
             //     $group = Group::create([
@@ -52,11 +52,11 @@ class LineMessengerController extends Controller
            //実際の措置 
            switch(strval($event->getText())){
                case '特定の人へ！':
-                   $response = $this->replyTextMessage($bot, $event->getReplyToken(), $event->getUserId());
+                   $response = $this->replyTextMessage($bot, $event->getReplyToken(), 'どなたの立替を行なったか下記のボタンで指名してください');
                    break;
                    
                case '割り勘で！':
-                   $response = $this->replyTextMessage($bot, $event->getReplyToken(), '割り勘ですね!');
+                   $response = $this->replyTextMessage($bot, $event->getReplyToken(), $event->groupName);
                    break;
                    
                default:
