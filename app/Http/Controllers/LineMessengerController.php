@@ -19,11 +19,9 @@ use Illuminate\Support\Facades\Log;
 class LineMessengerController extends Controller
 {
     public function webhook(Request $request, Group $group) {
-       
         $groupId = $group->groupID;
         $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient(config('services.line.channel_token'));
         $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => env('LINE_MESSENGER_SECRET')]);
-        
         $signature = $request->headers->get(HTTPHeader::LINE_SIGNATURE);
 
         if (!SignatureValidator::validateSignature($request->getContent(), env('LINE_MESSENGER_SECRET'), $signature)) {
@@ -37,8 +35,8 @@ class LineMessengerController extends Controller
         $events = $bot->parseEventRequest($request->getContent(), $signature);
         
         foreach($events as $event){
-            $group_id = $event->getGroupId();
-            
+            // $group_id = $event->getGroupId();
+            // Log::debug($event);
             // $group = Group::where('groupID', $group_id)
             // ->where('groupID', $group_id)
             // ->first();
@@ -54,7 +52,7 @@ class LineMessengerController extends Controller
            //実際の措置 
            switch(strval($event->getText())){
                case '特定の人へ！':
-                   $response = $this->replyTextMessage($bot, $event->getReplyToken(), $event->getText());
+                   $response = $this->replyTextMessage($bot, $event->getReplyToken(), 'どなたの立替を行なったか下記のボタンで指名してください');
                    break;
                    
                case '割り勘で！':
