@@ -24,8 +24,9 @@ class LineMessengerController extends Controller
         $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient(config('services.line.channel_token'));
         $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => env('LINE_MESSENGER_SECRET')]);
         $user_id = config('services.line.line_user');
+        $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($request);
         
-        $response = $bot->pushMessage($user_id, new TemplateMessageBuilder($request));
+        $response = $bot->pushMessage($user_id, $message);
         
         return '';
         $signature = $request->headers->get(HTTPHeader::LINE_SIGNATURE);
