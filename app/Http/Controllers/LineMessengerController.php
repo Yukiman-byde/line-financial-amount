@@ -23,12 +23,7 @@ class LineMessengerController extends Controller
         $groupId = $group->groupID;
         $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient(config('services.line.channel_token'));
         $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => env('LINE_MESSENGER_SECRET')]);
-        $user_id = config('services.line.line_user');
-        $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($request);
         
-        $response = $bot->pushMessage($user_id, $message);
-        
-        return '';
         $signature = $request->headers->get(HTTPHeader::LINE_SIGNATURE);
 
         if (!SignatureValidator::validateSignature($request->getContent(), env('LINE_MESSENGER_SECRET'), $signature)) {
@@ -43,7 +38,7 @@ class LineMessengerController extends Controller
         
         foreach($events as $event){
             $group_id = $event->getGroupId();
-            Log::debug($event);
+            
             // $group = Group::where('groupID', $group_id)
             // ->where('groupID', $group_id)
             // ->first();
@@ -59,7 +54,7 @@ class LineMessengerController extends Controller
            //実際の措置 
            switch(strval($event->getText())){
                case '特定の人へ！':
-                   $response = $this->replyTextMessage($bot, $event->getReplyToken(), 'どなたの立替を行なったか下記のボタンで指名してください');
+                   $response = $this->replyTextMessage($bot, $event->getReplyToken(), $event->getGroupId());
                    break;
                    
                case '割り勘で！':
