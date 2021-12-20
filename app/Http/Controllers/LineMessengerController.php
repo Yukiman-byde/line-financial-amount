@@ -52,7 +52,7 @@ class LineMessengerController extends Controller
            //実際の措置 
            switch(strval($event->getText())){
                case '特定の人へ！':
-                   $response = $this->replyTextMessage($bot, $event->getReplyToken(), 'どなたの立替を行なったか下記のボタンで指名してください');
+                   $response = $this->replyTextMessage($bot, $event->getReplyToken(), $event->getUserId());
                    break;
                    
                case '割り勘で！':
