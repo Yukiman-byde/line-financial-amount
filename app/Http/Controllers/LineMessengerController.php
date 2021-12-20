@@ -75,9 +75,9 @@ class LineMessengerController extends Controller
           }
           $builder = new TemplateMessageBuilder(
               $alternativeText,
-              new ButtonTemplateBuilder($title, $text),
+              new ButtonTemplateBuilder($title, $text, $actionArray),
               );
           
-          $response = replyMessage($replyToken, $builder, $actio);
+          $response = $bot->replyMessage($replyToken, $builder);
       }
 }
