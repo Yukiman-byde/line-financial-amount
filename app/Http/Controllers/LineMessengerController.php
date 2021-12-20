@@ -78,6 +78,6 @@ class LineMessengerController extends Controller
               new ButtonTemplateBuilder($title, $text),
               );
           
-          $response = replyMessage($replyToken, $builder);
+          $response = replyMessage($replyToken, $builder, $actio);
       }
 }
