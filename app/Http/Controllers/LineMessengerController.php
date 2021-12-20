@@ -10,7 +10,7 @@ use LINE\LINEBot\SignatureValidator;
 use Illuminate\Http\Request;
 use LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder;
 use LINE\LINEBot\TemplateActionBuilder\TemplateMessageBuilder;
-use LINE\LINEBot\TempleateActionBuilder\UriTemplateActionBuilder;
+use LINE\LINEBot\TemplateActionBuilder\UriTemplateActionBuilder;
 use LINE\LINEBot\MessageBuilder\TemplateBuilder\ButtonTemplateBuilder;
 use Exception;
 
@@ -75,7 +75,7 @@ class LineMessengerController extends Controller
           }
           $builder = new TemplateMessageBuilder(
               $alternativeText,
-              new ButtonTemplateBuilder($title, $text, $actionArray),
+              new ButtonTemplateBuilder($title, $text),
               );
           
           $response = replyMessage($replyToken, $builder);
