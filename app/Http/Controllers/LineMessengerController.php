@@ -34,7 +34,7 @@ class LineMessengerController extends Controller
         foreach($events as $event){
            switch(strval($event->getText())){
                case '特定の人へ！':
-                   $response = $this->replyMultiMessage($bot, $event->getReplyToken(), '立替 - どなたの立替を行なったか下記のボタンで指名してください','立替', 'どなたの立替を行なったか下記のボタンで指名してください', new MessageTemplateActionBuilder('まっさん', 'まっさん'), new UriTemplateActionBuilder('Webで見る', 'https://www.youtube.com/results?search_query=messege+api+line+laravel')
+                   $response = $this->replyMultiMessage($bot, $event->getReplyToken(), '立替 - どなたの立替を行なったか下記のボタンで指名してください', '立替', 'どなたの立替を行なったか下記のボタンで指名してください', new  \LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder('まっさん', 'まっさん'), new \LINE\LINEBot\TemplateActionBuilder\UriTemplateActionBuilder('Webで見る', 'https://www.youtube.com/results?search_query=messege+api+line+laravel')
                         );
                    break;
                    
@@ -51,7 +51,7 @@ class LineMessengerController extends Controller
         echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
     }
     
-     // 関数で呼び出したいけどうまく行ってないやつ  
+     // シングルメッセージ 
       private function replyTextMessage($bot, $replyToken, $text){
         $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($text);
         $response = $bot->replyMessage($replyToken,$message);
@@ -60,15 +60,15 @@ class LineMessengerController extends Controller
             error_log($response->getHTTPStatus. ' ' . $response->getRawBody());
           }
       }
-      
+      //マルチメッセージ
       private function replyMultiMessage($bot, $replyToken, $alternativeText, $title, $text, ...$actions){
           $actionArray = array();
           foreach($actions as $action){
               array_push($actionArray, $action);
           }
-          $builder = new TemplateMessageBuilder(
+          $builder = new \LINE\LINEBot\MessageBuilder\TemplateMessageBuilder(
               $alternativeText,
-              new ButtonTemplateBuilder($title, $text, $actionArray),
+              new \LINE\LINEBot\MessageBuilder\ButtonTemplateBuilder($title, $text, $actionArray),
               );
           
           $response = $bot->replyMessage($replyToken, $builder);
