@@ -35,11 +35,11 @@ class LineMessengerController extends Controller
         $events = $bot->parseEventRequest($request->getContent(), $signature);
         
         foreach($events as $event){
-            $group_id = $event->getGroupId();
+            //$group_id = $event->getGroupId();
             
-            $group = Group::where('groupID', $group_id)
-            ->where('groupID', $group_id)
-            ->first();
+            // $group = Group::where('groupID', $group_id)
+            // ->where('groupID', $group_id)
+            // ->first();
             
             // if($group === null){
             //     $group = Group::create([
