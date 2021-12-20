@@ -34,8 +34,7 @@ class LineMessengerController extends Controller
         foreach($events as $event){
            switch(strval($event->getText())){
                case '特定の人へ！':
-                   $response = $this->replyMultiMessage($bot, $event->getReplyToken(), '立替 - どなたの立替を行なったか下記のボタンで指名してください', '立替', 'どなたの立替を行なったか下記のボタンで指名してください', new  \LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder('まっさん', 'まっさん'), new \LINE\LINEBot\TemplateActionBuilder\UriTemplateActionBuilder('Webで見る', 'https://www.youtube.com/results?search_query=messege+api+line+laravel')
-                        );
+                   $response = $this->replyTextMessage($bot, $event->getReplyToken(), 'どなたの立替を行なったか下記のボタンで指名してください');
                    break;
                    
                case '割り勘で！':
