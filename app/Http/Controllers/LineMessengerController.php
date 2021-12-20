@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Log;
 class LineMessengerController extends Controller
 {
     public function webhook(Request $request, Group $group) {
-        file_put_contents("test.txt", var_export($request, true));
+       
         $groupId = $group->groupID;
         $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient(config('services.line.channel_token'));
         $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => env('LINE_MESSENGER_SECRET')]);
@@ -54,7 +54,7 @@ class LineMessengerController extends Controller
            //実際の措置 
            switch(strval($event->getText())){
                case '特定の人へ！':
-                   $response = $this->replyTextMessage($bot, $event->getReplyToken(), $event->getGroupId());
+                   $response = $this->replyTextMessage($bot, $event->getReplyToken(), $event);
                    break;
                    
                case '割り勘で！':
