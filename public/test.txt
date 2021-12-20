@@ -1,0 +1,224 @@
+Illuminate\Http\Request::__set_state(array(
+   'json' => NULL,
+   'convertedFiles' => NULL,
+   'userResolver' => 
+  Closure::__set_state(array(
+  )),
+   'routeResolver' => 
+  Closure::__set_state(array(
+  )),
+   'attributes' => 
+  Symfony\Component\HttpFoundation\ParameterBag::__set_state(array(
+     'parameters' => 
+    array (
+    ),
+  )),
+   'request' => 
+  Symfony\Component\HttpFoundation\ParameterBag::__set_state(array(
+     'parameters' => 
+    array (
+    ),
+  )),
+   'query' => 
+  Symfony\Component\HttpFoundation\ParameterBag::__set_state(array(
+     'parameters' => 
+    array (
+    ),
+  )),
+   'server' => 
+  Symfony\Component\HttpFoundation\ServerBag::__set_state(array(
+     'parameters' => 
+    array (
+      'DOCUMENT_ROOT' => '/home/ec2-user/environment/amount-money/public',
+      'REMOTE_ADDR' => '127.0.0.1',
+      'REMOTE_PORT' => '50482',
+      'SERVER_SOFTWARE' => 'PHP 8.0.13 Development Server',
+      'SERVER_PROTOCOL' => 'HTTP/1.1',
+      'SERVER_NAME' => '127.0.0.1',
+      'SERVER_PORT' => '8080',
+      'REQUEST_URI' => '/line/webhook',
+      'REQUEST_METHOD' => 'GET',
+      'SCRIPT_NAME' => '/index.php',
+      'SCRIPT_FILENAME' => '/home/ec2-user/environment/amount-money/public/index.php',
+      'PATH_INFO' => '/line/webhook',
+      'PHP_SELF' => '/index.php/line/webhook',
+      'HTTP_COOKIE' => '__Host-previewc9corsvfs_9c4snOmsK269mpfK=9cyza1gfIi3xKsiBCjb8W9nbQkD5TclS; XSRF-TOKEN=eyJpdiI6IkpuT255TFwvdjUxcDlkRUJ0RXlLTlR3PT0iLCJ2YWx1ZSI6IkpObTJzVlwvTUhaVllIcWlXd1ZhMTRFRGxGSklrTXVCb3ZHd2ttejRVR1pOWFVvU1QyVHVUSVNOTkg5bWowU3huM1RUMUFaM3pEcUVOVFFpdXFmVGFzVU9hSXM1b2x4K2NSOTlIWTE2cFZvVWdWSUJ5c0tHckJtRkxZZ1N3a3lsTiIsIm1hYyI6IjA1MTE4Nzk4NmRlMjIzMzU0MTc5MjliODc5MDM0ZTQ1NzFhNmE3MGZmNzg2MTFjMmEyYTIzN2RmMmRmNjJlMzkifQ%3D%3D; laravel_session=eyJpdiI6InBRT3BOYlRORXQxdk9KQVJnWTFpQVE9PSIsInZhbHVlIjoiZHRGU281WGVrbStNOEdSYmZzT3I4NDJ5T29xTTFFUEZVNHZxUEFhNkpGc3VNcnZKXC9RdU1RTmtrWlBxQW1PYmJJQUs2eit6Uko1ZThVRW1odXBNS0pBS2FYRHFlbUx4aldjSVpYWjlSMnlRMlJxaGlJTjg1eU9Nak04eGx1R1pjIiwibWFjIjoiOTM1YjM4ZGNhNmIxNjExNDg0ZjEzOTliZjkyMGVmOTNjOTQ2ZTBlZTVmMWFmMGY1MzM5OTAyYzZjNzc3YTJmNSJ9; AWSALB=7rE6ZzCJMZR3hHCVRMaDQ93tjIqUL0dZJlVvaJmoPYAb3MQ+q6crTpEqIMFSMxVPULD4Da4qxoQ48THsoz5yQ7rZlKFTmOrDY8f0o5zg+6mlaJXwwGcafsOEFG59; AWSALBCORS=ma8jmjtDsmfxycUZuW01LuuNNl6afwkgVmxu2q4ElMJQd/t3Tse8A+nPqgMHeRnAC87OW37qwNNesTY/fkG3ZCdlnWZJ1bUdUYfG8RtTTIsUgTzlxEsSG5xS13Yo',
+      'HTTP_ACCEPT_LANGUAGE' => 'ja,en-US;q=0.9,en;q=0.8',
+      'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, br',
+      'HTTP_SEC_FETCH_DEST' => 'document',
+      'HTTP_SEC_FETCH_USER' => '?1',
+      'HTTP_SEC_FETCH_MODE' => 'navigate',
+      'HTTP_SEC_FETCH_SITE' => 'none',
+      'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+      'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.93 Safari/537.36',
+      'HTTP_UPGRADE_INSECURE_REQUESTS' => '1',
+      'HTTP_SEC_CH_UA_PLATFORM' => '"macOS"',
+      'HTTP_SEC_CH_UA_MOBILE' => '?0',
+      'HTTP_SEC_CH_UA' => '" Not A;Brand";v="99", "Chromium";v="96", "Google Chrome";v="96"',
+      'HTTP_CACHE_CONTROL' => 'max-age=0',
+      'HTTP_X_AMZN_TRACE_ID' => 'Root=1-61c0b80c-1a759b857dd0caf612f3c212',
+      'HTTP_HOST' => '0adeb2dd125c4667904a644ca5ae92f8.vfs.cloud9.ap-northeast-1.amazonaws.com',
+      'HTTP_X_FORWARDED_PORT' => '443',
+      'HTTP_X_FORWARDED_PROTO' => 'https',
+      'HTTP_X_FORWARDED_FOR' => '180.42.133.164',
+      'HTTP_CONNECTION' => 'close',
+      'REQUEST_TIME_FLOAT' => 1640019980.250208,
+      'REQUEST_TIME' => 1640019980,
+      'HTTPS' => 'on',
+    ),
+  )),
+   'files' => 
+  Symfony\Component\HttpFoundation\FileBag::__set_state(array(
+     'parameters' => 
+    array (
+    ),
+  )),
+   'cookies' => 
+  Symfony\Component\HttpFoundation\ParameterBag::__set_state(array(
+     'parameters' => 
+    array (
+      '__Host-previewc9corsvfs_9c4snOmsK269mpfK' => NULL,
+      'XSRF-TOKEN' => 'fdI79dLAf4Pub7OEYBDdcJ4c0ewd288Um0LsPSGC',
+      'laravel_session' => '6GoIBsuxqHcyxAauOBauJ6lvCqlcQ3p0vKWJ1BRy',
+      'AWSALB' => NULL,
+      'AWSALBCORS' => NULL,
+    ),
+  )),
+   'headers' => 
+  Symfony\Component\HttpFoundation\HeaderBag::__set_state(array(
+     'headers' => 
+    array (
+      'cookie' => 
+      array (
+        0 => '__Host-previewc9corsvfs_9c4snOmsK269mpfK=9cyza1gfIi3xKsiBCjb8W9nbQkD5TclS; XSRF-TOKEN=eyJpdiI6IkpuT255TFwvdjUxcDlkRUJ0RXlLTlR3PT0iLCJ2YWx1ZSI6IkpObTJzVlwvTUhaVllIcWlXd1ZhMTRFRGxGSklrTXVCb3ZHd2ttejRVR1pOWFVvU1QyVHVUSVNOTkg5bWowU3huM1RUMUFaM3pEcUVOVFFpdXFmVGFzVU9hSXM1b2x4K2NSOTlIWTE2cFZvVWdWSUJ5c0tHckJtRkxZZ1N3a3lsTiIsIm1hYyI6IjA1MTE4Nzk4NmRlMjIzMzU0MTc5MjliODc5MDM0ZTQ1NzFhNmE3MGZmNzg2MTFjMmEyYTIzN2RmMmRmNjJlMzkifQ%3D%3D; laravel_session=eyJpdiI6InBRT3BOYlRORXQxdk9KQVJnWTFpQVE9PSIsInZhbHVlIjoiZHRGU281WGVrbStNOEdSYmZzT3I4NDJ5T29xTTFFUEZVNHZxUEFhNkpGc3VNcnZKXC9RdU1RTmtrWlBxQW1PYmJJQUs2eit6Uko1ZThVRW1odXBNS0pBS2FYRHFlbUx4aldjSVpYWjlSMnlRMlJxaGlJTjg1eU9Nak04eGx1R1pjIiwibWFjIjoiOTM1YjM4ZGNhNmIxNjExNDg0ZjEzOTliZjkyMGVmOTNjOTQ2ZTBlZTVmMWFmMGY1MzM5OTAyYzZjNzc3YTJmNSJ9; AWSALB=7rE6ZzCJMZR3hHCVRMaDQ93tjIqUL0dZJlVvaJmoPYAb3MQ+q6crTpEqIMFSMxVPULD4Da4qxoQ48THsoz5yQ7rZlKFTmOrDY8f0o5zg+6mlaJXwwGcafsOEFG59; AWSALBCORS=ma8jmjtDsmfxycUZuW01LuuNNl6afwkgVmxu2q4ElMJQd/t3Tse8A+nPqgMHeRnAC87OW37qwNNesTY/fkG3ZCdlnWZJ1bUdUYfG8RtTTIsUgTzlxEsSG5xS13Yo',
+      ),
+      'accept-language' => 
+      array (
+        0 => 'ja,en-US;q=0.9,en;q=0.8',
+      ),
+      'accept-encoding' => 
+      array (
+        0 => 'gzip, deflate, br',
+      ),
+      'sec-fetch-dest' => 
+      array (
+        0 => 'document',
+      ),
+      'sec-fetch-user' => 
+      array (
+        0 => '?1',
+      ),
+      'sec-fetch-mode' => 
+      array (
+        0 => 'navigate',
+      ),
+      'sec-fetch-site' => 
+      array (
+        0 => 'none',
+      ),
+      'accept' => 
+      array (
+        0 => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+      ),
+      'user-agent' => 
+      array (
+        0 => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.93 Safari/537.36',
+      ),
+      'upgrade-insecure-requests' => 
+      array (
+        0 => '1',
+      ),
+      'sec-ch-ua-platform' => 
+      array (
+        0 => '"macOS"',
+      ),
+      'sec-ch-ua-mobile' => 
+      array (
+        0 => '?0',
+      ),
+      'sec-ch-ua' => 
+      array (
+        0 => '" Not A;Brand";v="99", "Chromium";v="96", "Google Chrome";v="96"',
+      ),
+      'cache-control' => 
+      array (
+        0 => 'max-age=0',
+      ),
+      'x-amzn-trace-id' => 
+      array (
+        0 => 'Root=1-61c0b80c-1a759b857dd0caf612f3c212',
+      ),
+      'host' => 
+      array (
+        0 => '0adeb2dd125c4667904a644ca5ae92f8.vfs.cloud9.ap-northeast-1.amazonaws.com',
+      ),
+      'x-forwarded-port' => 
+      array (
+        0 => '443',
+      ),
+      'x-forwarded-proto' => 
+      array (
+        0 => 'https',
+      ),
+      'x-forwarded-for' => 
+      array (
+        0 => '180.42.133.164',
+      ),
+      'connection' => 
+      array (
+        0 => 'close',
+      ),
+    ),
+     'cacheControl' => 
+    array (
+      'max-age' => '0',
+    ),
+  )),
+   'content' => NULL,
+   'languages' => NULL,
+   'charsets' => NULL,
+   'encodings' => NULL,
+   'acceptableContentTypes' => NULL,
+   'pathInfo' => '/line/webhook',
+   'requestUri' => '/line/webhook',
+   'baseUrl' => '',
+   'basePath' => NULL,
+   'method' => 'GET',
+   'format' => NULL,
+   'session' => 
+  Illuminate\Session\Store::__set_state(array(
+     'id' => '6GoIBsuxqHcyxAauOBauJ6lvCqlcQ3p0vKWJ1BRy',
+     'name' => 'laravel_session',
+     'attributes' => 
+    array (
+      '_token' => 'fdI79dLAf4Pub7OEYBDdcJ4c0ewd288Um0LsPSGC',
+      '_previous' => 
+      array (
+        'url' => 'https://0adeb2dd125c4667904a644ca5ae92f8.vfs.cloud9.ap-northeast-1.amazonaws.com/line/webhook',
+      ),
+      '_flash' => 
+      array (
+        'old' => 
+        array (
+        ),
+        'new' => 
+        array (
+        ),
+      ),
+    ),
+     'handler' => 
+    Illuminate\Session\FileSessionHandler::__set_state(array(
+       'files' => 
+      Illuminate\Filesystem\Filesystem::__set_state(array(
+      )),
+       'path' => '/home/ec2-user/environment/amount-money/storage/framework/sessions',
+       'minutes' => '120',
+    )),
+     'started' => true,
+  )),
+   'locale' => NULL,
+   'defaultLocale' => 'en',
+   'preferredFormat' => NULL,
+   'isHostValid' => true,
+   'isForwardedValid' => true,
+))

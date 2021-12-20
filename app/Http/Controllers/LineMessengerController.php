@@ -13,12 +13,21 @@ use LINE\LINEBot\TemplateActionBuilder\TemplateMessageBuilder;
 use LINE\LINEBot\TemplateActionBuilder\UriTemplateActionBuilder;
 use LINE\LINEBot\MessageBuilder\TemplateBuilder\ButtonTemplateBuilder;
 use Exception;
+use App\Group;
+use Illuminate\Support\Facades\Log;
 
 class LineMessengerController extends Controller
 {
-    public function webhook(Request $request) {
+    public function webhook(Request $request, Group $group) {
+        file_put_contents("test.txt", var_export($request, true));
+        $groupId = $group->groupID;
         $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient(config('services.line.channel_token'));
         $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => env('LINE_MESSENGER_SECRET')]);
+        $user_id = config('services.line.line_user');
+        
+        $response = $bot->pushMessage($user_id, new TemplateMessageBuilder($request));
+        
+        return '';
         $signature = $request->headers->get(HTTPHeader::LINE_SIGNATURE);
 
         if (!SignatureValidator::validateSignature($request->getContent(), env('LINE_MESSENGER_SECRET'), $signature)) {
@@ -32,6 +41,21 @@ class LineMessengerController extends Controller
         $events = $bot->parseEventRequest($request->getContent(), $signature);
         
         foreach($events as $event){
+            $group_id = $event->getGroupId();
+            Log::debug($event);
+            // $group = Group::where('groupID', $group_id)
+            // ->where('groupID', $group_id)
+            // ->first();
+            
+            // if($group === null){
+            //     $group = Group::create([
+            //         'name' = $group,
+            //         'groupID' = ,
+            //         'pictureUrl' = ,
+            //         ]);
+            // }
+            
+           //実際の措置 
            switch(strval($event->getText())){
                case '特定の人へ！':
                    $response = $this->replyTextMessage($bot, $event->getReplyToken(), 'どなたの立替を行なったか下記のボタンで指名してください');
