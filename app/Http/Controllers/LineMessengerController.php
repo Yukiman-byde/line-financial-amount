@@ -51,7 +51,7 @@ class LineMessengerController extends Controller
                    break;
                    
                case 'グループ':
-                   $response = $this->fetchGroupData($bot, $event->getReplyToken(), $event, $httpClient);
+                   $response = $this->fetchGroupData($bot, $event->getReplyToken(), $event);
                    break;
                    
                default:
@@ -73,11 +73,10 @@ class LineMessengerController extends Controller
           }
       }
       
-      public function fetchGroupData($bot, $replyToken, $event, $httpClient){
+      public function fetchGroupData($bot, $replyToken, $event){
            $group_id = $event->getGroupId();
-           $res = $this->getGroupSummary($group_id);
-          $data = $res->getJSONDecodedBody();
-          // https://api.line.me/v2/bot/group/{groupId}/summary
+           $res = $bot->getGroupSummary($group_id);
+           $data = $res->getJSONDecodedBody();
            
            $response = $this->replyTextMessage($bot, $replyToken, $data['groupName']);
       }
