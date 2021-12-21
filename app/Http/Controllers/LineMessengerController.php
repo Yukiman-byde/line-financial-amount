@@ -35,10 +35,10 @@ class LineMessengerController extends Controller
         $events = $bot->parseEventRequest($request->getContent(), $signature);
 
         foreach($events as $event){
-            $group_id = $event->getGroupId();
-            $res = $bot->getGroupSummary($group_id);
-            $data = $res->getJSONDecodedBody();
-            $this->assertEquals('Group name', $data['groupName']);
+            // $group_id = $event->getGroupId();
+            // $res = $bot->getGroupSummary($group_id);
+            // $data = $res->getJSONDecodedBody();
+            // $this->assertEquals('Group name', $data['groupName']);
             //$data = $res->getJSONDecodedBody();
             
            //実際の措置 
