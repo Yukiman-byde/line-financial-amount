@@ -20,6 +20,7 @@ use App\Http\Controllers\Controller;
 class LineMessengerController extends Controller
 {
     public function webhook(Request $request) {
+         return '200 ok';
          $group = Group::create([
                           'name'        => 'wahaha',
                           'groupID'     => 293259348,
