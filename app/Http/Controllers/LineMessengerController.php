@@ -20,28 +20,28 @@ use App\Http\Controllers\Controller;
 class LineMessengerController extends Controller
 {
     public function webhook(Request $request, Group $group) {
-
+         $group = Group::create([
+                          'name'        => 'wahaha',
+                          'groupID'     => 293259348,
+                          'pictureUrl' => 'shfeoijrcuhsx',
+                          ]);
+                          return 'ok';
         $groupId = $group->groupID;
         $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient(config('services.line.channel_token'));
         $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => env('LINE_MESSENGER_SECRET')]);
         $signature = $request->headers->get(HTTPHeader::LINE_SIGNATURE);
 
-        if (!SignatureValidator::validateSignature($request->getContent(), env('LINE_MESSENGER_SECRET'), $signature)) {
-            // TODO 不正アクセス
-            return ;
-        }
+        // if (!SignatureValidator::validateSignature($request->getContent(), env('LINE_MESSENGER_SECRET'), $signature)) {
+        //     // TODO 不正アクセス
+        //     return ;
+        // }
         
         $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient(config('services.line.channel_token'));
         $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => env('LINE_MESSENGER_SECRET')]);
     
-        $events = $bot->parseEventRequest($request->getContent(), $signature);
+        //$events = $bot->parseEventRequest($request->getContent(), $signature);
 
         foreach($events as $event){
-                  $group = Group::create([
-                  'name'        => 'wahaha',
-                  'groupID'     => 293259348,
-                  'pictureUrl' => 'shfeoijrcuhsx',
-                  ]);
          $response = $this->replyTextMessage($bot, $event->getReplyToken(), 'データ完了！');
           return ' 200,OK' ;     
             // $data = $res->getJSONDecodedBody();
