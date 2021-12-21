@@ -36,8 +36,8 @@ class LineMessengerController extends Controller
 
         foreach($events as $event){
             $group_id = $event->getGroupId();
-            $group_summary = $bot->getGroupSummary($group_id);
-            echo $group_summary->getHTTPStatus() . ' ' . $group_summary->getRawBody();
+            $res = $bot->getGroupSummary($group_id);
+            $data = $res->getJSONDecodedBody();
             
            //実際の措置 
            switch(strval($event->getText())){
