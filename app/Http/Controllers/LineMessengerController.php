@@ -35,7 +35,7 @@ class LineMessengerController extends Controller
         $events = $bot->parseEventRequest($request->getContent(), $signature);
 
         foreach($events as $event){
-            // $group_id = $event->getGroupId();
+             $group_id = $event->getGroupId();
             // $res = $bot->getGroupSummary($group_id);
             // $data = $res->getJSONDecodedBody();
             // $this->assertEquals('Group name', $data['groupName']);
@@ -52,7 +52,7 @@ class LineMessengerController extends Controller
                    break;
                    
                case 'グループ':
-                   $response = $this->replyTextMessage($bot, $event, $event->getGroupId());
+                   $response = $this->replyTextMessage($bot, $event, $group_id);
                    break;
                default:
                    $response = $this->replyTextMessage($bot, $event->getReplyToken(), '申し訳ございません。メニューの方からの入力のみとなっておりますので、そちらからお願いします.');
