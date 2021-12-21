@@ -25,7 +25,7 @@ class LineMessengerController extends Controller
                           'groupID'     => 293259348,
                           'pictureUrl' => 'shfeoijrcuhsx',
                           ]);
-          return 'ok';
+          return '200 ok';
         $groupId = $group->groupID;
         $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient(config('services.line.channel_token'));
         $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => env('LINE_MESSENGER_SECRET')]);
