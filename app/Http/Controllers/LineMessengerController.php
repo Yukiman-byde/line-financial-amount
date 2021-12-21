@@ -84,11 +84,14 @@ class LineMessengerController extends Controller
            
            if($group === null){
                $group = Group::create([
-                   'name' => $name;
-                   'groupID' => $group_id;
-                   'picutureUrl' => $data['pictureUrl']
+                   'name'        => $name,
+                   'groupID'     => $group_id,
+                   'picutureUrl' => $data['pictureUrl',
                    ]);
             $response = $this->replyTextMessage($bot, $replyToken, 'データ登録完了しました');
+           }
+           else {
+                $response = $this->replyTextMessage($bot, $replyToken, 'すでに登録完了されています');
            }
       }
 }
