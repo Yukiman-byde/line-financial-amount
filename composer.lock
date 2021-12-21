@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5f7acccf159b1713fba176e1e3b98399",
+    "content-hash": "265fd3b70d9a9a476e38c2b34b3365fe",
     "packages": [
         {
             "name": "doctrine/inflector",
@@ -2441,6 +2441,69 @@
                 }
             ],
             "time": "2021-09-25T23:07:42+00:00"
+        },
+        {
+            "name": "revolution/laravel-line-sdk",
+            "version": "1.3.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kawax/laravel-line-sdk.git",
+                "reference": "cbe2f8576cf0cd8082f6bfbf9885c9b4793953c2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kawax/laravel-line-sdk/zipball/cbe2f8576cf0cd8082f6bfbf9885c9b4793953c2",
+                "reference": "cbe2f8576cf0cd8082f6bfbf9885c9b4793953c2",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "illuminate/support": "^6.0||^7.0||^8.0",
+                "laravel/socialite": "^5.0",
+                "linecorp/line-bot-sdk": "^6.0||^7.0",
+                "php": "^7.3||^8.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^4.0||^5.0||^6.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Revolution\\Line\\Providers\\LineServiceProvider",
+                        "Revolution\\Line\\Providers\\LineSocialiteServiceProvider",
+                        "Revolution\\Line\\Providers\\RouteServiceProvider",
+                        "Revolution\\Line\\Providers\\MacroServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Revolution\\Line\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "kawax",
+                    "email": "kawaxbiz@gmail.com"
+                }
+            ],
+            "description": "LINE SDK for Laravel",
+            "keywords": [
+                "bot",
+                "laravel",
+                "line",
+                "sdk"
+            ],
+            "support": {
+                "issues": "https://github.com/kawax/laravel-line-sdk/issues",
+                "source": "https://github.com/kawax/laravel-line-sdk/tree/1.3.2"
+            },
+            "time": "2021-04-07T02:02:25+00:00"
         },
         {
             "name": "socialiteproviders/line",

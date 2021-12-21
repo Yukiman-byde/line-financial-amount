@@ -34,9 +34,6 @@ class LineMessengerController extends Controller
         $events = $bot->parseEventRequest($request->getContent(), $signature);
 
         foreach($events as $event){
-         $response = $this->replyTextMessage($bot, $event->getReplyToken(), 'データ完了！');
-          return ' 200,OK' ;     
-            
            //実際の措置 
            switch(strval($event->getText())){
                case '特定の人へ！':
@@ -48,7 +45,7 @@ class LineMessengerController extends Controller
                    break;
                    
                case 'グループ':
-                   $response = $this->fetchGroupData($bot, $event->getReplyToken(), $event);
+                   $response = $bot->groupstore();
                    break;
                    
                default:
