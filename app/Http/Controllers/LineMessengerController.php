@@ -82,12 +82,13 @@ class LineMessengerController extends Controller
            }
            
     public function groupstore(){
-        $group = Group::create([
+        $group = new Group;
+        $store = $group->create([
             'name' => 'unko',
             'groupID' => 13807485,
             'pictureUrl' => 'sihcfdbcgc',
             ]);
-        return $group;
+        return $store;
     }
 }
 
