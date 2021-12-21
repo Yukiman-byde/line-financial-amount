@@ -73,11 +73,22 @@ class LineMessengerController extends Controller
           }
       }
       
-      public function fetchGroupData($bot, $replyToken, $event){
+      public function fetchGroupData($bot, $replyToken, $event, Group $group){
            $group_id = $event->getGroupId();
            $res = $bot->getGroupSummary($group_id);
-           $data = $res->getJSONDecodedBody();
+           $data = $res->getJSONDecodedBody();//dataにグループのデータを取得
+           //$data['groupName']で出てきます。
+           $name = $data['groupName'];
+           $group = Group::where('name', $name)
+                 ->where('groupID', $group_id)->first();
            
-           $response = $this->replyTextMessage($bot, $replyToken, $data['groupName']);
+           if($group === null){
+               $group = Group::create([
+                   'name' => $name;
+                   'groupID' => $group_id;
+                   'picutureUrl' => $data['pictureUrl']
+                   ]);
+            $response = $this->replyTextMessage($bot, $replyToken, 'データ登録完了しました');
+           }
       }
 }
