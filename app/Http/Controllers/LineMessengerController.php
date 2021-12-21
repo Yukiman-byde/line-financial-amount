@@ -73,7 +73,7 @@ class LineMessengerController extends Controller
           }
       }
       
-      public function fetchGroupData($bot, $replyToken, $event, Group $group){
+      public function fetchGroupData($bot, $replyToken, $event){
            $group_id = $event->getGroupId();
            $res = $bot->getGroupSummary($group_id);
            $data = $res->getJSONDecodedBody();//dataにグループのデータを取得
