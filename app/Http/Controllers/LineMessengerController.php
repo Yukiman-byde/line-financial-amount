@@ -20,12 +20,8 @@ use App\Http\Controllers\Controller;
 class LineMessengerController extends Controller
 {
     public function webhook(Request $request) {
-         $response = Group::create([
-                          'name'        => 'wahaha',
-                          'groupID'     => 293259348,
-                          'pictureUrl' => 'shfeoijrcuhsx',
-                          ]);
-        echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
+       $response = $this->groupstore();
+    
         return '200';
         $groupId = $group->groupID;
         $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient(config('services.line.channel_token'));
@@ -36,18 +32,13 @@ class LineMessengerController extends Controller
         //     // TODO 不正アクセス
         //     return ;
         // }
-        
-        $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient(config('services.line.channel_token'));
-        $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => env('LINE_MESSENGER_SECRET')]);
+
     
         //$events = $bot->parseEventRequest($request->getContent(), $signature);
 
         foreach($events as $event){
          $response = $this->replyTextMessage($bot, $event->getReplyToken(), 'データ完了！');
           return ' 200,OK' ;     
-            // $data = $res->getJSONDecodedBody();
-            // $this->assertEquals('Group name', $data['groupName']);
-            //$data = $res->getJSONDecodedBody();
             
            //実際の措置 
            switch(strval($event->getText())){
@@ -95,4 +86,14 @@ class LineMessengerController extends Controller
              echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
         
            }
+           
+    public function groupstore(){
+        $group = Group::create([
+            'name' => 'unko',
+            'groupID' => 13807485,
+            'pictureUrl' => 'sihcfdbcgc',
+            ]);
+        return $group;
+    }
 }
+
