@@ -79,7 +79,7 @@ class LineMessengerController extends Controller
            $data = $res->getJSONDecodedBody();//dataにグループのデータを取得
            //$data['groupName']で出てきます。
           // $name = $data['groupName'];
-           //$group = Group::where('groupID', $group_id)->first();
+           $group = Group::where('groupID', $group_id)->first();
          
             //   $group = Group::create([
             //       'name'        => $data['groupName'],
