@@ -45,7 +45,7 @@ class LineMessengerController extends Controller
                    break;
                    
                case 'グループ':
-                   $response = $bot->groupstore();
+                   $response = $this->groupstore();
                    break;
                    
                default:
