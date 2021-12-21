@@ -52,8 +52,9 @@ class LineMessengerController extends Controller
                    break;
                    
                case 'グループ':
-                   $response = $this->replyTextMessage($bot, $event, $group_id);
+                   $response = $this->replyTextMessage($bot, $event->getReplyToken(), $group_id);
                    break;
+                   
                default:
                    $response = $this->replyTextMessage($bot, $event->getReplyToken(), '申し訳ございません。メニューの方からの入力のみとなっておりますので、そちらからお願いします.');
                    break;
