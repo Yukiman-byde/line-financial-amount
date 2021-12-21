@@ -52,7 +52,7 @@ class LineMessengerController extends Controller
                    break;
                    
                case 'グループ':
-                   $response = $this->fetchGroupData($bot, $event);
+                   $response = $this->replyTextMessage($bot, $event, $event->getGroupId());
                    break;
                default:
                    $response = $this->replyTextMessage($bot, $event->getReplyToken(), '申し訳ございません。メニューの方からの入力のみとなっておりますので、そちらからお願いします.');
@@ -71,19 +71,6 @@ class LineMessengerController extends Controller
         if(!$response->isSucceeded()){
             error_log($response->getHTTPStatus. ' ' . $response->getRawBody());
           }
-      }
-      //マルチメッセージ
-      private function replyMultiMessage($bot, $replyToken, $alternativeText, $title, $text, ...$actions){
-          $actionArray = array();
-          foreach($actions as $action){
-              array_push($actionArray, $action);
-          }
-          $builder = new \LINE\LINEBot\MessageBuilder\TemplateMessageBuilder(
-              $alternativeText,
-              new \LINE\LINEBot\MessageBuilder\ButtonTemplateBuilder($title, $text, $actionArray),
-              );
-          
-          $response = $bot->replyMessage($replyToken, $builder);
       }
       
       public function fetchGroupData($bot, $event){
