@@ -19,25 +19,19 @@ use App\Http\Controllers\Controller;
 
 class LineMessengerController extends Controller
 {
-    public function webhook(Request $request) {
-       $response = $this->groupstore();
-    
-        if(!$response->isSucceeded()){
-            error_log($response->getHTTPStatus. ' ' . $response->getRawBody());
-          }
-         
+    public function webhook(Request $request, Group $group) {
         $groupId = $group->groupID;
         $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient(config('services.line.channel_token'));
         $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => env('LINE_MESSENGER_SECRET')]);
         $signature = $request->headers->get(HTTPHeader::LINE_SIGNATURE);
 
-        // if (!SignatureValidator::validateSignature($request->getContent(), env('LINE_MESSENGER_SECRET'), $signature)) {
-        //     // TODO 不正アクセス
-        //     return ;
-        // }
+        if (!SignatureValidator::validateSignature($request->getContent(), env('LINE_MESSENGER_SECRET'), $signature)) {
+            // 不正アクセス
+            return ;
+        }
 
     
-        //$events = $bot->parseEventRequest($request->getContent(), $signature);
+        $events = $bot->parseEventRequest($request->getContent(), $signature);
 
         foreach($events as $event){
          $response = $this->replyTextMessage($bot, $event->getReplyToken(), 'データ完了！');
