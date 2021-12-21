@@ -90,6 +90,6 @@ class LineMessengerController extends Controller
            $group_id = $event->getGroupId();
            $res = $bot->getGroupSummary($group_id);
            $data = $res->getJSONDecodedBody();
-           $response = $this->replyTextMessage($bot, $event->getReplyToken, $data['groupName']);
+           $response = $this->replyTextMessage($bot, $event->getReplyToken, $group_id);
       }
 }
