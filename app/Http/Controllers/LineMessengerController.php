@@ -40,6 +40,11 @@ class LineMessengerController extends Controller
              $group_id = $event->getGroupId();
              $group = Group::where('groupID', $group_id)->first();
            if($group === null){
+                  $group = Group::create([
+                  'name'        => $data['groupName'],
+                  'groupID'     => $group_id,
+                  'picutureUrl' => $data['pictureUrl'],
+                  ]);
                $response = $this->replyTextMessage($bot, $replyToken, 'データがありません');
            }
             // $data = $res->getJSONDecodedBody();
@@ -89,12 +94,6 @@ class LineMessengerController extends Controller
            if($group === null){
                $response = $this->replyTextMessage($bot, $replyToken, 'データがありません');
            }
-         
-            //   $group = Group::create([
-            //       'name'        => $data['groupName'],
-            //       'groupID'     => $group_id,
-            //       'picutureUrl' => $data['pictureUrl'],
-            //       ]);
              echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
         
            }
