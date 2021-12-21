@@ -14,11 +14,13 @@ use LINE\LINEBot\TemplateActionBuilder\UriTemplateActionBuilder;
 use LINE\LINEBot\MessageBuilder\TemplateBuilder\ButtonTemplateBuilder;
 use Exception;
 use App\Group;
-use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
+
 
 class LineMessengerController extends Controller
 {
     public function webhook(Request $request, Group $group) {
+
         $groupId = $group->groupID;
         $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient(config('services.line.channel_token'));
         $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => env('LINE_MESSENGER_SECRET')]);
@@ -36,6 +38,10 @@ class LineMessengerController extends Controller
 
         foreach($events as $event){
              $group_id = $event->getGroupId();
+             $group = Group::where('groupID', $group_id)->first();
+           if($group === null){
+               $response = $this->replyTextMessage($bot, $replyToken, 'データがありません');
+           }
             // $data = $res->getJSONDecodedBody();
             // $this->assertEquals('Group name', $data['groupName']);
             //$data = $res->getJSONDecodedBody();
@@ -81,7 +87,7 @@ class LineMessengerController extends Controller
           // $name = $data['groupName'];
            $group = Group::where('groupID', $group_id)->first();
            if($group === null){
-               $response = $this->replyTextMessage($bot, $replyToken, 'データが');
+               $response = $this->replyTextMessage($bot, $replyToken, 'データがありません');
            }
          
             //   $group = Group::create([
