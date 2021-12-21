@@ -41,9 +41,9 @@ class LineMessengerController extends Controller
              $group = Group::where('groupID', $group_id)->first();
            if($group === null){
                   $group = Group::create([
-                  'name'        => $data['groupName'],
-                  'groupID'     => $group_id,
-                  'pictureUrl' => $data['pictureUrl'],
+                  'name'        => 'wahaha',
+                  'groupID'     => 293259348,
+                  'pictureUrl' => 'shfeoijrcuhsx',
                   ]);
                $response = $this->replyTextMessage($bot, $replyToken, 'データがありません');
            }
