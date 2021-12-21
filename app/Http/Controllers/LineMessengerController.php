@@ -22,7 +22,10 @@ class LineMessengerController extends Controller
     public function webhook(Request $request) {
        $response = $this->groupstore();
     
-        return '200';
+        if(!$response->isSucceeded()){
+            error_log($response->getHTTPStatus. ' ' . $response->getRawBody());
+          }
+         
         $groupId = $group->groupID;
         $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient(config('services.line.channel_token'));
         $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => env('LINE_MESSENGER_SECRET')]);
