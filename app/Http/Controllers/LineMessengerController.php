@@ -46,7 +46,7 @@ class LineMessengerController extends Controller
                    break;
                    
                case '割り勘で！':
-                   $response = $this->replyTextMessage($bot, $event->getReplyToken(), $group_summary);
+                   $response = $this->replyTextMessage($bot, $event->getReplyToken(), $group_id);
                    break;
                    
                default:
