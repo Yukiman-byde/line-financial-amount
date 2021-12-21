@@ -36,7 +36,6 @@ class LineMessengerController extends Controller
 
         foreach($events as $event){
              $group_id = $event->getGroupId();
-             $res = $bot->$event->getGroupSummary($group_id);
             // $data = $res->getJSONDecodedBody();
             // $this->assertEquals('Group name', $data['groupName']);
             //$data = $res->getJSONDecodedBody();
@@ -52,7 +51,7 @@ class LineMessengerController extends Controller
                    break;
                    
                case 'グループ':
-                   $response = $this->replyTextMessage($bot, $event->getReplyToken(), $res['groupName']);
+                   $response = $this->fetchGroupData($bot, $event->getReplyToken(), $event);
                    break;
                    
                default:
@@ -74,10 +73,10 @@ class LineMessengerController extends Controller
           }
       }
       
-      public function fetchGroupData($bot, $event){
+      public function fetchGroupData($bot, $replyToken, $event){
            $group_id = $event->getGroupId();
-           $res = $bot->getGroupSummary($group_id);
-           $data = $res->getJSONDecodedBody();
-           $response = $this->replyTextMessage($bot, $event->getReplyToken, $group_id);
+        //   $res = $bot->getGroupSummary($group_id);
+        //   $data = $res->getJSONDecodedBody();
+           $response = $this->replyTextMessage($bot, $replyToken, $group_id);
       }
 }
