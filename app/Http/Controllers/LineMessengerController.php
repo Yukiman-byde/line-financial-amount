@@ -20,13 +20,13 @@ use App\Http\Controllers\Controller;
 class LineMessengerController extends Controller
 {
     public function webhook(Request $request) {
-         return '200 ok';
-         $group = Group::create([
+         $response = Group::create([
                           'name'        => 'wahaha',
                           'groupID'     => 293259348,
                           'pictureUrl' => 'shfeoijrcuhsx',
                           ]);
-         return '200 ok';
+        echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
+        return '200';
         $groupId = $group->groupID;
         $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient(config('services.line.channel_token'));
         $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => env('LINE_MESSENGER_SECRET')]);
