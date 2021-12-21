@@ -33,21 +33,11 @@ class LineMessengerController extends Controller
         $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => env('LINE_MESSENGER_SECRET')]);
     
         $events = $bot->parseEventRequest($request->getContent(), $signature);
-        
+
         foreach($events as $event){
-            //$group_id = $event->getGroupId();
-            
-            // $group = Group::where('groupID', $group_id)
-            // ->where('groupID', $group_id)
-            // ->first();
-            
-            // if($group === null){
-            //     $group = Group::create([
-            //         'name' = $group,
-            //         'groupID' = ,
-            //         'pictureUrl' = ,
-            //         ]);
-            // }
+            $group_id = $event->getGroupId();
+            $response = $bot->getGroupSummary($group_id);
+            echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
             
            //実際の措置 
            switch(strval($event->getText())){
