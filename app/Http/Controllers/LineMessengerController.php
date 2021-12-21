@@ -56,6 +56,7 @@ class LineMessengerController extends Controller
                    $res = $bot->getGroupSummary($group_id);
                    $data = $res->getJSONDecodedBody();
                    $response = $this->replyTextMessage($bot, $event->getReplyToken, $res);
+                   break;
                default:
                    $response = $this->replyTextMessage($bot, $event->getReplyToken(), '申し訳ございません。メニューの方からの入力のみとなっておりますので、そちらからお願いします.');
                    break;
