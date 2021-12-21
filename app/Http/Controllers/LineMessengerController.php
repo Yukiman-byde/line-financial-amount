@@ -76,13 +76,9 @@ class LineMessengerController extends Controller
       public function fetchGroupData($bot, $replyToken, $event, $httpClient){
            $group_id = $event->getGroupId();
            $res = $this->getGroupSummary($group_id);
-          // $data = $res->getJSONDecodedBody();
+          $data = $res->getJSONDecodedBody();
           // https://api.line.me/v2/bot/group/{groupId}/summary
-           if(!isset($res)){
-              $response = $this->replyTextMessage($bot, $replyToken, 'ない');
-           }else {
-              $response = $this->replyTextMessage($bot, $replyToken, 'ある');
-           }
-          
+           
+           $response = $this->replyTextMessage($bot, $replyToken, $data['groupName']);
       }
 }
