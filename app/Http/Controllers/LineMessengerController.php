@@ -43,7 +43,7 @@ class LineMessengerController extends Controller
                   $group = Group::create([
                   'name'        => $data['groupName'],
                   'groupID'     => $group_id,
-                  'picutureUrl' => $data['pictureUrl'],
+                  'pictureUrl' => $data['pictureUrl'],
                   ]);
                $response = $this->replyTextMessage($bot, $replyToken, 'データがありません');
            }
