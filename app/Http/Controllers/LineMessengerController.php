@@ -78,19 +78,16 @@ class LineMessengerController extends Controller
            $res = $bot->getGroupSummary($group_id);
            $data = $res->getJSONDecodedBody();//dataにグループのデータを取得
            //$data['groupName']で出てきます。
-           $name = $data['groupName'];
-           $group = Group::where('groupID', $group_id)->first();
-           
-           if($group === null){
+          // $name = $data['groupName'];
+           //$group = Group::where('groupID', $group_id)->first();
+         
                $group = Group::create([
                    'name'        => $data['groupName'],
                    'groupID'     => $group_id,
                    'picutureUrl' => $data['pictureUrl'],
                    ]);
             $response = $this->replyTextMessage($bot, $replyToken, 'データ登録完了しました');
+             echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
+        
            }
-           else {
-                $response = $this->replyTextMessage($bot, $replyToken, 'すでに登録完了されています');
-           }
-      }
 }
