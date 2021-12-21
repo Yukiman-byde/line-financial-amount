@@ -36,8 +36,8 @@ class LineMessengerController extends Controller
 
         foreach($events as $event){
             $group_id = $event->getGroupId();
-            $response = $bot->getGroupSummary($group_id);
-            echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
+            $group_summary = $bot->getGroupSummary($group_id);
+            echo $group_summary->getHTTPStatus() . ' ' . $group_summary->getRawBody();
             
            //実際の措置 
            switch(strval($event->getText())){
@@ -46,7 +46,7 @@ class LineMessengerController extends Controller
                    break;
                    
                case '割り勘で！':
-                   $response = $this->replyTextMessage($bot, $event->getReplyToken(), $event->getGroupName());
+                   $response = $this->replyTextMessage($bot, $event->getReplyToken(), $group_summary);
                    break;
                    
                default:
