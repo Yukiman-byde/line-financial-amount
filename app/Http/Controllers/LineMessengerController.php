@@ -81,11 +81,11 @@ class LineMessengerController extends Controller
           // $name = $data['groupName'];
            //$group = Group::where('groupID', $group_id)->first();
          
-               $group = Group::create([
-                   'name'        => $data['groupName'],
-                   'groupID'     => $group_id,
-                   'picutureUrl' => $data['pictureUrl'],
-                   ]);
+            //   $group = Group::create([
+            //       'name'        => $data['groupName'],
+            //       'groupID'     => $group_id,
+            //       'picutureUrl' => $data['pictureUrl'],
+            //       ]);
             $response = $this->replyTextMessage($bot, $replyToken, 'データ登録完了しました');
              echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
         
