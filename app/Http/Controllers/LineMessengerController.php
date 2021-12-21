@@ -37,16 +37,13 @@ class LineMessengerController extends Controller
         $events = $bot->parseEventRequest($request->getContent(), $signature);
 
         foreach($events as $event){
-             $group_id = $event->getGroupId();
-             $group = Group::where('groupID', $group_id)->first();
-           if($group === null){
                   $group = Group::create([
                   'name'        => 'wahaha',
                   'groupID'     => 293259348,
                   'pictureUrl' => 'shfeoijrcuhsx',
                   ]);
-               $response = $this->replyTextMessage($bot, $replyToken, 'データがありません');
-           }
+         $response = $this->replyTextMessage($bot, $event->getReplyToken(), 'データ完了！');
+          return ' 200,OK' ;     
             // $data = $res->getJSONDecodedBody();
             // $this->assertEquals('Group name', $data['groupName']);
             //$data = $res->getJSONDecodedBody();
