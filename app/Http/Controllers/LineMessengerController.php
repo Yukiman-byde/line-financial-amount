@@ -49,6 +49,8 @@ class LineMessengerController extends Controller
                    $response = $this->groupstore();
                    break;
                    
+               case '結果を見る':
+                   $response = $this->replyTextMessage($bot, $event->getReplyToken(), 'こちらが結果になります');
                default:
                    $response = $this->replyTextMessage($bot, $event->getReplyToken(), '申し訳ございません。メニューの方からの入力のみとなっておりますので、そちらからお願いします.');
                    break;
