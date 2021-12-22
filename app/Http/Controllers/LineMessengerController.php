@@ -22,8 +22,6 @@ use Illuminate\Support\Facades\DB;
 class LineMessengerController extends Controller
 {
     public function webhook(Request $request) {
-            $group = DB::insert('insert into groups (name, groupID, pictureUrl) value(?, ?, ?)', ['udfhgnr', 12345678, 'rxunygb']);
-            return '200'
         $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient(config('services.line.channel_token'));
         $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => env('LINE_MESSENGER_SECRET')]);
         $signature = $request->headers->get(HTTPHeader::LINE_SIGNATURE);
