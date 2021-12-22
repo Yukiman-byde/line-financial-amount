@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 use LINE\LINEBot\HTTPClient\CurlHTTPClient;
 use LINE\LINEBot;
 use App\Models\User;
+use App\Http\Controllers\PDO;
 use LINE\LINEBot\MessageBuilder\TextMessageBuilder;
 use LINE\LINEBot\MessageBuilder\MultiMessageBuilder;
 use LINE\LINEBot\Constant\HTTPHeader;
@@ -15,6 +16,7 @@ use LINE\LINEBot\MessageBuilder\TemplateBuilder\ButtonTemplateBuilder;
 use Exception;
 use App\Group;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 
 class LineMessengerController extends Controller
@@ -82,13 +84,7 @@ class LineMessengerController extends Controller
            }
            
     public function groupstore(){
-        $group = new Group;
-        $store = $group->create([
-            'name' => 'unko',
-            'groupID' => 13807485,
-            'pictureUrl' => 'sihcfdbcgc',
-            ]);
-        return $store;
+        $group = DB::insert('insert into groups (name, groupID, pictureUrl) value(?, ?, ?)', ['udfhgnr', 12345678, 'rxunygb']);
     }
 }
 
