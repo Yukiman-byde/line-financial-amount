@@ -88,19 +88,11 @@ class LineMessengerController extends Controller
        $group_id = $event->getGroupId();
        $res = $bot->getGroupSummary($group_id);
        $data = $res->getJSONDecodedBody();
-       $group = Group::where('groupID', $group_id)->first();
-       
-           try{
-               if($group === null) {
-                   $user = Group::create([
-                       'name'     =>  $data['groupName'],
-                       'groupID'  =>  $group_id,
-                       'pictureUrl'=>  $data['pictureUrl'],
-                       ]);
-               } catch($e Exception){
-                   echo $e;
-               }
-       }
+        $user = Group::create([
+               'name'     =>  $data['groupName'],
+               'groupID'  =>  $group_id,
+               'pictureUrl'=>  $data['pictureUrl'],
+               ]);   
     }
 }
 
