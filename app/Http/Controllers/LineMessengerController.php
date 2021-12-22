@@ -46,7 +46,7 @@ class LineMessengerController extends Controller
                    break;
                    
                case 'グループ':
-                   $response = $this->groupstore();
+                   $response = $this->groupstore($bot, $event->getReplyToken(), $event);
                    break;
                    
                case '結果を見る':
@@ -84,8 +84,23 @@ class LineMessengerController extends Controller
         
            }
            
-    public function groupstore(){
-        $group = DB::insert('insert into groups (name, groupID, pictureUrl) value(?, ?, ?)', ['udfhgnr', 12345678, 'rxunygb']);
+    public function groupstore($bot, $replyToken, $event){
+       $group_id = $event->getGroupId();
+       $res = $bot->getGroupSummary($group_id);
+       $data = $res->getJSONDecodedBody();
+       $group = Group::where('groupID', $group_id)->first();
+       
+           try{
+               if($group === null) {
+                   $user = Group::create([
+                       'name'     =>  $data['groupName'],
+                       'groupID'  =>  $group_id,
+                       'pictureUrl'=>  $data['pictureUrl'],
+                       ]);
+               } catch($e Exception){
+                   echo $e;
+               }
+       }
     }
 }
 
