@@ -88,10 +88,10 @@ class LineMessengerController extends Controller
        $group_id = $event->getGroupId();
        $res = $bot->getGroupSummary($group_id);
        $data = $res->getJSONDecodedBody();
-        $user = Group::create([
-               'name'     =>  $data['groupName'],
-               'groupID'  =>  $group_id,
-               'pictureUrl'=>  $data['pictureUrl'],
+        $group = Group::create([
+               'name'     =>  'asdounfv',
+               'groupID'  =>  1234567,
+               'pictureUrl'=>  'sdpionfuoinvo',
                ]);   
     }
 }
