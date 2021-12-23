@@ -92,14 +92,11 @@ class LineMessengerController extends Controller
        $name = $data['groupName'];
        $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($name);
        $response = $bot->replyMessage($replyToken, $message);
-       return '200';
-       $res = $bot->getGroupSummary($group_id);
-       $data = $res->getJSONDecodedBody();
-        $group = Group::create([
-               'name'     =>  'asdounfv',
-               'groupID'  =>  1234567,
-               'pictureUrl'=>  'sdpionfuoinvo',
-               ]);   
+       $group = Group::create([
+           'name'     =>  'asdounfv',
+           'groupID'  =>  1234567,
+           'pictureUrl'=>  'sdpionfuoinvo',
+           ]);   
     }
 }
 
