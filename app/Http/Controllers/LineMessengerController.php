@@ -96,7 +96,7 @@ class LineMessengerController extends Controller
            'name'     =>  'asdounfv',
            'groupID'  =>  1234567,
            'pictureUrl'=>  'sdpionfuoinvo',
-           ]);   
+           ]);    
     }
 }
 
