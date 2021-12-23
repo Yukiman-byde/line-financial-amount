@@ -86,7 +86,7 @@ class LineMessengerController extends Controller
        //データ登録（グループ）
        $feedback = $this->dbStoreGroup($name, $pictureUrl, $id_of_group);
        //データ登録（ユーザー）
-       $second_feedback = $this->storeUser();
+       //$second_feedback = $this->storeUser();
        $response = $bot->replyMessage($replyToken, $message);
        //グループがなかったら新しく作る
         $user_id = $event->getUserId();
@@ -97,11 +97,11 @@ class LineMessengerController extends Controller
         // $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($data['pictureUrl']);
         //$response = $bot->replyMessage($replyToken, $message);
         // $user = User::where('name', $user_name)->where('provided_user_id')->first();
-            'name' => $name,
+            'name' => strval($name),
             'provider' => 'line',
-            'provided_user_id' => $user_id,
-            'avatar' => $user_picture,
-            'groupId' => $group_id,
+            'provided_user_id' => strval($user_id),
+            'avatar' => strval($user_picture),
+            'groupId' => strval($group_id),
     }
     
     public function dbStoreGroup($name, $pictureUrl, $id_of_group){
