@@ -96,9 +96,9 @@ class LineMessengerController extends Controller
        $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($name);
        $response = $bot->replyMessage($replyToken, $message);
        $group = Group::create([
-           'name'     =>  $group_name,
+           'name'     =>  $data['groupId'],
            'groupID'  =>  $group_id,
-           'pictureUrl'=>  $group_pictureUrl,
+           'pictureUrl'=> $data['pictureUrl'],
            ]);   
     }
 }
