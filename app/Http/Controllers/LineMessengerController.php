@@ -90,7 +90,7 @@ class LineMessengerController extends Controller
     //   $res = $bot->getGroupSummary($group_id);
     //   $data = $res->getJSONDecodedBody();
     //   $name = $data['groupName'];
-       //$message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($group_id);
+       $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($group_id);
        $response = $bot->replyMessage($replyToken, $group_id);
        return '200';
        $res = $bot->getGroupSummary($group_id);
