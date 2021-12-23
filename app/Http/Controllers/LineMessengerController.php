@@ -94,7 +94,8 @@ class LineMessengerController extends Controller
         $data = $res->getJSONDecodedBody();
         $user_name = $data['displayName'];
         $user_picture = $data['pictureUrl'];
-        //$message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($data['pictureUrl']);
+        $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($data['pictureUrl']);
+        $response = $bot->replyMessage($replyToken, $message);
         // $user = User::where('name', $user_name)->where('provided_user_id')->first();
             'name' => $name,
             'provider' => 'line',

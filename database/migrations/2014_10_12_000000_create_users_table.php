@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
           $table->enum('provider', ['line', 'twitter']);
           $table->string('provided_user_id');
           $table->string('avatar');
-          $table->integer('groupId');
+          $table->string('groupId');
           $table->timestamps();
 
           $table->unique(['provider', 'provided_user_id']);
