@@ -91,6 +91,7 @@ class LineMessengerController extends Controller
        $data = $res->getJSONDecodedBody();
        $name = $data['groupName'];
        $pictureUrl = $data['pictureUrl'];
+       $id_of_group = $data['groupId'];
        
        
        $group_name = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($name);
@@ -101,9 +102,9 @@ class LineMessengerController extends Controller
        
        $response = $bot->replyMessage($replyToken, $group_id_data);
        $group = Group::create([
-           'name'     =>  $group_name,
-           'groupID'  =>  $group_id_data,
-           'pictureUrl'=> $group_pictureUrl,
+           'name'     =>  $name,
+           'groupID'  =>  $id_of_group,
+           'pictureUrl'=> $pictureUrl,
            ]);   
     }
 }
