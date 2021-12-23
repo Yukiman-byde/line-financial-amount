@@ -47,6 +47,7 @@ class LineMessengerController extends Controller
                    
                case 'グループ':
                    $response = $this->groupstore($bot, $event->getReplyToken(),$event);
+                   $feedback = $this->replyTextMessage($bot, $event->getReplyToken(), '試しに');
                    break;
                    
                case '結果を見る':
@@ -85,10 +86,10 @@ class LineMessengerController extends Controller
        $group_name = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($name);
        $group_pictureUrl = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($pictureUrl);
        $group_id_data = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($group_id);
-       $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($name);
+       $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('登録完了しました');
        
        
-       $response = $bot->replyMessage($replyToken, $group_id_data);
+       $response = $bot->replyMessage($replyToken, $message);
        //グループがなかったら新しく作る
        $group = Group::where('name', strval($name))
                    ->where('groupID', strval($id_of_group))
@@ -101,6 +102,10 @@ class LineMessengerController extends Controller
            'pictureUrl'=> strval($pictureUrl),
            ]);  
        }
+    }
+    
+    public function storeUser(){
+        //
     }
 }
 
