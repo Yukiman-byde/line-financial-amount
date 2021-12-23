@@ -84,12 +84,14 @@ class LineMessengerController extends Controller
            }
            
     public function groupstore($bot, $replyToken, $event){
+      //返信はビルダー通らなきゃだめ.
+      //グループのデータはグループから送らないと返事がない
        $group_id = $event->getGroupId();
-      $res = $bot->getGroupSummary($group_id);
-      $data = $res->getJSONDecodedBody();
-      $name = $data['groupName'];
-       $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder();
-       $response = $bot->replyMessage($replyToken, $message);
+    //   $res = $bot->getGroupSummary($group_id);
+    //   $data = $res->getJSONDecodedBody();
+    //   $name = $data['groupName'];
+       //$message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($group_id);
+       $response = $bot->replyMessage($replyToken, $group_id);
        return '200';
        $res = $bot->getGroupSummary($group_id);
        $data = $res->getJSONDecodedBody();
