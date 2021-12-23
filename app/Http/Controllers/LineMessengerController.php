@@ -84,7 +84,7 @@ class LineMessengerController extends Controller
        //ビルダーに入れてLineチャットでも使えるようにしていく。
        $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('登録完了しました');
        //データ登録（グループ）
-       $feedback = $this->dbStoreGroup($name, $pictureUrl, $id_of_group);
+      // $feedback = $this->dbStoreGroup($name, $pictureUrl, $id_of_group);
        //データ登録（ユーザー）
        //$second_feedback = $this->storeUser();
        $response = $bot->replyMessage($replyToken, $message);
