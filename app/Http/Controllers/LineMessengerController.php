@@ -103,7 +103,7 @@ class LineMessengerController extends Controller
        $response = $bot->replyMessage($replyToken, $group_id_data);
        $group = Group::create([
            'name'     =>  strval($name),
-           'groupID'  =>  $id_of_group,
+           'groupID'  =>  intval($id_of_group),
            'pictureUrl'=> strval($pictureUrl),
            ]);   
     }
