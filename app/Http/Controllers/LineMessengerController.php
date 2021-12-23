@@ -86,7 +86,8 @@ class LineMessengerController extends Controller
     public function groupstore($bot, $replyToken, $group_id){
        $res = $bot->getGroupSummary($group_id);
        $data = $res->getJSONDecodedBody();
-       $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($data['groupName']);
+       $name = $data['groupName'];
+       $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($name);
        $response = $bot->replyMessage($replyToken, $message);
        return '200';
        $res = $bot->getGroupSummary($group_id);
