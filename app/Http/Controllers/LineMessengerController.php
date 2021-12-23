@@ -86,6 +86,7 @@ class LineMessengerController extends Controller
     public function groupstore($bot, $replyToken, $event){
       //返信はビルダー通らなきゃだめ.
       //グループのデータはグループから送らないと返事がない
+      //一つ一つのデータを変数に入れていく。
        $group_id = $event->getGroupId();
        $res = $bot->getGroupSummary($group_id);
        $data = $res->getJSONDecodedBody();
@@ -93,7 +94,7 @@ class LineMessengerController extends Controller
        $pictureUrl = $data['pictureUrl'];
        $id_of_group = $data['groupId'];
        
-       
+       //ビルダーに入れてLineチャットでも使えるようにしていく。
        $group_name = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($name);
        $group_pictureUrl = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($pictureUrl);
        $group_id_data = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($group_id);
@@ -101,11 +102,18 @@ class LineMessengerController extends Controller
        
        
        $response = $bot->replyMessage($replyToken, $group_id_data);
-       $group = Group::create([
+       //グループがなかったら新しく作る
+       $group = Group::where('name', strval($name))
+                   ->where('groupID', strval($id_of_group))
+                   ->first();
+       if($group === null){
+            $group = Group::create([
+           //文字列化させないとはいらない。
            'name'     =>  strval($name),
            'groupID'  =>  strval($id_of_group),
            'pictureUrl'=> strval($pictureUrl),
-           ]);   
+           ]);  
+       }
     }
 }
 
