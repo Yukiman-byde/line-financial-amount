@@ -86,7 +86,7 @@ class LineMessengerController extends Controller
        $group_name = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($name);
        $group_pictureUrl = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($pictureUrl);
        $group_id_data = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($group_id);
-       $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('登録完了しました');
+      // $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('登録完了しました');
        
        
        $response = $bot->replyMessage($replyToken, $message);
