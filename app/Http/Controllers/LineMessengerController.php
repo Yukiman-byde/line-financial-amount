@@ -104,7 +104,7 @@ class LineMessengerController extends Controller
         $user_id = $event->getUserId();
         $res = $bot->getGroupMemberProfile($group_id, $user_id);
         $data = $res->getJSONDecodedBody();
-        $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($data['displayName']);
+        $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($data['pictureUrl']);
         $response = $bot->replyMessage($replyToken, $message);
     }
     
