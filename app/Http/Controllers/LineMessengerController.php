@@ -82,9 +82,6 @@ class LineMessengerController extends Controller
        $id_of_group = $data['groupId'];
        
        //ビルダーに入れてLineチャットでも使えるようにしていく。
-       $group_name = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($name);
-       $group_pictureUrl = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($pictureUrl);
-       $group_id_data = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($group_id);
       // $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('登録完了しました');
        
        
