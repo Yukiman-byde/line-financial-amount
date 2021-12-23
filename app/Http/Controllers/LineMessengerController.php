@@ -35,6 +35,7 @@ class LineMessengerController extends Controller
         $events = $bot->parseEventRequest($request->getContent(), $signature);
 
         foreach($events as $event){
+            $group_id = $event->getGroupId();
            //実際の措置 
            switch(strval($event->getText())){
                case '特定の人へ！':
@@ -46,7 +47,7 @@ class LineMessengerController extends Controller
                    break;
                    
                case 'グループ':
-                   $response = $this->groupstore($bot, $event);
+                   $response = $this->groupstore($bot, $event->getReplyToken(), $group_id);
                    break;
                    
                case '結果を見る':
@@ -83,12 +84,12 @@ class LineMessengerController extends Controller
         
            }
            
-    public function groupstore($bot, $event){
-       $replyToken = $event->getReplyToken();
-       $group_id = $event->getGroupId();
-       $res = $bot->getGroupSummary($group_id);
-       $data = $res->getJSONDecodedBody();
-       $name = $data['groupName'];
+    public function groupstore($bot, $replyToken, $group_id){
+       //$replyToken = $event->getReplyToken();
+       //$group_id = $event->getGroupId();
+       //$res = $bot->getGroupSummary($group_id);
+       //$data = $res->getJSONDecodedBody();
+       //$name = $data['groupName'];
        //$message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($group_id);
        $response = $bot->replyMessage($replyToken, $group_id);
        return '200';
