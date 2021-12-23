@@ -35,7 +35,6 @@ class LineMessengerController extends Controller
         $events = $bot->parseEventRequest($request->getContent(), $signature);
 
         foreach($events as $event){
-            $group_id = $event->getGroupId();
            //実際の措置 
            switch(strval($event->getText())){
                case '特定の人へ！':
@@ -47,7 +46,7 @@ class LineMessengerController extends Controller
                    break;
                    
                case 'グループ':
-                   $response = $this->groupstore($bot, $event->getReplyToken(), $group_id);
+                   $response = $this->groupstore($bot, $event->getReplyToken(), $event->getGroupId());
                    break;
                    
                case '結果を見る':
