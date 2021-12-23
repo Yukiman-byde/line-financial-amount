@@ -69,24 +69,12 @@ class LineMessengerController extends Controller
             error_log($response->getHTTPStatus. ' ' . $response->getRawBody());
           }
       }
-      
-      public function fetchGroupData($bot, $replyToken, $group_id){
-           $res = $bot->getGroupSummary($group_id);
-           $data = $res->getJSONDecodedBody();//dataにグループのデータを取得
-           //$data['groupName']で出てきます。
-          // $name = $data['groupName'];
-           $group = Group::where('groupID', $group_id)->first();
-           if($group === null){
-               $response = $this->replyTextMessage($bot, $replyToken, 'データがありません');
-           }
-             echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
-        
-           }
            
     public function groupstore($bot, $replyToken, $event){
-      //返信はビルダー通らなきゃだめ.
-      //グループのデータはグループから送らないと返事がない
-      //一つ一つのデータを変数に入れていく。
+     　　//グループ登録
+     　 //返信はビルダー通らなきゃだめ.
+      　//グループのデータはグループから送らないと返事がない
+     　 //一つ一つのデータを変数に入れていく。
        $group_id = $event->getGroupId();
        $res = $bot->getGroupSummary($group_id);
        $data = $res->getJSONDecodedBody();
@@ -95,15 +83,17 @@ class LineMessengerController extends Controller
        $id_of_group = $data['groupId'];
        
        //ビルダーに入れてLineチャットでも使えるようにしていく。
-       $group_name = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($name);
-       $group_pictureUrl = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($pictureUrl);
-       $group_id_data = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($group_id);
-       $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($name);
+       $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('グループ登録が完了いたしました。');
        
        
-       $response = $bot->replyMessage($replyToken, $group_id_data);
-       //グループがなかったら新しく作る
-       $group = Group::where('name', strval($name))
+       $response = $bot->replyMessage($replyToken, $message);
+       $feedback = $this->dbStore($name, $id_of_group, $pictureUrl);
+       echo $feedback->getHTTPStatus();
+    }
+    
+    public function dbStore($name, $id_of_group, $pictureUrl){
+         //グループがなかったら新しく作る
+        $group = Group::where('name', strval($name))
                    ->where('groupID', strval($id_of_group))
                    ->first();
        if($group === null){
