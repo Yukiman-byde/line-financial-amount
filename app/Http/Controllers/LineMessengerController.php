@@ -71,10 +71,9 @@ class LineMessengerController extends Controller
       }
            
     public function groupstore($bot, $replyToken, $event){
-     　　//グループ登録
-     　 //返信はビルダー通らなきゃだめ.
-      　//グループのデータはグループから送らないと返事がない
-     　 //一つ一つのデータを変数に入れていく。
+      //返信はビルダー通らなきゃだめ.
+      //グループのデータはグループから送らないと返事がない
+      //一つ一つのデータを変数に入れていく。
        $group_id = $event->getGroupId();
        $res = $bot->getGroupSummary($group_id);
        $data = $res->getJSONDecodedBody();
@@ -83,17 +82,15 @@ class LineMessengerController extends Controller
        $id_of_group = $data['groupId'];
        
        //ビルダーに入れてLineチャットでも使えるようにしていく。
-       $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('グループ登録が完了いたしました。');
+       $group_name = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($name);
+       $group_pictureUrl = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($pictureUrl);
+       $group_id_data = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($group_id);
+       $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($name);
        
        
-       $response = $bot->replyMessage($replyToken, $message);
-       $feedback = $this->dbStore($name, $id_of_group, $pictureUrl);
-       echo $feedback->getHTTPStatus();
-    }
-    
-    public function dbStore($name, $id_of_group, $pictureUrl){
-         //グループがなかったら新しく作る
-        $group = Group::where('name', strval($name))
+       $response = $bot->replyMessage($replyToken, $group_id_data);
+       //グループがなかったら新しく作る
+       $group = Group::where('name', strval($name))
                    ->where('groupID', strval($id_of_group))
                    ->first();
        if($group === null){
