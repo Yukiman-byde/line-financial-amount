@@ -82,15 +82,25 @@ class LineMessengerController extends Controller
        $id_of_group = $data['groupId'];
        
        //ビルダーに入れてLineチャットでも使えるようにしていく。
-       $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('登録完了しました');
+       //$message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('登録完了しました');
+       //データ登録（グループ）
        $feedback = $this->dbStoreGroup($name, $pictureUrl, $id_of_group);
-       $response = $bot->replyMessage($replyToken, $message);
+       //データ登録（ユーザー）
+       $second_feedback = $this->storeUser();
+       //$response = $bot->replyMessage($replyToken, $message);
        //グループがなかったら新しく作る
         $user_id = $event->getUserId();
         $res = $bot->getGroupMemberProfile($group_id, $user_id);
         $data = $res->getJSONDecodedBody();
-        $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($data['pictureUrl']);
-        $response = $bot->replyMessage($replyToken, $message);
+        $user_name = $data['displayName'];
+        $user_picture = $data['pictureUrl'];
+        //$message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($data['pictureUrl']);
+        // $user = User::where('name', $user_name)->where('provided_user_id')->first();
+            'name' => $name,
+            'provider' => 'line',
+            'provided_user_id' => $user_id,
+            'avatar' => $user_picture,
+            'groupId' => $group_id,
     }
     
     public function dbStoreGroup($name, $pictureUrl, $id_of_group){
