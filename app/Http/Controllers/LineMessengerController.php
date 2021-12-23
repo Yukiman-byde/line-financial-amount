@@ -46,7 +46,7 @@ class LineMessengerController extends Controller
                    break;
                    
                case 'グループ':
-                   $response = $this->groupstore($bot, $event->getReplyToken(), $event->getGroupId());
+                   $response = $this->groupstore($bot, $event->getReplyToken(),$event);
                    break;
                    
                case '結果を見る':
@@ -83,14 +83,13 @@ class LineMessengerController extends Controller
         
            }
            
-    public function groupstore($bot, $replyToken, $group_id){
-       //$replyToken = $event->getReplyToken();
-       //$group_id = $event->getGroupId();
-       //$res = $bot->getGroupSummary($group_id);
-       //$data = $res->getJSONDecodedBody();
-       //$name = $data['groupName'];
-       //$message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($group_id);
-       $response = $bot->replyMessage($replyToken, $group_id);
+    public function groupstore($bot, $replyToken, $event){
+       $group_id = $event->getGroupId();
+    //   $res = $bot->getGroupSummary($group_id);
+    //   $data = $res->getJSONDecodedBody();
+    //   $name = $data['groupName'];
+       $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($group_id);
+       $response = $bot->replyMessage($replyToken, $message);
        return '200';
        $res = $bot->getGroupSummary($group_id);
        $data = $res->getJSONDecodedBody();
