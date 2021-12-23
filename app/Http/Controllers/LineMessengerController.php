@@ -87,10 +87,10 @@ class LineMessengerController extends Controller
       //返信はビルダー通らなきゃだめ.
       //グループのデータはグループから送らないと返事がない
        $group_id = $event->getGroupId();
-    //   $res = $bot->getGroupSummary($group_id);
-    //   $data = $res->getJSONDecodedBody();
-    //   $name = $data['groupName'];
-       $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($group_id);
+       $res = $bot->getGroupSummary($group_id);
+       $data = $res->getJSONDecodedBody();
+       $name = $data['groupName'];
+       $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($name);
        $response = $bot->replyMessage($replyToken, $message);
        return '200';
        $res = $bot->getGroupSummary($group_id);
