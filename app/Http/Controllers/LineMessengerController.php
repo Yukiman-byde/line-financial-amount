@@ -96,16 +96,16 @@ class LineMessengerController extends Controller
         //$response = $bot->replyMessage($replyToken, $message);
         $user = User::where('name', $user_name)->where('provided_user_id')->first();
         if($user === null){
-        $user = User::create([
-            'name' => strval($user_name),
-            'provider' => 'line',
-            'provided_user_id' => strval($user_id),
-            'avatar' => strval($user_picture),
-            'groupId' => strval($group_id),
-            ]);
+            $user = User::create([
+                'name' => strval($user_name),
+                'provider' => 'line',
+                'provided_user_id' => strval($user_id),
+                'avatar' => strval($user_picture),
+                'groupId' => strval($group_id),
+                ]);
            $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('登録が完了されました');
            $response = $bot->replyMessage($replyToken, $message);
-        }else {
+        }elseif($user){
              $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('すでに登録が完了しています');
             $response = $bot->replyMessage($replyToken, $message);
         }
