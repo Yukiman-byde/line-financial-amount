@@ -36,7 +36,7 @@ class LineMessengerController extends Controller
 
         foreach($events as $event){
            //実際の措置 
-           switch(strval($event->getText())){
+           switch(strval($event)){
                case '特定の人へ！':
                    $response = $this->replyTextMessage($bot, $event->getReplyToken(), 'どなたの立替を行なったか下記のボタンで指名してください');
                    break;
