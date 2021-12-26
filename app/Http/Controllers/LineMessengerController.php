@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 use LINE\LINEBot\HTTPClient\CurlHTTPClient;
 use LINE\LINEBot;
+use LINE\LINEBot\Event\MessageEvent\MentioneeInfo;
 use App\User;
 use App\Http\Controllers\PDO;
 use LINE\LINEBot\MessageBuilder\TextMessageBuilder;
