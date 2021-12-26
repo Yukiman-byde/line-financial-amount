@@ -131,9 +131,6 @@ class LineMessengerController extends Controller
             $response = $bot->replyMessage($replyToken, $message);
         }
     }
-    
-    public function MultiButtonUser($bot, $replyToken, $event){
-        //
-    }
+
 }
 
