@@ -14,8 +14,6 @@ use LINE\LINEBot\TemplateActionBuilder\UriTemplateActionBuilder;
 use LINE\LINEBot\MessageBuilder\TemplateBuilder\ButtonTemplateBuilder;
 use Exception;
 use App\Group;
-use App\Http\Controllers\Calculate;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 
 
