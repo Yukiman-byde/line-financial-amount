@@ -92,14 +92,14 @@ class LineMessengerController extends Controller
         $data = $res->getJSONDecodedBody();
         $user_name = $data['displayName'];
         $user_picture = $data['pictureUrl'];
-        $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('登録完了しました');
+        $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($group_id);
        $response = $bot->replyMessage($replyToken, $message);
         // $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($data['pictureUrl']);
         //$response = $bot->replyMessage($replyToken, $message);
         // $user = User::where('name', $user_name)->where('provided_user_id')->first();
         $user = User::create([
             'name' => strval($user_name),
-            'provider' => 'line',
+            'provider' => strval('line'),
             'provided_user_id' => strval($user_id),
             'avatar' => strval($user_picture),
             'groupId' => strval($group_id),
