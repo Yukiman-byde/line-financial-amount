@@ -35,7 +35,7 @@ class LineMessengerController extends Controller
         $events = $bot->parseEventRequest($request->getContent(), $signature);
 
         foreach($events as $event){
-            $mentioneeInfo = $event->getMentionees()[0];
+            $mentioneeInfo = $event->getMentionees();
            //実際の措置 
            switch(strval($event->getText())){
                case '特定の人へ！':
