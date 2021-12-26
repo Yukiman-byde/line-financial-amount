@@ -97,12 +97,19 @@ class LineMessengerController extends Controller
         // $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($data['pictureUrl']);
         //$response = $bot->replyMessage($replyToken, $message);
         // $user = User::where('name', $user_name)->where('provided_user_id')->first();
+        // $user = User::create([
+        //     'name' => strval($user_name),
+        //     'provider' => 'line',
+        //     'provided_user_id' => strval($user_id),
+        //     'avatar' => strval($user_picture),
+        //     'groupId' => strval($group_id),
+        //     ]);
         $user = User::create([
-            'name' => strval($user_name),
-            'provider' => strval('line'),
-            'provided_user_id' => strval($user_id),
-            'avatar' => strval($user_picture),
-            'groupId' => strval($group_id),
+            'name' => 'sduoshn',
+            'provider' => 'line',
+            'provided_user_id' => 'sdiv[@k:f',
+            'avatar' => ':dpfijvd',
+            'groupId' => 'dsijohvgpyd;s',
             ]);
     }
     
