@@ -15,6 +15,7 @@ use LINE\LINEBot\TemplateActionBuilder\UriTemplateActionBuilder;
 use LINE\LINEBot\MessageBuilder\TemplateBuilder\ButtonTemplateBuilder;
 use Exception;
 use App\Group;
+use App\Http\Controllers\Calculate;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 
@@ -30,7 +31,6 @@ class LineMessengerController extends Controller
             // 不正アクセス
             return ;
         }
-
     
         $events = $bot->parseEventRequest($request->getContent(), $signature);
 
@@ -51,6 +51,10 @@ class LineMessengerController extends Controller
                    
                case '結果を見る':
                    $response = $this->replyTextMessage($bot, $event->getReplyToken(), 'こちらが結果になります');
+                   
+               case $event->getUserId():
+                   $response = $this->replyTextMessage($bot, $event->getReplyToken(), $event->getUserId());
+                   
                default:
                    $response = $this->replyTextMessage($bot, $event->getReplyToken(), '申し訳ございません。メニューの方からの入力のみとなっておりますので、そちらからお願いします.');
                    break;
@@ -62,6 +66,7 @@ class LineMessengerController extends Controller
     
      // シングルメッセージ 
       private function replyTextMessage($bot, $replyToken, $text){
+          
         $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($text);
         $response = $bot->replyMessage($replyToken,$message);
         
