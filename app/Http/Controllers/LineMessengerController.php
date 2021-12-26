@@ -3,7 +3,6 @@ namespace App\Http\Controllers;
 use LINE\LINEBot\HTTPClient\CurlHTTPClient;
 use LINE\LINEBot;
 use App\User;
-use App\Http\Controllers\PDO;
 use LINE\LINEBot\MessageBuilder\TextMessageBuilder;
 use LINE\LINEBot\MessageBuilder\MultiMessageBuilder;
 use LINE\LINEBot\Constant\HTTPHeader;
@@ -55,7 +54,8 @@ class LineMessengerController extends Controller
                    
                case $event->getMentionees()[0] === true:
                    $response = $this->replyTextMessage($bot, $event->getReplyToken(), '成功したよ〜ん');
-               break; 
+                   break;
+               　　　
                default:
                    $response = $this->replyTextMessage($bot, $event->getReplyToken(), '申し訳ございません。メニューの方からの入力のみとなっておりますので、そちらからお願いします.');
                    break;
