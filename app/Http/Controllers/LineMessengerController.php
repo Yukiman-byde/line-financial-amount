@@ -82,7 +82,6 @@ class LineMessengerController extends Controller
        $id_of_group = $data['groupId'];
        //どこで止まってるかがわからない
        //ビルダーに入れてLineチャットでも使えるようにしていく。
-    //   $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('登録完了しました');
        //データ登録（グループ）
       // $feedback = $this->dbStoreGroup($name, $pictureUrl, $id_of_group);
        //データ登録（ユーザー）
@@ -93,13 +92,13 @@ class LineMessengerController extends Controller
         $data = $res->getJSONDecodedBody();
         $user_name = $data['displayName'];
         $user_picture = $data['pictureUrl'];
-        $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($user_name);
-        $response = $bot->replyMessage($replyToken, $message);
+        $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('登録完了しました');
+       $response = $bot->replyMessage($replyToken, $message);
         // $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($data['pictureUrl']);
         //$response = $bot->replyMessage($replyToken, $message);
         // $user = User::where('name', $user_name)->where('provided_user_id')->first();
         $user = User::create([
-            'name' => strval($name),
+            'name' => strval($user_name),
             'provider' => 'line',
             'provided_user_id' => strval($user_id),
             'avatar' => strval($user_picture),
