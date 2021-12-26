@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\DB;
 
 class LineMessengerController extends Controller
 {
-    public function webhook(Request $request) {
+    public function webhook(Request $request, MentioneeInfo $mentioneeInfo) {
         $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient(config('services.line.channel_token'));
         $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => env('LINE_MESSENGER_SECRET')]);
         $signature = $request->headers->get(HTTPHeader::LINE_SIGNATURE);
