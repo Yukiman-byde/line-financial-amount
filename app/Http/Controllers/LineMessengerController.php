@@ -35,7 +35,6 @@ class LineMessengerController extends Controller
         $events = $bot->parseEventRequest($request->getContent(), $signature);
 
         foreach($events as $event){
-            $mentioneeInfo = $event->getMentionees();
            //実際の措置 
            switch(strval($event->getText())){
                case '特定の人へ！':
@@ -54,7 +53,7 @@ class LineMessengerController extends Controller
                    $response = $this->replyTextMessage($bot, $event->getReplyToken(), 'こちらが結果になります');
                    break;
                    
-               case $mentioneeInfo:
+               case $event->getMentionees()[0] === true:
                    $response = $this->replyTextMessage($bot, $event->getReplyToken(), '成功したよ〜ん');
                    
                default:
