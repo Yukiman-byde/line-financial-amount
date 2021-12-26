@@ -8,13 +8,14 @@ use LINE\LINEBot\MessageBuilder\MultiMessageBuilder;
 use LINE\LINEBot\Constant\HTTPHeader;
 use LINE\LINEBot\SignatureValidator;
 use Illuminate\Http\Request;
-use LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder;
 use LINE\LINEBot\TemplateActionBuilder\TemplateMessageBuilder;
 use LINE\LINEBot\TemplateActionBuilder\UriTemplateActionBuilder;
 use LINE\LINEBot\MessageBuilder\TemplateBuilder\ButtonTemplateBuilder;
 use Exception;
 use App\Group;
-use Illuminate\Support\Facades\DB;
+use LINE\LINEBot\MessageBuilder\TemplateBuilder\CarouselColumnTemplateBuilder;
+use LINE\LINEBot\TemplateActionBuilder\PostbackTemplateActionBuilder;
+use LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder;
 
 
 class LineMessengerController extends Controller
@@ -46,12 +47,13 @@ class LineMessengerController extends Controller
                    $response = $this->groupstore($bot, $event->getReplyToken(),$event);
                    break;
                    
+               case '試し':
+                   $response = $this->DisplayUserButton($bot, $event->getReplyToken(), $event);
+                   
                case '結果を見る':
                    $response = $this->replyTextMessage($bot, $event->getReplyToken(), 'こちらが結果になります');
                    break;
-              case $event->getMentionees()[0] === true:
-                   $response = $this->replyTextMessage($bot, $event->getReplyToken(), '成功しました');
-                   break;
+                   
                default:
                    $response = $this->replyTextMessage($bot, $event->getReplyToken(), '申し訳ございません。メニューの方からの入力のみとなっておりますので、そちらからお願いします.');
                    break;
@@ -127,6 +129,16 @@ class LineMessengerController extends Controller
             $response = $bot->replyMessage($replyToken, $message);
         }
     }
-
+    
+      public function DisplayUserButton($bot, $replyToken, $event){
+          $picture_url = User::where('name', 'nihahah')->get('avatar');
+          $title = 'おはよう';
+          $text = '朝の挨拶';
+          $builder = new TemplateMessageBuilder(
+              new ButtonTemplateBuilder(
+                  $title, $text, $picture_url)
+              );
+          $response = $bot->replyMessage($replyToken, $builder)
+      }
 }
 
