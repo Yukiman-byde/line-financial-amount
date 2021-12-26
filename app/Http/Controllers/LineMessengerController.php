@@ -2,7 +2,7 @@
 namespace App\Http\Controllers;
 use LINE\LINEBot\HTTPClient\CurlHTTPClient;
 use LINE\LINEBot;
-use App\Models\User;
+use App\User;
 use App\Http\Controllers\PDO;
 use LINE\LINEBot\MessageBuilder\TextMessageBuilder;
 use LINE\LINEBot\MessageBuilder\MultiMessageBuilder;
