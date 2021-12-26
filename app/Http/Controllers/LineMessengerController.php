@@ -133,7 +133,7 @@ class LineMessengerController extends Controller
     }
     
     public function MultiButtonUser($bot, $replyToken, $event){
-        
+        //
     }
 }
 
