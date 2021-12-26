@@ -2,7 +2,6 @@
 namespace App\Http\Controllers;
 use LINE\LINEBot\HTTPClient\CurlHTTPClient;
 use LINE\LINEBot;
-use LINE\LINEBot\Event\MessageEvent\MentioneeInfo;
 use App\User;
 use App\Http\Controllers\PDO;
 use LINE\LINEBot\MessageBuilder\TextMessageBuilder;
@@ -54,9 +53,8 @@ class LineMessengerController extends Controller
                    $response = $this->replyTextMessage($bot, $event->getReplyToken(), 'こちらが結果になります');
                    break;
                    
-               case $mentioneeInfo['userId']:
+               case $event->getMentionees()[0]->getUserId():
                    $response = $this->replyTextMessage($bot, $event->getReplyToken(), '成功したよ〜ん');
-                   break;
                    
                default:
                    $response = $this->replyTextMessage($bot, $event->getReplyToken(), '申し訳ございません。メニューの方からの入力のみとなっておりますので、そちらからお願いします.');
@@ -132,6 +130,10 @@ class LineMessengerController extends Controller
         }elseif($user){
             $response = $bot->replyMessage($replyToken, $message);
         }
+    }
+    
+    public function MultiButtonUser($bot, $replyToken, $event){
+        
     }
 }
 
