@@ -83,32 +83,10 @@ class LineMessengerController extends Controller
        //どこで止まってるかがわからない
        //ビルダーに入れてLineチャットでも使えるようにしていく。
        //データ登録（グループ）
-      // $feedback = $this->dbStoreGroup($name, $pictureUrl, $id_of_group);
+       $feedback = $this->dbStoreGroup($name, $pictureUrl, $id_of_group);
        //データ登録（ユーザー）
-       //$second_feedback = $this->storeUser();
+       $second_feedback = $this->storeUser($event, $bot, $group_id);
        //グループがなかったら新しく作る
-        $user_id = $event->getUserId();
-        $res = $bot->getGroupMemberProfile($group_id, $user_id);
-        $data = $res->getJSONDecodedBody();
-        $user_name = $data['displayName'];
-        $user_picture = $data['pictureUrl'];
-        // $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($data['pictureUrl']);
-        //$response = $bot->replyMessage($replyToken, $message);
-        $user = User::where('name', $user_name)->where('provided_user_id')->first();
-        if($user === null){
-            $user = User::create([
-                'name' => strval($user_name),
-                'provider' => 'line',
-                'provided_user_id' => strval($user_id),
-                'avatar' => strval($user_picture),
-                'groupId' => strval($group_id),
-                ]);
-           $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('登録が完了されました');
-           $response = $bot->replyMessage($replyToken, $message);
-        }elseif($user){
-             $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('すでに登録が完了しています');
-            $response = $bot->replyMessage($replyToken, $message);
-        }
     }
     
     public function dbStoreGroup($name, $pictureUrl, $id_of_group){
@@ -125,9 +103,27 @@ class LineMessengerController extends Controller
        }
     }
     
-    public function storeUser(){
+    public function storeUser($event, $bot, $group_id){
          $user_id = $event->getUserId();
-         
+         $res = $bot->getGroupMemberProfile($group_id, $user_id);
+         $data = $res->getJSONDecodedBody();
+         $user_name = $data['displayName'];
+         $user_picture = $data['pictureUrl'];
+         $user = User::where('name', $user_name)->where('provided_user_id')->first();
+        if($user === null){
+            $user = User::create([
+                'name' => strval($user_name),
+                'provider' => 'line',
+                'provided_user_id' => strval($user_id),
+                'avatar' => strval($user_picture),
+                'groupId' => strval($group_id),
+                ]);
+           $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('登録が完了されました');
+           $response = $bot->replyMessage($replyToken, $message);
+        }elseif($user){
+             $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('すでに登録が完了しています');
+            $response = $bot->replyMessage($replyToken, $message);
+        }
     }
 }
 
