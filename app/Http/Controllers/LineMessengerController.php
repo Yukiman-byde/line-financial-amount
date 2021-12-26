@@ -50,10 +50,6 @@ class LineMessengerController extends Controller
                    $response = $this->replyTextMessage($bot, $event->getReplyToken(), 'こちらが結果になります');
                    break;
                    
-               case $event->getMentionees()[0]:
-                   $response = $this->replyTextMessage($bot, $event->getReplyToken(), '成功したよ〜ん');
-                   break;
-               　　　
                default:
                    $response = $this->replyTextMessage($bot, $event->getReplyToken(), '申し訳ございません。メニューの方からの入力のみとなっておりますので、そちらからお願いします.');
                    break;
