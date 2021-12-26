@@ -92,8 +92,6 @@ class LineMessengerController extends Controller
         $data = $res->getJSONDecodedBody();
         $user_name = $data['displayName'];
         $user_picture = $data['pictureUrl'];
-        $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($group_id);
-       $response = $bot->replyMessage($replyToken, $message);
         // $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($data['pictureUrl']);
         //$response = $bot->replyMessage($replyToken, $message);
         $user = User::where('name', $user_name)->where('provided_user_id')->first();
@@ -105,6 +103,11 @@ class LineMessengerController extends Controller
             'avatar' => strval($user_picture),
             'groupId' => strval($group_id),
             ]);
+           $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('登録が完了されました');
+           $response = $bot->replyMessage($replyToken, $message);
+        }else {
+             $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('すでに登録が完了しています');
+            $response = $bot->replyMessage($replyToken, $message);
         }
     }
     
