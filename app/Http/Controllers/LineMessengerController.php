@@ -48,7 +48,16 @@ class LineMessengerController extends Controller
                    break;
                
                case '試し':
-                   $response = $this->DisplayUserButton($bot, $event->getReplyToken(), $event);
+                   //$response = $this->DisplayUserButton($bot, $event->getReplyToken(), $event);
+                   $this->replyConfirmTemplate($this->bot,
+                    $this->replyToken,
+                    "test",
+                    "test",
+                    [
+                        new \LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder("Yes", "Yes"),
+                        new \LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder("No", "No"),
+                    ]
+                    );
                    break;
                 
                case '結果を見る':
@@ -139,5 +148,21 @@ class LineMessengerController extends Controller
         $confirm_message = new TemplateMessageBuilder('confirm', $confirm);
         $bot->replyMessage($replyToken, $confirm_message);
       }
+      
+      function replyConfirmTemplate($bot, $replyToken, $alternativeText, $text, ...$actions) {
+        $actionArray = [];
+        foreach ($actions as $value) {
+            array_push($actionArray, $value);
+        }
+        $builder = new \LINE\LINEBot\MessageBuilder\TemplateMessageBuilder(
+            $alternativeText,
+            // Confirmテンプレートの引数はテキスト、アクションの配列
+            new \LINE\LINEBot\MessageBuilder\TemplateBuilder\ConfirmTemplateBuilder($text, $actionArray)
+        );
+        $response = $bot->replyMessage($replyToken, $builder);
+        if (!$response->isSucceeded()) {
+            error_log('Failed!' . $response->getHTTPStatus . ' ' . $response->getRawBody());
+        }
+    }
 }
 
