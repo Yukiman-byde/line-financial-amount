@@ -49,8 +49,8 @@ class LineMessengerController extends Controller
                
                case '試し':
                    $response = $this->replyButtonsTemplate($bot, $event->getReplyToken(), 
-                   'https://cdn.pixabay.com/photo/2020/12/01/10/04/dog-5793625_1280.jpg',
-                   'https://cdn.pixabay.com/photo/2020/12/01/10/04/dog-5793625_1280.jpg',
+                   'https://cdn.pixabay.com/photo/2012/04/26/19/52/trees-42962_1280.png',
+                   'https://cdn.pixabay.com/photo/2012/04/26/19/52/trees-42962_1280.png',
                    ));
                    break;
                 
