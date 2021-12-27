@@ -49,7 +49,6 @@ class LineMessengerController extends Controller
                
                case '試し':
                    $response = $bot->replyMessage($event->getReplyToken(), new TemplateMessageBuilder(
-                         'Confirm alt text',
                                     new ConfirmTemplateBuilder('Do it?', [
                                         new MessageTemplateActionBuilder('Yes', 'Yes!'),
                                         new MessageTemplateActionBuilder('No', 'No!'),
