@@ -132,7 +132,7 @@ class LineMessengerController extends Controller
     }
     
       public function DisplayUserButton($bot, $replyToken, $event){
-         $res = $bot->replyMessage($replyToken, new LINEBot\MessageBuilder\MultiMessageBuilder())->add(new TextMessageBuilder('text1', 'text2'))->add(new TextMessageBuilder('text1', 'text2')));
+         $res = $bot->replyMessage($replyToken,[{type: "text", text: "どうかな？"}, {type: "text", text: "どうかなな？"}])
       }
 }
 
