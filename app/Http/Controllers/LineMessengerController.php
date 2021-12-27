@@ -46,7 +46,17 @@ class LineMessengerController extends Controller
                case 'グループ':
                    $response = $this->groupstore($bot, $event->getReplyToken(), $event);
                    break;
-                   
+               
+               case '試し':
+                   $response = $bot->replyMessage($replyToken, new TemplateMessageBuilder(
+                         'Confirm alt text',
+                                    new ConfirmTemplateBuilder('Do it?', [
+                                        new MessageTemplateActionBuilder('Yes', 'Yes!'),
+                                        new MessageTemplateActionBuilder('No', 'No!'),
+                                    ]))
+                    );
+                   break;
+                
                case '結果を見る':
                    $response = $this->replyTextMessage($bot, $event->getReplyToken(), 'こちらが結果になります');
                    break;
