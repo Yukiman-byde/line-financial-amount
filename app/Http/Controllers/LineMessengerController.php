@@ -49,8 +49,8 @@ class LineMessengerController extends Controller
                
                case '試し':
                    //$response = $this->DisplayUserButton($bot, $event->getReplyToken(), $event);
-                   $this->replyConfirmTemplate($this->bot,
-                    $this->replyToken,
+                   $this->replyConfirmTemplate($bot,
+                    $event->getReplyToken(),
                     "test",
                     "test",
                     [
