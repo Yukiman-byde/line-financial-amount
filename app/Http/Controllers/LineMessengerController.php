@@ -116,7 +116,7 @@ class LineMessengerController extends Controller
          $data = $res->getJSONDecodedBody();
          $user_name = $data['displayName'];
          $user_picture = $data['pictureUrl'];
-         $user = User::where('name', $user_name)->where('provided_user_id')->first();
+         $user = User::where('groupId', $group_id)->where('provided_user_id')->first();
          $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('すでに登録が完了しています');
         if($user === null){
             $user = User::create([
