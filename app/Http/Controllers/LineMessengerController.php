@@ -48,11 +48,11 @@ class LineMessengerController extends Controller
                    break;
                
                case '試し':
-                   $response = $bot->replyMessage($event->getReplyToken(), new TemplateMessageBuilder(
+                   $response = $bot->replyMessage($event->getReplyToken(), 
                                     new ConfirmTemplateBuilder('Do it?', [
                                         new MessageTemplateActionBuilder('Yes', 'Yes!'),
                                         new MessageTemplateActionBuilder('No', 'No!'),
-                                    ]))
+                                    ])
                     );
                    break;
                 
