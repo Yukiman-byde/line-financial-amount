@@ -49,7 +49,7 @@ class LineMessengerController extends Controller
                
                case '試し':
                    $response = $this->replyButtonsTemplate($bot, $event->getReplyToken(), 
-                   'https://sprofile.line-scdn.net/0hfaiM3A_POU5ENC6_ChBHMTRkOiRnRWBcalJzLHI3YXlwDH0fawAkKHZnN39xAH0ZYVZ1fHY2YXdIJ04oWmLFekMEZ3l9A3gbYVBwqw',
+                   'https://cdn.pixabay.com/photo/2020/12/01/10/04/dog-5793625_1280.jpg',
                    'テスト',
                    'テスト１',
                    new LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder('明日のテスト', 'tomorrow'),
@@ -136,15 +136,6 @@ class LineMessengerController extends Controller
             $response = $bot->replyMessage($replyToken, $message);
         }
     }
-    
-      public function DisplayUserButton($bot, $replyToken, $event){
-        $yes_confirm = new PostbackTemplateActionBuilder('はい', 'confirm=1');
-        $no_confirm = new PostbackTemplateActionBuilder('いいえ', 'confirm=0');
-        $actions = [$yes_confirm, $no_confirm];
-        $confirm = new ConfirmTemplateBuilder('メッセージ', $actions);
-        $confirm_message = new TemplateMessageBuilder('confirm', $confirm);
-        $bot->replyMessage($replyToken, $confirm_message);
-      }
       
      public function replyButtonsTemplate($bot, $replyToken, $imageUrl, $title, $text, ...$actions){
          $actionArray = array();
