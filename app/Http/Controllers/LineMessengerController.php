@@ -48,7 +48,13 @@ class LineMessengerController extends Controller
                    break;
                
                case '試し':
-                   $response = $bot->replyMessage($event->getReplyToken(), new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('登録が完了されました'));
+                   $response = $bot->replyMessage($event->getReplyToken(), new TemplateMessageBuilder(
+                        'Confirm alt text',
+                        new ConfirmTemplateBuilder('Do it?', [
+                            new MessageTemplateActionBuilder('Yes', 'Yes!'),
+                            new MessageTemplateActionBuilder('No', 'No!'),
+                        ])
+                    ));
                    break;
                 
                case '結果を見る':
