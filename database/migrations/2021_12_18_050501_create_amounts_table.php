@@ -19,6 +19,7 @@ class CreateAmountsTable extends Migration
             $table->string('lend_provider_user_id');
             $table->string('borrow_provider_user_id');
             $table->boolean('payed');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

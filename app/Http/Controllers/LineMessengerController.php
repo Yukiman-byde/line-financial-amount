@@ -48,16 +48,14 @@ class LineMessengerController extends Controller
                    break;
                
                case '試し':
-                   //$response = $this->DisplayUserButton($bot, $event->getReplyToken(), $event);
-                   $this->replyConfirmTemplate($bot,
-                    $event->getReplyToken(),
-                    "test",
-                    "test",
-                    [
-                        new \LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder("Yes", "Yes"),
-                        new \LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder("No", "No"),
-                    ]
-                    );
+                   $response = $this->replyButtonsTemplate($bot, $event->getReplyToken(), 
+                   'https://sprofile.line-scdn.net/0hfaiM3A_POU5ENC6_ChBHMTRkOiRnRWBcalJzLHI3YXlwDH0fawAkKHZnN39xAH0ZYVZ1fHY2YXdIJ04oWmLFekMEZ3l9A3gbYVBwqw',
+                   'テスト',
+                   'テスト１',
+                   new LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder('明日のテスト', 'tomorrow'),
+                   new LINE\LINEBot\TemplateActionBuilder\PostbackTemplateActionBuilder('今日ののテスト', 'today'),
+                   new LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder('webで見る', 'https://developers.line.biz/ja/reference/messaging-api/#template-messages')
+                   )；
                    break;
                 
                case '結果を見る':
@@ -149,20 +147,16 @@ class LineMessengerController extends Controller
         $bot->replyMessage($replyToken, $confirm_message);
       }
       
-      function replyConfirmTemplate($bot, $replyToken, $alternativeText, $text, ...$actions) {
-        $actionArray = [];
-        foreach ($actions as $value) {
-            array_push($actionArray, $value);
-        }
-        $builder = new \LINE\LINEBot\MessageBuilder\TemplateMessageBuilder(
-            $alternativeText,
-            // Confirmテンプレートの引数はテキスト、アクションの配列
-            new \LINE\LINEBot\MessageBuilder\TemplateBuilder\ConfirmTemplateBuilder($text, $actionArray)
-        );
-        $response = $bot->replyMessage($replyToken, $builder);
-        if (!$response->isSucceeded()) {
-            error_log('Failed!' . $response->getHTTPStatus . ' ' . $response->getRawBody());
-        }
-    }
+     public function replyButtonsTemplate($bot, $replyToken, $imageUrl, $title, $text, ...$acitons){
+         $actionArray = array();
+         foreach($acitons as $value){
+             array_push($actionArray, $value);
+         }
+         
+         $builder = new \LINE\LINEBot\MessageBuilder\TemplateMessageBuilder(
+             new \LINE\LINEBot\MessageBuilder\TemplateBuilder\ButtonTemplateBuilder(
+                 $title, $text, $imageUrl, $actionArray));
+         $response = $bot->replyMessage($replyToken, $builder);
+     }
 }
 
