@@ -44,7 +44,7 @@ class LineMessengerController extends Controller
                    break;
                    
                case 'グループ':
-                   $response = $this->groupstore($bot, $event->getReplyToken(),$event);
+                   $response = $this->groupstore($bot, $event->getReplyToken(),'fofofofofofo');
                    break;
                    
                case '試し':
@@ -131,8 +131,9 @@ class LineMessengerController extends Controller
         }
     }
     
-      public function DisplayUserButton($bot, $replyToken, $event){
-         $res = $bot->replyMessage($replyToken,[{type: "text", text: "どうかな？"}, {type: "text", text: "どうかなな？"}])
+      public function DisplayUserButton($bot, $replyToken, $text){
+         $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($text);
+        $response = $bot->replyMessage($replyToken,$message);
       }
 }
 
