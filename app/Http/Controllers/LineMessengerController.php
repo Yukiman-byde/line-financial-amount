@@ -43,17 +43,12 @@ class LineMessengerController extends Controller
                    $response = $this->replyTextMessage($bot, $event->getReplyToken(), 'fofofofo');
                    break;
                    
-               case 'グループ':
+               case '登録':
                    $response = $this->groupstore($bot, $event->getReplyToken(), $event);
                    break;
                
                case '試し':
-                   $response = $bot->replyMessage($event->getReplyToken(),
-                        new ConfirmTemplateBuilder('Do it?', [
-                            new MessageTemplateActionBuilder('Yes', 'Yes!'),
-                            new MessageTemplateActionBuilder('No', 'No!'),
-                        ])
-                    );
+                   $response = $this->DisplayUserButton($bot, $event->getReplyToken(), $event);
                    break;
                 
                case '結果を見る':
@@ -137,14 +132,12 @@ class LineMessengerController extends Controller
     }
     
       public function DisplayUserButton($bot, $replyToken, $event){
-        
-        $response = $bot->replyMessage($replyToken, new TemplateMessageBuilder(
-             'Confirm alt text',
-                        new ConfirmTemplateBuilder('Do it?', [
-                            new MessageTemplateActionBuilder('Yes', 'Yes!'),
-                            new MessageTemplateActionBuilder('No', 'No!'),
-                        ]))
-        );
+        $yes_button = new PostbackTemplateActionBuilder('はい', 'button=1');
+        $no_button = new PostbackTemplateActionBuilder('キャンセル', 'button=0');
+        $actions = [$yes_button, $no_button];
+        $button = new ButtonTemplateBuilder('タイトル', 'テキスト', '', $actions);
+        $button_message = new TemplateMessageBuilder('タイトル', $button);
+        $bot->replyMessage($replyToken, $button_message);
       }
 }
 
