@@ -44,11 +44,11 @@ class LineMessengerController extends Controller
                    break;
                    
                case 'グループ':
-                   $response = $this->groupstore($bot, $event->getReplyToken(),'fofofofofofo');
+                   $response = $this->groupstore($bot, $event->getReplyToken(), $event);
                    break;
                    
                case '試し':
-                   $response = $this->DisplayUserButton($bot, $event->getReplyToken(), $event);
+                   $response = $this->DisplayUserButton($bot, $event->getReplyToken(), 'fofofofofofo');
                    break;
                    
                case '結果を見る':
