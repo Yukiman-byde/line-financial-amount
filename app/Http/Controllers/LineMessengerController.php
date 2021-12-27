@@ -132,12 +132,12 @@ class LineMessengerController extends Controller
     }
     
       public function DisplayUserButton($bot, $replyToken, $event){
-        $yes_button = new PostbackTemplateActionBuilder('はい', 'button=1');
-        $no_button = new PostbackTemplateActionBuilder('キャンセル', 'button=0');
-        $actions = [$yes_button, $no_button];
-        $button = new ButtonTemplateBuilder('タイトル', 'テキスト', '', $actions);
-        $button_message = new TemplateMessageBuilder('タイトル', $button);
-        $bot->replyMessage($replyToken, $button_message);
+        $yes_confirm = new PostbackTemplateActionBuilder('はい', 'confirm=1');
+        $no_confirm = new PostbackTemplateActionBuilder('いいえ', 'confirm=0');
+        $actions = [$yes_confirm, $no_confirm];
+        $confirm = new ConfirmTemplateBuilder('メッセージ', $actions);
+        $confirm_message = new TemplateMessageBuilder('confirm', $confirm);
+        $bot->replyMessage($replyToken, $confirm_message);
       }
 }
 
