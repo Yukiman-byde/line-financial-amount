@@ -50,6 +50,7 @@ class LineMessengerController extends Controller
                case '試し':
                    $response = $this->DisplayUserButton($bot, $event->getReplyToken(), $event);
                    break;
+                   
                case '結果を見る':
                    $response = $this->replyTextMessage($bot, $event->getReplyToken(), 'こちらが結果になります');
                    break;
@@ -131,14 +132,9 @@ class LineMessengerController extends Controller
     }
     
       public function DisplayUserButton($bot, $replyToken, $event){
-          $picture_url = User::where('name', 'nihahah')->get('avatar');
-          $title = 'おはよう';
-          $text = '朝の挨拶';
-          $builder = new TemplateMessageBuilder(
-              new ButtonTemplateBuilder(
-                  $title, $text, $picture_url)
-              );
-          $response = $bot->replyMessage($replyToken, $builder)
+        public function DisplayUserButton($bot, $replyToken, $event){
+         $res = $bot->replyMessage($replyToken, new LINEBot\MessageBuilder\MultiMessageBuilder())->add(new TextMessageBuilder('text1', 'text2'))->add(new TextMessageBuilder('text1', 'text2')));
+      }
       }
 }
 
