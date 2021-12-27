@@ -134,7 +134,7 @@ class LineMessengerController extends Controller
     
       public function DisplayUserButton($bot, $replyToken, $event){
         
-        $response = $bot->replyMessage($replyToken, new LINEBot\MessageBuilder\TemplateMessageBuilder(
+        $response = $bot->replyMessage($replyToken, new TemplateMessageBuilder(
              'Confirm alt text',
                         new ConfirmTemplateBuilder('Do it?', [
                             new MessageTemplateActionBuilder('Yes', 'Yes!'),
