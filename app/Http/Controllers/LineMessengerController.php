@@ -133,19 +133,12 @@ class LineMessengerController extends Controller
       public function DisplayUserButton($bot, $replyToken, $event){
         
         $response = $bot->replyMessage($replyToken, new LINEBot\MessageBuilder\TemplateMessageBuilder(
-        new ButtonTemplateBuilder(
-            'button title',
-            'button button',
-            'https://qiita.com/yusuke-asaoka/items/0dc9712c73bebcce75e3',
-                    [
-                        new PostbackTemplateActionBuilder('postback label', 'post=back'),
-                        new MessageTemplateActionBuilder('message label', 'test message'),
-                        new UriTemplateActionBuilder(
-                                    'uri label',
-                                    'https://example.com',
-                                    ),
-                    ]
-            )));
+             'Confirm alt text',
+                        new ConfirmTemplateBuilder('Do it?', [
+                            new MessageTemplateActionBuilder('Yes', 'Yes!'),
+                            new MessageTemplateActionBuilder('No', 'No!'),
+                        ]))
+        );
       }
 }
 
