@@ -133,7 +133,7 @@ class LineMessengerController extends Controller
     
       public function DisplayUserButton($bot, $replyToken, $event){
          
-        $response = $bot->replyMessage($replyToken, new TemplateMessageBuilder(
+        $response = $bot->replyMessage($replyToken, new LINEBot\MessageBuilder\TemplateMessageBuilder(
         new ButtonTemplateBuilder(
             'button title',
             'button button',
