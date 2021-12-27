@@ -145,7 +145,7 @@ class LineMessengerController extends Controller
     //      $response = $bot->replyMessage($replyToken, $builder);
     //  }
     public function replyButtonsTemplate($bot, $replyToken, $originalImage, $previewImage){
-        $response = replyMessage($replyToken, new \LINE\LINEBot\MessageBuilder\ImageMessageBuilder($originalImage, $previewImage));
+        $response = $bot->replyMessage($replyToken, new \LINE\LINEBot\MessageBuilder\ImageMessageBuilder($originalImage, $previewImage));
     }
 }
 
