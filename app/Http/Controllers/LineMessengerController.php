@@ -54,8 +54,8 @@ class LineMessengerController extends Controller
                    'テスト１',
                    new LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder('明日のテスト', 'tomorrow'),
                    new LINE\LINEBot\TemplateActionBuilder\PostbackTemplateActionBuilder('今日ののテスト', 'today'),
-                   new LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder('webで見る', 'https://developers.line.biz/ja/reference/messaging-api/#template-messages')
-                   )；
+                   new LINE\LINEBot\TemplateActionBuilder\UriTemplateActionBuilder('webで見る', 'https://developers.line.biz/ja/reference/messaging-api/#template-messages')
+                   );
                    break;
                 
                case '結果を見る':
@@ -67,7 +67,6 @@ class LineMessengerController extends Controller
                    break;
              }
            }
-           
         echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
     }
     
@@ -147,9 +146,9 @@ class LineMessengerController extends Controller
         $bot->replyMessage($replyToken, $confirm_message);
       }
       
-     public function replyButtonsTemplate($bot, $replyToken, $imageUrl, $title, $text, ...$acitons){
+     public function replyButtonsTemplate($bot, $replyToken, $imageUrl, $title, $text, ...$actions){
          $actionArray = array();
-         foreach($acitons as $value){
+         foreach($actions as $value){
              array_push($actionArray, $value);
          }
          
