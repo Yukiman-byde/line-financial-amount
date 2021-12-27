@@ -133,7 +133,8 @@ class LineMessengerController extends Controller
     
       public function DisplayUserButton($bot, $replyToken, $event){
          
-        $response = $bot->replyMessage($replyToken,new ButtonTemplateBuilder(
+        $response = $bot->replyMessage($replyToken, new TemplateMessageBuilder(
+        new ButtonTemplateBuilder(
             'button title',
             'button button',
             'https://qiita.com/yusuke-asaoka/items/0dc9712c73bebcce75e3',
@@ -145,7 +146,7 @@ class LineMessengerController extends Controller
                                     'https://example.com',
                                     ),
                     ]
-            ));
+            )));
       }
 }
 
