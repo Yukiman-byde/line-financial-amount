@@ -51,7 +51,7 @@ class LineMessengerController extends Controller
                    $response = $this->replyButtonsTemplate($bot, $event->getReplyToken(), 
                    'https://cdn.pixabay.com/photo/2012/04/26/19/52/trees-42962_1280.png',
                    'https://cdn.pixabay.com/photo/2012/04/26/19/52/trees-42962_1280.png',
-                   ));
+                   );
                    break;
                 
                case '結果を見る':
@@ -116,9 +116,11 @@ class LineMessengerController extends Controller
          $data = $res->getJSONDecodedBody();
          $user_name = $data['displayName'];
          $user_picture = $data['pictureUrl'];
-         $user = User::where('groupId', $group_id)->where('provided_user_id')->first();
+         //他のグループが登録されていると入れない。
+         $user = User::where('name', $user_name)->where('provided_user_id')->first();
+         $user_group = User::where('groupId', $group_id)->where('provided_user_id')->first();
          $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('すでに登録が完了しています');
-        if($user === null){
+        if($user === null && $user_group === null){
             $user = User::create([
                 'name' => strval($user_name),
                 'provider' => 'line',
@@ -128,8 +130,14 @@ class LineMessengerController extends Controller
                 ]);
            $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('登録が完了されました');
            $response = $bot->replyMessage($replyToken, $message);
-        }elseif($user){
-            $response = $bot->replyMessage($replyToken, $message);
+        }elseif($user === null && $user_group === true){
+            $user = User::create([
+                'name' => strval($user_name),
+                'provider' => 'line',
+                'provided_user_id' => strval($user_id),
+                'avatar' => strval($user_picture),
+                'groupId' => strval($group_id),
+                ]);
         }
     }
       
