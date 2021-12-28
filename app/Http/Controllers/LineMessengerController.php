@@ -59,9 +59,20 @@ class LineMessengerController extends Controller
                 
                 $headers = array('Content-Type: application/json',
                                  'Authorization: Bearer ' . config('services.line.channel_token'));
-                
-                $message = array('type' => 'text',
-                 'text' => 'こんにちは。テキスト応答ですよ。');
+                                 
+                $template = array('type'    => 'buttons',
+                  'thumbnailImageUrl' => 'https://d1f5hsy4d47upe.cloudfront.net/79/79e452da8d3a9ccaf899814db5de9b76_t.jpeg',
+                  'title'   => 'タイトル最大40文字' ,
+                  'text'    => 'テキストメッセージ。タイトルがないときは最大160文字、タイトルがあるときは最大60文字',
+                  'actions' => array(
+                                 array('type'=>'message', 'label'=>'ラベルです', 'text'=>'アクションを実行した時に送信されるメッセージ' )
+                                )
+                );
+
+                $message = array('type'     => 'template',
+                                 'altText'  => '代替テキスト',
+                                 'template' => $template
+                                );
                 
                 $body = json_encode(array('replyToken' => $reply_token,
                                           'messages'   => array($message)));
