@@ -161,9 +161,9 @@ class LineMessengerController extends Controller
         foreach($actions as $value){
             array_push($actionArray, $value);
         }
-        $builder = new LINE\LINEBot\MessageBuilder\TemplateMessageBuilder(
+        $builder = new \LINE\LINEBot\MessageBuilder\TemplateMessageBuilder(
             $alternativeText,
-            new LINE\LINEBot\MessageBuilder\TemplateBuilder\ButtonTemplateBuilder($title, $text, $imageUrl, $actionArray)
+            new \LINE\LINEBot\MessageBuilder\TemplateBuilder\ButtonTemplateBuilder($title, $text, $imageUrl, $actionArray)
             );
         $response = $bot->replyMessage($replyToken, $builder);
     }
