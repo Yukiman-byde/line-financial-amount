@@ -48,48 +48,7 @@ class LineMessengerController extends Controller
                    break;
                
                case '試し':
-                //   $response = $this->replyButtonsTemplate($bot, $event->getReplyToken(), 
-                //   'https://cdn.pixabay.com/photo/2012/04/26/19/52/trees-42962_1280.png',
-                //   'https://cdn.pixabay.com/photo/2012/04/26/19/52/trees-42962_1280.png',
-                //   );
-                $response = $raw = file_get_contents('php://input');
-                $receive = json_decode($raw, true);
-         
-                $reply_token  = $event->getReplyToken();
-                
-                $headers = array('Content-Type: application/json',
-                                 'Authorization: Bearer ' . config('services.line.channel_token'));
-                                 
-                $template = array('type'    => 'buttons',
-                  'thumbnailImageUrl' => 'https://d1f5hsy4d47upe.cloudfront.net/79/79e452da8d3a9ccaf899814db5de9b76_t.jpeg',
-                  'title'   => 'タイトル最大40文字' ,
-                  'text'    => 'テキストメッセージ。タイトルがないときは最大160文字、タイトルがあるときは最大60文字',
-                  'actions' => array(
-                                 array('type'=>'message', 'label'=>'ラベルです', 'text'=>'アクションを実行した時に送信されるメッセージ' )
-                                )
-                );
-
-                $message = array('type'     => 'template',
-                                 'altText'  => '代替テキスト',
-                                 'template' => $template
-                                );
-                
-                $body = json_encode(array('replyToken' => $reply_token,
-                                          'messages'   => array($message)));
-                $options = array(CURLOPT_URL            => 'https://api.line.me/v2/bot/message/reply',
-                                 CURLOPT_CUSTOMREQUEST  => 'POST',
-                                 CURLOPT_RETURNTRANSFER => true,
-                                 CURLOPT_HTTPHEADER     => $headers,
-                                 CURLOPT_POSTFIELDS     => $body);
-                
-                $curl = curl_init();
-                curl_setopt_array($curl, $options);
-                curl_exec($curl);
-                curl_close($curl);
-                
-                // $this->replyButtonsTemplate($bot, $event->getReplyToken(), 'テスト', 'https://cdn.pixabay.com/photo/2012/04/26/19/52/trees-42962_1280.png', 'テスト', 'test-test', new LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder(
-                //     'test', 'test'), new \LINE\LINEBot\TemplateActionBuilder\PostbackTemplateActionBuilder('next test', 'next'), new LINE\LINEBot\TemplateActionBuilder\UriTemplateActionBuilder('WEBで見る', 'https://www.youtube.com/watch?v=YjohMzHkBqI')
-                //     );
+                   $response = $this->curl_Basic();
                    break;
                 
                case '結果を見る':
@@ -125,62 +84,54 @@ class LineMessengerController extends Controller
        $name = $data['groupName'];
        $pictureUrl = $data['pictureUrl'];
        $id_of_group = $data['groupId'];
-       //どこで止まってるかがわからない
-       //ビルダーに入れてLineチャットでも使えるようにしていく。
-       //データ登録（グループ）
-       $feedback = $this->dbStoreGroup($name, $pictureUrl, $id_of_group);
-       //データ登録（ユーザー）
-       $second_feedback = $this->storeUser($event, $bot, $group_id);
-       //グループがなかったら新しく作る
+     
+       $group = new Group;
+       $group->store($name, $pictureUrl, $id_of_group);
+       $user = new User;
+       $user->store($event);
+       //$feedback = $this->dbStoreGroup($name, $pictureUrl, $id_of_group);
     }
     
     public function dbStoreGroup($name, $pictureUrl, $id_of_group){
-         $group = Group::where('name', strval($name))
-                   ->where('groupID', strval($id_of_group))
-                   ->first();
-       if($group === null){
-            $group = Group::create([
-           //文字列化させないとはいらない。
-           'name'     =>  strval($name),
-           'groupID'  =>  strval($id_of_group),
-           'pictureUrl'=> strval($pictureUrl),
-           ]);  
-       }
+         
     }
-    
-    public function storeUser($event, $bot, $group_id){
-         $user_id = $event->getUserId();
-         $res = $bot->getGroupMemberProfile($group_id, $user_id);
-         $data = $res->getJSONDecodedBody();
-         $user_name = $data['displayName'];
-         $user_picture = $data['pictureUrl'];
-         //他のグループが登録されていると入れない。
-         $user = User::where('name', $user_name)->where('provided_user_id')->first();
-         $group_user_id = Group::where('groupID', $group_id)->value('id');
-        // $user_group = Group::where('groupID', $group_id)->first();
-         $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('すでに登録が完了しています');
-        if($user === null){
-            $user = User::create([
-                'name' => strval($user_name),
-                'provider' => 'line',
-                'provided_user_id' => strval($user_id),
-                'avatar' => strval($user_picture),
-                ]);
-            $user->groups()->attach($group_user_id);
-        }
-    }
-    
-    public function replyButtonsTemplate($bot, $replyToken, $alternativeText, $imageUrl, $title, $text, ...$actions){
-        // $response = $bot->replyMessage($replyToken, new \LINE\LINEBot\MessageBuilder\ImageMessageBuilder($originalImage, $previewImage));
-        // $actionArray = array();
-        // foreach($actions as $value){
-        //     array_push($actionArray, $value);
-        // }
-        // $builder = new \LINE\LINEBot\MessageBuilder\TemplateMessageBuilder(
-        //     $alternativeText,
-        //     new \LINE\LINEBot\MessageBuilder\TemplateBuilder\ButtonTemplateBuilder($title, $text, $imageUrl, $actionArray)
-        //     );
-        // $response = $bot->replyMessage($replyToken, $builder);
+
+    public function curl_Basic(){
+                $response = $raw = file_get_contents('php://input');
+                $receive = json_decode($raw, true);
+         
+                $reply_token  = $event->getReplyToken();
+                
+                $headers = array('Content-Type: application/json',
+                                 'Authorization: Bearer ' . config('services.line.channel_token'));
+                                 
+                $template = array('type'    => 'buttons',
+                  'thumbnailImageUrl' => 'https://d1f5hsy4d47upe.cloudfront.net/79/79e452da8d3a9ccaf899814db5de9b76_t.jpeg',
+                  'title'   => 'タイトル最大40文字' ,
+                  'text'    => 'テキストメッセージ。タイトルがないときは最大160文字、タイトルがあるときは最大60文字',
+                  'actions' => array(
+                                 array('type'=>'message', 'label'=>'ラベルです', 'text'=>'アクションを実行した時に送信されるメッセージ' )
+                                )
+                );
+
+                $message = array('type'     => 'template',
+                                 'altText'  => '代替テキスト',
+                                 'template' => $template
+                                );
+                
+                $body = json_encode(array('replyToken' => $reply_token,
+                                          'messages'   => array($message)));
+                                          
+                $options = array(CURLOPT_URL            => 'https://api.line.me/v2/bot/message/reply',
+                                 CURLOPT_CUSTOMREQUEST  => 'POST',
+                                 CURLOPT_RETURNTRANSFER => true,
+                                 CURLOPT_HTTPHEADER     => $headers,
+                                 CURLOPT_POSTFIELDS     => $body);
+                
+                $curl = curl_init();
+                curl_setopt_array($curl, $options);
+                curl_exec($curl);
+                curl_close($curl);
     }
 }
 

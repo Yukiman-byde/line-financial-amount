@@ -40,4 +40,24 @@ class User extends Authenticatable
     public function groups(){
         return $this->belongsToMany('App\Group');
     }
+    
+    public function store($event){
+         $user_id = $event->getUserId();
+         $res = $bot->getGroupMemberProfile($group_id, $user_id);
+         $data = $res->getJSONDecodedBody();
+         $user_name = $data['displayName'];
+         $user_picture = $data['pictureUrl'];
+         
+         $user = User::where('name', $user_name)->where('provided_user_id')->first();
+        if($user === null){
+            $user = User::create([
+                'name' => strval($user_name),
+                'provider' => 'line',
+                'provided_user_id' => strval($user_id),
+                'avatar' => strval($user_picture),
+                ]);
+            //$user->groups()->attach($group_user_id);
+        }
+        return $user;
+    }
 }
