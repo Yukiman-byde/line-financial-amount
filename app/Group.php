@@ -19,12 +19,12 @@ class Group extends Model
     }
     
     public function store(){
-        $group = Group::where('name', strval($name))
+       $group = $this->where('name', strval($name))
                    ->where('groupID', strval($id_of_group))
                    ->first();
                    
        if($group === null){
-            $group = Group::create([
+            $group = $this->create([
            //文字列化させないとはいらない。
            'name'     =>  strval($name),
            'groupID'  =>  strval($id_of_group),

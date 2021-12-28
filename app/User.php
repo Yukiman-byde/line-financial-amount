@@ -48,9 +48,9 @@ class User extends Authenticatable
          $user_name = $data['displayName'];
          $user_picture = $data['pictureUrl'];
          
-         $user = User::where('name', $user_name)->where('provided_user_id')->first();
+         $user = $this->where('name', $user_name)->where('provided_user_id')->first();
         if($user === null){
-            $user = User::create([
+            $user = $this->create([
                 'name' => strval($user_name),
                 'provider' => 'line',
                 'provided_user_id' => strval($user_id),
