@@ -121,9 +121,10 @@ class LineMessengerController extends Controller
          $user_picture = $data['pictureUrl'];
          //他のグループが登録されていると入れない。
          $user = User::where('name', $user_name)->where('provided_user_id')->first();
-         $user_group = User::where('groupId', $group_id)->where('provided_user_id')->first();
+         
+         $user_group = Group::where('groupID', $group_id)->first();
          $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('すでに登録が完了しています');
-        if($user === null && $user_group === null){
+        if($user === null){
             $user = User::create([
                 'name' => strval($user_name),
                 'provider' => 'line',
