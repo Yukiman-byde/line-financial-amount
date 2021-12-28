@@ -134,7 +134,7 @@ class LineMessengerController extends Controller
                 ]);
            $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('登録が完了されました');
            $response = $bot->replyMessage($replyToken, $message);
-        }elseif($user === null && $user_group === true){
+        }elseif($user_group === true){
             $user = User::create([
                 'name' => strval($user_name),
                 'provider' => 'line',
