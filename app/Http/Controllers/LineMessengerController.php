@@ -75,9 +75,6 @@ class LineMessengerController extends Controller
       }
            
     public function groupstore($bot, $replyToken, $event){
-      //返信はビルダー通らなきゃだめ.
-      //グループのデータはグループから送らないと返事がない
-      //一つ一つのデータを変数に入れていく。
        $group_id = $event->getGroupId();
        $res = $bot->getGroupSummary($group_id);
        $data = $res->getJSONDecodedBody();
@@ -89,11 +86,6 @@ class LineMessengerController extends Controller
        $group->store($name, $pictureUrl, $id_of_group);
        $user = new User;
        $user->store($event, $group_id);
-       //$feedback = $this->dbStoreGroup($name, $pictureUrl, $id_of_group);
-    }
-    
-    public function dbStoreGroup($name, $pictureUrl, $id_of_group){
-         
     }
 
     public function curl_Basic($event){

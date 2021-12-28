@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Group;
 
 class User extends Authenticatable
 {
@@ -47,16 +48,16 @@ class User extends Authenticatable
          $data = $res->getJSONDecodedBody();
          $user_name = $data['displayName'];
          $user_picture = $data['pictureUrl'];
-         
-         $user = $this->where('name', $user_name)->where('provided_user_id')->first();
-        if($user === null){
-            $user = $this->create([
-                'name' => strval($user_name),
-                'provider' => 'line',
-                'provided_user_id' => strval($user_id),
-                'avatar' => strval($user_picture),
-                ]);
+         $group = Group::where('groupID', $group_id)->get();
+         $user = $this->where('provided_user_id', $user_id)->get();
+             if($user === null && isset($group)){
+                $user = $this->create([
+                    'name' => strval($user_name),
+                    'provider' => 'line',
+                    'provided_user_id' => strval($user_id),
+                    'avatar' => strval($user_picture),
+                    ]);
+             }
             //$user->groups()->attach($group_user_id);
         }
-    }
 }
