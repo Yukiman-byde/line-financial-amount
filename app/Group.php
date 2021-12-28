@@ -18,7 +18,7 @@ class Group extends Model
         return $this->belongsToMany('App\User');
     }
     
-    public function store(){
+    public function store($name, $pictureUrl, $id_of_group){
        $group = $this->where('name', strval($name))
                    ->where('groupID', strval($id_of_group))
                    ->first();
