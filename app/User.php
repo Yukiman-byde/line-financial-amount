@@ -58,6 +58,6 @@ class User extends Authenticatable
                     'avatar' => strval($user_picture),
                     ]);
              }
-            //$user->groups()->attach($group_user_id);
+            return 
         }
 }
