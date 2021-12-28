@@ -52,9 +52,33 @@ class LineMessengerController extends Controller
                 //   'https://cdn.pixabay.com/photo/2012/04/26/19/52/trees-42962_1280.png',
                 //   'https://cdn.pixabay.com/photo/2012/04/26/19/52/trees-42962_1280.png',
                 //   );
-                $response = $this->replyButtonsTemplate($bot, $event->getReplyToken(), 'テスト', 'https://cdn.pixabay.com/photo/2012/04/26/19/52/trees-42962_1280.png', 'テスト', 'test-test', new LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder(
-                    'test', 'test'), new \LINE\LINEBot\TemplateActionBuilder\PostbackTemplateActionBuilder('next test', 'next'), new LINE\LINEBot\TemplateActionBuilder\UriTemplateActionBuilder('WEBで見る', 'https://www.youtube.com/watch?v=YjohMzHkBqI')
-                    );
+                $response = $raw = file_get_contents('php://input');
+                $receive = json_decode($raw, true);
+         
+                $reply_token  = $event->getReplyToken();
+                
+                $headers = array('Content-Type: application/json',
+                                 'Authorization: Bearer ' . config('services.line.channel_token'));
+                
+                $message = array('type' => 'text',
+                 'text' => 'こんにちは。テキスト応答ですよ。');
+                
+                $body = json_encode(array('replyToken' => $reply_token,
+                                          'messages'   => array($message)));
+                $options = array(CURLOPT_URL            => 'https://api.line.me/v2/bot/message/reply',
+                                 CURLOPT_CUSTOMREQUEST  => 'POST',
+                                 CURLOPT_RETURNTRANSFER => true,
+                                 CURLOPT_HTTPHEADER     => $headers,
+                                 CURLOPT_POSTFIELDS     => $body);
+                
+                $curl = curl_init();
+                curl_setopt_array($curl, $options);
+                curl_exec($curl);
+                curl_close($curl);
+                
+                // $this->replyButtonsTemplate($bot, $event->getReplyToken(), 'テスト', 'https://cdn.pixabay.com/photo/2012/04/26/19/52/trees-42962_1280.png', 'テスト', 'test-test', new LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder(
+                //     'test', 'test'), new \LINE\LINEBot\TemplateActionBuilder\PostbackTemplateActionBuilder('next test', 'next'), new LINE\LINEBot\TemplateActionBuilder\UriTemplateActionBuilder('WEBで見る', 'https://www.youtube.com/watch?v=YjohMzHkBqI')
+                //     );
                    break;
                 
                case '結果を見る':
@@ -121,8 +145,8 @@ class LineMessengerController extends Controller
          $user_picture = $data['pictureUrl'];
          //他のグループが登録されていると入れない。
          $user = User::where('name', $user_name)->where('provided_user_id')->first();
-         
-         $user_group = Group::where('groupID', $group_id)->first();
+         $group_user_id = Group::where('groupID', $group_id)->value('id');
+        // $user_group = Group::where('groupID', $group_id)->first();
          $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('すでに登録が完了しています');
         if($user === null){
             $user = User::create([
@@ -130,43 +154,22 @@ class LineMessengerController extends Controller
                 'provider' => 'line',
                 'provided_user_id' => strval($user_id),
                 'avatar' => strval($user_picture),
-                'groupId' => strval($group_id),
                 ]);
-           $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('登録が完了されました');
-           $response = $bot->replyMessage($replyToken, $message);
-        }elseif($user_group === true){
-            $user = User::create([
-                'name' => strval($user_name),
-                'provider' => 'line',
-                'provided_user_id' => strval($user_id),
-                'avatar' => strval($user_picture),
-                'groupId' => strval($group_id),
-                ]);
+            $user->groups()->attach($group_user_id);
         }
     }
-      
-    //  public function replyButtonsTemplate($bot, $replyToken, $imageUrl, $title, $text, ...$actions){
-    //      $actionArray = array();
-    //      foreach($actions as $value){
-    //          array_push($actionArray, $value);
-    //      }
-         
-    //      $builder = new \LINE\LINEBot\MessageBuilder\TemplateMessageBuilder(
-    //          new \LINE\LINEBot\MessageBuilder\TemplateBuilder\ButtonTemplateBuilder(
-    //              $title, $text, $imageUrl, $actionArray));
-    //      $response = $bot->replyMessage($replyToken, $builder);
-    //  }
+    
     public function replyButtonsTemplate($bot, $replyToken, $alternativeText, $imageUrl, $title, $text, ...$actions){
         // $response = $bot->replyMessage($replyToken, new \LINE\LINEBot\MessageBuilder\ImageMessageBuilder($originalImage, $previewImage));
-        $actionArray = array();
-        foreach($actions as $value){
-            array_push($actionArray, $value);
-        }
-        $builder = new \LINE\LINEBot\MessageBuilder\TemplateMessageBuilder(
-            $alternativeText,
-            new \LINE\LINEBot\MessageBuilder\TemplateBuilder\ButtonTemplateBuilder($title, $text, $imageUrl, $actionArray)
-            );
-        $response = $bot->replyMessage($replyToken, $builder);
+        // $actionArray = array();
+        // foreach($actions as $value){
+        //     array_push($actionArray, $value);
+        // }
+        // $builder = new \LINE\LINEBot\MessageBuilder\TemplateMessageBuilder(
+        //     $alternativeText,
+        //     new \LINE\LINEBot\MessageBuilder\TemplateBuilder\ButtonTemplateBuilder($title, $text, $imageUrl, $actionArray)
+        //     );
+        // $response = $bot->replyMessage($replyToken, $builder);
     }
 }
 

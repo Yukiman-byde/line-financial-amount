@@ -13,4 +13,8 @@ class Group extends Model
     protected $hidden = [
         'groupID',
     ];
+    
+    public function users(){
+        return $this->belongsToMany('App\User');
+    }
 }
