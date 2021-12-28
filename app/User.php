@@ -41,7 +41,7 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Group');
     }
     
-    public function store($event){
+    public function store($event, $group_id){
          $user_id = $event->getUserId();
          $res = $bot->getGroupMemberProfile($group_id, $user_id);
          $data = $res->getJSONDecodedBody();
@@ -58,6 +58,5 @@ class User extends Authenticatable
                 ]);
             //$user->groups()->attach($group_user_id);
         }
-        return $user;
     }
 }

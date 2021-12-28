@@ -88,7 +88,7 @@ class LineMessengerController extends Controller
        $group = new Group;
        $group->store($name, $pictureUrl, $id_of_group);
        $user = new User;
-       $user->store($event);
+       $user->store($event, $group_id);
        //$feedback = $this->dbStoreGroup($name, $pictureUrl, $id_of_group);
     }
     
