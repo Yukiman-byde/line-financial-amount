@@ -48,7 +48,7 @@ class LineMessengerController extends Controller
                    break;
                
                case '試し':
-                   $response = $this->curl_Basic();
+                   $response = $this->curl_Basic($event);
                    break;
                 
                case '結果を見る':
@@ -96,8 +96,8 @@ class LineMessengerController extends Controller
          
     }
 
-    public function curl_Basic(){
-                $response = $raw = file_get_contents('php://input');
+    public function curl_Basic($event){
+                $raw = file_get_contents('php://input');
                 $receive = json_decode($raw, true);
          
                 $reply_token  = $event->getReplyToken();
