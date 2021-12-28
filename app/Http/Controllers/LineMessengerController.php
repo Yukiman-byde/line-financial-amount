@@ -48,10 +48,13 @@ class LineMessengerController extends Controller
                    break;
                
                case '試し':
-                   $response = $this->replyButtonsTemplate($bot, $event->getReplyToken(), 
-                   'https://cdn.pixabay.com/photo/2012/04/26/19/52/trees-42962_1280.png',
-                   'https://cdn.pixabay.com/photo/2012/04/26/19/52/trees-42962_1280.png',
-                   );
+                //   $response = $this->replyButtonsTemplate($bot, $event->getReplyToken(), 
+                //   'https://cdn.pixabay.com/photo/2012/04/26/19/52/trees-42962_1280.png',
+                //   'https://cdn.pixabay.com/photo/2012/04/26/19/52/trees-42962_1280.png',
+                //   );
+                $response = $this->replyButtonsTemplate($bot, $event->getReplyToken(), 'テスト', 'https://cdn.pixabay.com/photo/2012/04/26/19/52/trees-42962_1280.png', 'テスト', 'test-test', new LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder(
+                    'test', 'test'), new \LINE\LINEBot\TemplateActionBuilder\PostbackTemplateActionBuilder('next test', 'next'), new LINE\LINEBot\TemplateActionBuilder\UriTemplateActionBuilder('WEBで見る', 'https://www.youtube.com/watch?v=YjohMzHkBqI')
+                    );
                    break;
                 
                case '結果を見る':
@@ -152,8 +155,17 @@ class LineMessengerController extends Controller
     //              $title, $text, $imageUrl, $actionArray));
     //      $response = $bot->replyMessage($replyToken, $builder);
     //  }
-    public function replyButtonsTemplate($bot, $replyToken, $originalImage, $previewImage){
-        $response = $bot->replyMessage($replyToken, new \LINE\LINEBot\MessageBuilder\ImageMessageBuilder($originalImage, $previewImage));
+    public function replyButtonsTemplate($bot, $replyToken, $alternativeText, $imageUrl, $title, $text, ...$actions){
+        // $response = $bot->replyMessage($replyToken, new \LINE\LINEBot\MessageBuilder\ImageMessageBuilder($originalImage, $previewImage));
+        $actionArray = array();
+        foreach($actions as $value){
+            array_push($actionArray, $value);
+        }
+        $builder = new LINE\LINEBot\MessageBuilder\TemplateMessageBuilder(
+            $alternativeText,
+            new LINE\LINEBot\MessageBuilder\TemplateBuilder\ButtonTemplateBuilder($title, $text, $imageUrl, $actionArray)
+            );
+        $response = $bot->replyMessage($replyToken, $builder);
     }
 }
 
