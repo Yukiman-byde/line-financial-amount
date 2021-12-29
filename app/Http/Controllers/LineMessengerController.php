@@ -81,11 +81,14 @@ class LineMessengerController extends Controller
        $name = $data['groupName'];
        $pictureUrl = $data['pictureUrl'];
        $id_of_group = $data['groupId'];
+       $user_id = $event->getUserId();
+       $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($user_id);
+        $response = $bot->replyMessage($replyToken,$message);
      
-       $group = new Group;
-       $group->store($name, $pictureUrl, $id_of_group);
-       $user = new User;
-       $user->attach($event->getUserId(), $group_id);
+    //   $group = new Group;
+    //   $group->store($name, $pictureUrl, $id_of_group);
+    //   $user = new User;
+    //   $user->attach($event->getUserId(), $group_id);
     }
 
     public function curl_Basic($event){
