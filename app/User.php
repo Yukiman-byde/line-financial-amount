@@ -43,10 +43,9 @@ class User extends Authenticatable
     }
     
     public function attach($user_id, $group_id){
-         $groupId = Group::where('groupID', $group_id)->first();
+         $group = Group::where('groupID', $group_id)->first();
          
-         if(isset($groupId)){
-             $group = new Group;
+         if(isset($group)){
              $user = $this->where('provided_user_id', $user_id)->first();
              $user->groups()->attach($group->id);
          }
