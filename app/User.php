@@ -47,7 +47,7 @@ class User extends Authenticatable
          
          if($group){
              $user = $this->where('provided_user_id', $user_id)->first();
-             $user->groups()->attach($group->id);
+             $this->groups()->attach($group->id);
          }
         }
 }
