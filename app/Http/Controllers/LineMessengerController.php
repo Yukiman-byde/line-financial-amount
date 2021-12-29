@@ -86,7 +86,7 @@ class LineMessengerController extends Controller
       $group = new Group;
       $group->store($name, $pictureUrl, $id_of_group);
       $user = new User;
-      $user->attach($event->getUserId(), $group_id);
+      $user->attach($user_id, $group_id);
     }
 
     public function curl_Basic($event){
