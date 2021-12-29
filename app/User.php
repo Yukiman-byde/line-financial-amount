@@ -42,22 +42,13 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Group');
     }
     
-    public function store($event, $group_id){
-         $user_id = $event->getUserId();
-         $res = $bot->getGroupMemberProfile($group_id, $user_id);
-         $data = $res->getJSONDecodedBody();
-         $user_name = $data['displayName'];
-         $user_picture = $data['pictureUrl'];
-         $group = Group::where('groupID', $group_id)->get();
-         $user = $this->where('provided_user_id', $user_id)->get();
-             if($user === null && isset($group)){
-                $user = $this->create([
-                    'name' => strval($user_name),
-                    'provider' => 'line',
-                    'provided_user_id' => strval($user_id),
-                    'avatar' => strval($user_picture),
-                    ]);
-             }
-            return 
+    public function attach($user_id, $group_id){
+         $groupId = Group::where('groupID', $group_id)->first();
+         
+         if(isset($groupId)){
+             $group = new Group;
+             $user = $this->where('provided_user_id', $user_id)->first();
+             $user->groups()->attach($group->id);
+         }
         }
 }

@@ -17,6 +17,7 @@ class AmountsTableSeeder extends Seeder
                 'lend_provider_user_id' => 'hsd@',
                 'borrow_provider_user_id' => 'df@ojosv',
                 'payed' => false,
+                'content' => 'トイレ貸した分のお金。'
             ],
     ]);
     }

@@ -65,7 +65,7 @@
     </head>
     <body>
         <div class="flex-center position-ref full-height">
-           <a href="{{ route('linelogin',['provider' => 'line']) }}">Login</a>
+           <a href="{{ route('linelogin',['provider' => 'line']) }}">登録</a>
         </div>
     </body>
 </html>
