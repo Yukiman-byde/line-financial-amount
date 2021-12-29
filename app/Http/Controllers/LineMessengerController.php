@@ -82,11 +82,7 @@ class LineMessengerController extends Controller
        $pictureUrl = $data['pictureUrl'];
        $id_of_group = $data['groupId'];
        $user_id = $event->getUserId();
-       $group = Group::where('groupID', $group_id)->first();
-       
-       $message = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($group->id);
-        $response = $bot->replyMessage($replyToken,$message);
-     
+
       $group = new Group;
       $group->store($name, $pictureUrl, $id_of_group);
       $user = new User;
