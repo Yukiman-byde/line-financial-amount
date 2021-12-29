@@ -86,10 +86,10 @@ class LineMessengerController extends Controller
       $group = new Group;
       $group->store($name, $pictureUrl, $id_of_group);
       $attach_group = $group->where('groupID', $group_id)->first();
-      if($group){
+      if($attach_group){
           $user = new User;
           $attach_user = $user->where('provided_user_id', $user_id)->first();
-          $attach_user->groups()->attach($group->id);
+          $attach_user->groups()->attach($attach_group->id);
       }
     }
 
