@@ -57,10 +57,6 @@ class LineMessengerController extends Controller
                                  array('type'=>'uri', 'label'=>'Webで登録する', 'uri'=>'https://amount-money.herokuapp.com/' )
                                 )
                 );
-                
-                $template = array('type'    => 'carousel',
-                                  'columns' => $columns,
-                                );
                    $response = $this->curl_Basic($event, $template);
                    break;
                 
