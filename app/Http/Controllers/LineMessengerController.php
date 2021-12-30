@@ -110,13 +110,13 @@ class LineMessengerController extends Controller
         $user_id = $event->getUserId();
         $user = new User;
         $user = $user->where('provided_user_id', $user_id)->first();
-        $members = $user->groups()->get();
+        $groups = $user->groups()->get();
         
-        foreach($members as $member){
-          $carousel = array('thumbnailImageUrl' => $member->avatar,
-                      'title'   => $member->name,
-                      'text'    => '立替した人を確認できたら下記の「指名する」ボタンを押してください。',
-                      'actions' => array(array('type' => 'postback', 'label' => '指名する', 'data' => $member->provided_user_id, 'text' => '送りました')) 
+        foreach($groups as $group){
+          $carousel = array('thumbnailImageUrl' => 'https://d1f5hsy4d47upe.cloudfront.net/79/79e452da8d3a9ccaf899814db5de9b76_t.jpeg',
+                      'title'   => $group->name,
+                      'text'    => 'グループを選んでください',
+                      'actions' => array(array('type' => 'postback', 'label' => '指名する', 'data' => $group->groupID, 'text' => '送りました')) 
                  );
         array_push($columns, $carousel);
         }
