@@ -57,7 +57,7 @@ class LineMessengerController extends Controller
                                  array('type'=>'uri', 'label'=>'Webで登録する', 'uri'=>'https://amount-money.herokuapp.com/' )
                                 )
                 );
-                   $response = $this->curl_Basic($event, $template, $column = null);
+                   $response = $this->curl_Basic($event, $column = null, $template);
                    break;
                 
                case '結果を見る':
@@ -156,11 +156,11 @@ class LineMessengerController extends Controller
         $columns = array();
         
         foreach($members as $member){
-          $carousel = array('thumbnailImageUrl' => $member->avatar,
+          $columns = array('thumbnailImageUrl' => $member->avatar,
                       'title'   => $member->name,
                       'actions' => array(array('type' => 'message', 'label' => '指名する', 'text' => $member->name)) 
                  );
-        array_push($columns, $carousel);
+        //array_push($columns, $carousel);
         }
        
         $this->curl_Basic($event, $columns);
