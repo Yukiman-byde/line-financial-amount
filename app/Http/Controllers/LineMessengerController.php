@@ -102,7 +102,7 @@ class LineMessengerController extends Controller
       }
     }
 
-    public function curl_Basic($event, $template, $column){
+    public function curl_Basic($event, $template, $columns){
                 $raw = file_get_contents('php://input');
                 $receive = json_decode($raw, true);
          
@@ -119,7 +119,7 @@ class LineMessengerController extends Controller
                                           'messages'   => array($message)));
             }
             
-            if($column){
+            if($columns){
                 $template = array('type'    => 'carousel',
                              'columns' => $columns,
                             );
