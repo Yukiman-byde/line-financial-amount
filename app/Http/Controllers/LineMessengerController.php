@@ -101,6 +101,29 @@ class LineMessengerController extends Controller
           $attach_user->groups()->attach($attach_group->id);
       }
     }
+    
+    //グループに入ってるメンバー（紐づけられているメンバー全員）を持ってくる）
+    public function alternative_pay_action($event){
+        $group_id = $event->getGroupId();
+        $group = new Group;
+        // $group = $group->first();
+        $group = $group->where('groupID', $group_id)->first();
+        $members = $group->users()->get();
+        $columns = array();
+        
+        foreach($members as $member){
+          $carousel = array('thumbnailImageUrl' => $member->avatar,
+                      'title'   => $member->name,
+                      'text'    => '立替した人を確認できたら下記の「指名する」ボタンを押してください。',
+                      'actions' => array(array('type' => 'message', 'label' => '指名する', 'text' => $member->name)) 
+                 );
+        array_push($columns, $carousel);
+        }
+        $template = array('type'    => 'carousel',
+                  'columns' => $columns,
+                );
+        $this->curl_Basic($event, $columns);
+    }
 
     public function curl_Basic($event, $template){
                 $raw = file_get_contents('php://input');
@@ -129,26 +152,6 @@ class LineMessengerController extends Controller
                 curl_setopt_array($curl, $options);
                 curl_exec($curl);
                 curl_close($curl);
-    }
-    
-    //グループに入ってるメンバー（紐づけられているメンバー全員）を持ってくる）
-    public function alternative_pay_action($event){
-        $group_id = $event->getGroupId();
-        $group = new Group;
-        // $group = $group->first();
-        $group = $group->where('groupID', $group_id)->first();
-        $members = $group->users()->get();
-        $columns = array();
-        
-        foreach($members as $member){
-          $columns = array('thumbnailImageUrl' => $member->avatar,
-                      'title'   => $member->name,
-                      'text'    => '立替した人を確認できたら下記の「指名する」ボタンを押してください。',
-                      'actions' => array(array('type' => 'message', 'label' => '指名する', 'text' => $member->name)) 
-                 );
-        //array_push($columns, $carousel);
-        }
-        $this->curl_Basic($event, $columns);
     }
 }
 
