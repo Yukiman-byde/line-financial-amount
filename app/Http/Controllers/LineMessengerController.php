@@ -36,8 +36,8 @@ class LineMessengerController extends Controller
            //実際の措置 
            switch(strval($event->getText())){
                case '特定の人へ！':
-                   $response = $this->replyTextMessage($bot, $event->getReplyToken(), 'どなたの立替を行なったか下記のボタンで指名してください');
-                   $response = $this->alternative_pay_action($bot, $event->getReplyToken(), $event);
+                //   $response = $this->replyTextMessage($bot, $event->getReplyToken(), 'どなたの立替を行なったか下記のボタンで指名してください');
+                   $response = $this->alternative_pay_action($bot,$event);
                    break;
                    
                case '割り勘で！':
@@ -163,7 +163,7 @@ class LineMessengerController extends Controller
                  );
         array_push($columns, $carousel);
         }
-        $this->curl_Basic($event, $columns);
+        $this->curl_Basic($event,$template = null, $columns);
     }
 
 }
