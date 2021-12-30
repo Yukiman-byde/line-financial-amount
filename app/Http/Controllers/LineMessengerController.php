@@ -55,7 +55,7 @@ class LineMessengerController extends Controller
                case '結果を見る':
                    $response = $this->replyTextMessage($bot, $event->getReplyToken(), 'こちらが結果になります');
                    break;
-               case 試し:
+               case '試し':
                    $response = replyTextMessage($bot, $event->getReplyToken(), $event->getText());
                    break;
                    
