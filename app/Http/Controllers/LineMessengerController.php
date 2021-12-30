@@ -55,7 +55,7 @@ class LineMessengerController extends Controller
                case '結果を見る':
                    $response = $this->replyTextMessage($bot, $event->getReplyToken(), 'こちらが結果になります');
                    break;
-               case $event->getPostBackData():
+               case $event->getPostbackData():
                    $response = $this->replyTextMessage($bot, $event->getReplyToken(), 'います');
                 //   $this->retrive_chars($event);
                 //   $amount = new Amount;
@@ -112,7 +112,7 @@ class LineMessengerController extends Controller
           $carousel = array('thumbnailImageUrl' => $member->avatar,
                       'title'   => $member->name,
                       'text'    => '立替した人を確認できたら下記の「指名する」ボタンを押してください。',
-                      'actions' => array(array('type' => 'postback', 'label' => '指名する', 'data' => $member->provided_user_id)) 
+                      'actions' => array(array('type' => 'postback', 'label' => '指名する', 'data' => $member->provided_user_id, 'text' => '送りました')) 
                  );
         array_push($columns, $carousel);
         }
