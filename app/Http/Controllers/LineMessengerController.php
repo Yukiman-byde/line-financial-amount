@@ -110,30 +110,31 @@ class LineMessengerController extends Controller
                 
                 $headers = array('Content-Type: application/json',
                                  'Authorization: Bearer ' . config('services.line.channel_token'));
+            // if($template){
+            //     $message = array('type'     => 'template',
+            //                      'altText'  => '代替テキスト',
+            //                      'template' => $template
+            //                     );
+            //     $body = json_encode(array('replyToken' => $reply_token,
+            //                               'messages'   => array($message)));
+            // }
             if($template){
-                $message = array('type'     => 'template',
-                                 'altText'  => '代替テキスト',
-                                 'template' => $template
-                                );
-                $body = json_encode(array('replyToken' => $reply_token,
+               $columns = array(
+                 array('thumbnailImageUrl' => '画像のURL',
+                       'title'   => 'タイトル最大４０文字',
+                       'text'    => 'タイトルか画像がある場合は最大60文字、どちらもない場合は最大120文字',
+                       'actions' => array(array('type' => 'message', 'label' => 'ラベルです', 'text' => 'メッセージ')) 
+                 ),
+                 array('thumbnailImageUrl' => '画像のURL',
+                       'title'   => 'タイトル最大４０文字',
+                       'text'    => 'タイトルか画像がある場合は最大60文字、どちらもない場合は最大120文字',
+                       'actions' => array(array('type' => 'message', 'label' => 'ラベルです', 'text' => 'メッセージ')) 
+                 )      
+            );
+                 $body = json_encode(array('replyToken' => $reply_token,
                                           'messages'   => array($message)));
             }
-            
-            if($columns){
-                $template = array('type'    => 'carousel',
-                             'columns' => $columns,
-                            );
-
-                $message = array('type'     => 'template',
-                             'altText'  => '代替テキスト',
-                             'template' => $template
-                            );
-                $body = json_encode(array('replyToken' => $reply_token,
-                              'messages'   => array($message)));
-            }
                 
-                
-                                          
                 $options = array(CURLOPT_URL            => 'https://api.line.me/v2/bot/message/reply',
                                  CURLOPT_CUSTOMREQUEST  => 'POST',
                                  CURLOPT_RETURNTRANSFER => true,
@@ -147,11 +148,11 @@ class LineMessengerController extends Controller
     }
     
     //グループに入ってるメンバー（紐づけられているメンバー全員）を持ってくる）
-    public function alternative_pay_action($bot, $event){
-        $group_id = $event->getGroupId();
+    public function alternative_pay_action(){
+        //$group_id = $event->getGroupId();
         $group = new Group;
-        //$group = $group->first();
-        $group = $group->where('groupID', $group_id)->first();
+        $group = $group->first();
+        //$group = $group->where('groupID', $group_id)->first();
         $members = $group->users()->get();
         $columns = array();
         
@@ -162,7 +163,7 @@ class LineMessengerController extends Controller
                  );
         //array_push($columns, $carousel);
         }
-       
+       dd($columns);
         $this->curl_Basic($event, $columns);
     }
 
