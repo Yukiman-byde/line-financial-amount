@@ -58,12 +58,12 @@ class LineMessengerController extends Controller
                 //                 )
                 // );
                 $columns = array(
-                 array('thumbnailImageUrl' => '画像のURL',
+                 array('thumbnailImageUrl' => 'https://d1f5hsy4d47upe.cloudfront.net/79/79e452da8d3a9ccaf899814db5de9b76_t.jpeg',
                        'title'   => 'タイトル最大４０文字',
                        'text'    => 'タイトルか画像がある場合は最大60文字、どちらもない場合は最大120文字',
                        'actions' => array(array('type' => 'message', 'label' => 'ラベルです', 'text' => 'メッセージ')) 
                  ),
-                 array('thumbnailImageUrl' => '画像のURL',
+                 array('thumbnailImageUrl' => 'https://d1f5hsy4d47upe.cloudfront.net/79/79e452da8d3a9ccaf899814db5de9b76_t.jpeg',
                        'title'   => 'タイトル最大４０文字',
                        'text'    => 'タイトルか画像がある場合は最大60文字、どちらもない場合は最大120文字',
                        'actions' => array(array('type' => 'message', 'label' => 'ラベルです', 'text' => 'メッセージ')) 
@@ -126,14 +126,14 @@ class LineMessengerController extends Controller
                 
                 $headers = array('Content-Type: application/json',
                                  'Authorization: Bearer ' . config('services.line.channel_token'));
-            if($template){
+                                 
                 $message = array('type'     => 'template',
                                  'altText'  => '代替テキスト',
                                  'template' => $template
                                 );
                 $body = json_encode(array('replyToken' => $reply_token,
                                           'messages'   => array($message)));
-            }
+        
                 
              $options = array(CURLOPT_URL            => 'https://api.line.me/v2/bot/message/reply',
                              CURLOPT_CUSTOMREQUEST  => 'POST',
