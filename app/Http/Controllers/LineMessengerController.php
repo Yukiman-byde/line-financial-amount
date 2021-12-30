@@ -105,7 +105,7 @@ class LineMessengerController extends Controller
         // $group = new Group;
         // $group = $group->where('groupID', $group_id)->first();
         // $members = $group->users()->get();
-        // $columns = array();
+         $columns = array();
         
         $user_id = $event->getUserId();
         $user = new User;
