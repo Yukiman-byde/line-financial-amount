@@ -8,15 +8,7 @@ use LINE\LINEBot\MessageBuilder\MultiMessageBuilder;
 use LINE\LINEBot\Constant\HTTPHeader;
 use LINE\LINEBot\SignatureValidator;
 use Illuminate\Http\Request;
-use LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder;
-use LINE\LINEBot\MessageBuilder\TemplateBuilder\ButtonTemplateBuilder;
-use LINE\LINEBot\TemplateActionBuilder\PostbackTemplateActionBuilder;
-use LINE\LINEBot\TemplateActionBuilder\TemplateMessageBuilder;
-use LINE\LINEBot\TemplateActionBuilder\UriTemplateActionBuilder;
-use Exception;
-use LINE\LINEBot\MessageBuilder\TemplateBuilder\ConfirmTemplateBuilder;
 use App\Group;
-use LINE\LINEBot\MessageBuilder\TemplateBuilder\CarouselColumnTemplateBuilder;
 
 class LineMessengerController extends Controller
 {
@@ -63,6 +55,9 @@ class LineMessengerController extends Controller
                case '結果を見る':
                    $response = $this->replyTextMessage($bot, $event->getReplyToken(), 'こちらが結果になります');
                    break;
+               case User::where('name', $event->getText()) !== null:
+                   $response = replyMessage($bot, $event->getReplyToken(), 'ユーザー発見！');
+                   break;
                    
                default:
                    $response = $this->replyTextMessage($bot, $event->getReplyToken(), '申し訳ございません。メニューの方からの入力のみとなっておりますので、そちらからお願いします.');
@@ -106,7 +101,6 @@ class LineMessengerController extends Controller
     public function alternative_pay_action($event){
         $group_id = $event->getGroupId();
         $group = new Group;
-        // $group = $group->first();
         $group = $group->where('groupID', $group_id)->first();
         $members = $group->users()->get();
         $columns = array();
