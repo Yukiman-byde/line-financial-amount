@@ -48,7 +48,15 @@ class LineMessengerController extends Controller
                    break;
                
                case '試し':
-                   $response = $this->curl_Basic($event);
+                    $template = array('type'    => 'buttons',
+                  'thumbnailImageUrl' => 'https://d1f5hsy4d47upe.cloudfront.net/79/79e452da8d3a9ccaf899814db5de9b76_t.jpeg',
+                  'title'   => 'タイトル最大40文字' ,
+                  'text'    => 'テキストメッセージ。タイトルがないときは最大160文字、タイトルがあるときは最大60文字',
+                  'actions' => array(
+                                 array('type'=>'uri', 'label'=>'Webで登録する', 'uri'=>'https://amount-money.herokuapp.com/' )
+                                )
+                );
+                   $response = $this->curl_Basic($event, $template);
                    break;
                 
                case '結果を見る':
@@ -93,7 +101,7 @@ class LineMessengerController extends Controller
       }
     }
 
-    public function curl_Basic($event){
+    public function curl_Basic($event, $template){
                 $raw = file_get_contents('php://input');
                 $receive = json_decode($raw, true);
          
@@ -101,15 +109,6 @@ class LineMessengerController extends Controller
                 
                 $headers = array('Content-Type: application/json',
                                  'Authorization: Bearer ' . config('services.line.channel_token'));
-                                 
-                $template = array('type'    => 'buttons',
-                  'thumbnailImageUrl' => 'https://d1f5hsy4d47upe.cloudfront.net/79/79e452da8d3a9ccaf899814db5de9b76_t.jpeg',
-                  'title'   => 'タイトル最大40文字' ,
-                  'text'    => 'テキストメッセージ。タイトルがないときは最大160文字、タイトルがあるときは最大60文字',
-                  'actions' => array(
-                                 array('type'=>'uri', 'label'=>'Webで登録する', 'uri'=>'https://amount-money.herokuapp.com/' )
-                                )
-                );
 
                 $message = array('type'     => 'template',
                                  'altText'  => '代替テキスト',
