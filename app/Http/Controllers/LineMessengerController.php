@@ -57,9 +57,6 @@ class LineMessengerController extends Controller
                    break;
                case $event->getPostbackData() !== null:
                    $response = $this->replyTextMessage($bot, $event->getReplyToken(), 'います');
-                //   $this->retrive_chars($event);
-                //   $amount = new Amount;
-                //   $amount->add_money();
                    break;
                    
                default:
@@ -100,13 +97,20 @@ class LineMessengerController extends Controller
       }
     }
     
-    //グループに入ってるメンバー（紐づけられているメンバー全員）を持ってくる）
+    //こちゃで送りたいためユーザーで判断。
+    //ユーザーが所属しているグループを抜き出す（登録ずみ）。
+    //グループを選んでもらった後ユーザーも同じ内容で選んでもらう。
     public function alternative_pay_action($event){
-        $group_id = $event->getGroupId();
-        $group = new Group;
-        $group = $group->where('groupID', $group_id)->first();
-        $members = $group->users()->get();
-        $columns = array();
+        // $group_id = $event->getGroupId();
+        // $group = new Group;
+        // $group = $group->where('groupID', $group_id)->first();
+        // $members = $group->users()->get();
+        // $columns = array();
+        
+        $user_id = $event->getUserId();
+        $user = new User;
+        $user = $user->where('provided_user_id', $user_id)->first();
+        $members = $user->groups()->get();
         
         foreach($members as $member){
           $carousel = array('thumbnailImageUrl' => $member->avatar,
@@ -155,6 +159,36 @@ class LineMessengerController extends Controller
         $event = 'ゆーき万　１００円';
         [$target_name, $money] = explode('　', trim($event));
         dd($money);
+        
+    }
+    
+    public function try_session_data(){
+        $name = 'ゆーき万';
+        $user = new User;
+        $user = $user->where('name', $name)->first();
+        if($user){
+            session_start();
+            $_SESSION['amount'] = 600;
+            $_SESSION['lend_name'] = $user->name;
+            $_SESSION['borrow_name'] = 'うんこ';
+            $_SESSION['payed'] = false;
+            $_SESSION['content'] = 'トイレ代';
+        }
+        echo $_SESSION['borrow_name'];
+    }
+    
+    public function try_session_data_amount($number){
+        $user = new User;
+      //  $user = $user->where('name', 'ゆーき万')->first();
+        $user = $user->where('name', 'ゆーき万')->first();
+       $group = $user->groups()->get();
+       dd($group);
+        if($number){
+            session_start();
+            $_SESSION['amount'] = $number;
+            echo $_SESSION['amount'];
+            echo $_SESSION['borrow_name'];
+        }
         
     }
 }
