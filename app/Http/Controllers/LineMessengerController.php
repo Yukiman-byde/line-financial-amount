@@ -56,7 +56,10 @@ class LineMessengerController extends Controller
                    $response = $this->replyTextMessage($bot, $event->getReplyToken(), 'こちらが結果になります');
                    break;
                case User::where('name', $event->getText()) !== null:
-                   $response = $this->replyTextMessage($bot, $event->getReplyToken(), 'ユーザー発見！');
+                   $response = $this->replyTextMessage($bot, $event->getReplyToken(), 'います');
+                //   $this->retrive_chars($event);
+                //   $amount = new Amount;
+                //   $amount->add_money();
                    break;
                    
                default:
@@ -146,6 +149,13 @@ class LineMessengerController extends Controller
                 curl_setopt_array($curl, $options);
                 curl_exec($curl);
                 curl_close($curl);
+    }
+    
+    public function retrive_chars(){
+        $event = 'ゆーき万　１００円';
+        [$target_name, $money] = explode('　', trim($event));
+        dd($money);
+        
     }
 }
 

@@ -13,11 +13,13 @@ class Amount extends Model
         'amount', 'lend_provider_user_id', 'borrow_provider_user_id', 'payed'
     ];
     
-    public function current_amount(){
-        $c_a = $this->orderBy('amount', 'desc')->first();
-        $current_amount = $c_a->amount; 
-        return $current_amount;
+    public function add_money(int $number, string $lend, string $borrow, string $content){
+        $this->amount = $number;
+        $this->lend_provider_user_id = $lend;
+        $this->borrow_provider_user_id = $borrow;
+        $this->payed = false;
+        $this->content = $content;
+        
+        $this->save();
     }
-    
-    
 }
