@@ -37,7 +37,7 @@ class LineMessengerController extends Controller
            switch(strval($event->getText())){
                case '特定の人へ！':
                 //   $response = $this->replyTextMessage($bot, $event->getReplyToken(), 'どなたの立替を行なったか下記のボタンで指名してください');
-                   $response = $this->alternative_pay_action($bot, $event);
+                   $response = $this->alternative_pay_action($event);
                    break;
                    
                case '割り勘で！':
@@ -49,26 +49,14 @@ class LineMessengerController extends Controller
                    break;
                
                case 'LINE登録':
-                //     $template = array('type'    => 'buttons',
-                //   'thumbnailImageUrl' => 'https://d1f5hsy4d47upe.cloudfront.net/79/79e452da8d3a9ccaf899814db5de9b76_t.jpeg',
-                //   'title'   => 'LINE登録' ,
-                //   'text'    => 'ご利用になる前に、下記のWebで登録するボタンを押してLINE登録を行ってください。',
-                //   'actions' => array(
-                //                  array('type'=>'uri', 'label'=>'Webで登録する', 'uri'=>'https://amount-money.herokuapp.com/' )
-                //                 )
-                // );
-                $columns = array(
-                 array('thumbnailImageUrl' => 'https://d1f5hsy4d47upe.cloudfront.net/79/79e452da8d3a9ccaf899814db5de9b76_t.jpeg',
-                       'title'   => 'タイトル最大４０文字',
-                       'text'    => 'タイトルか画像がある場合は最大60文字、どちらもない場合は最大120文字',
-                       'actions' => array(array('type' => 'message', 'label' => 'ラベルです', 'text' => 'メッセージ')) 
-                 ),
-                 array('thumbnailImageUrl' => 'https://d1f5hsy4d47upe.cloudfront.net/79/79e452da8d3a9ccaf899814db5de9b76_t.jpeg',
-                       'title'   => 'タイトル最大４０文字',
-                       'text'    => 'タイトルか画像がある場合は最大60文字、どちらもない場合は最大120文字',
-                       'actions' => array(array('type' => 'message', 'label' => 'ラベルです', 'text' => 'メッセージ')) 
-                 )            
-            );
+                    $template = array('type'    => 'buttons',
+                  'thumbnailImageUrl' => 'https://d1f5hsy4d47upe.cloudfront.net/79/79e452da8d3a9ccaf899814db5de9b76_t.jpeg',
+                  'title'   => 'LINE登録' ,
+                  'text'    => 'ご利用になる前に、下記のWebで登録するボタンを押してLINE登録を行ってください。',
+                  'actions' => array(
+                                 array('type'=>'uri', 'label'=>'Webで登録する', 'uri'=>'https://amount-money.herokuapp.com/' )
+                                )
+                );
                 
                 $template = array('type'    => 'carousel',
                                   'columns' => $columns,
@@ -148,24 +136,23 @@ class LineMessengerController extends Controller
     }
     
     //グループに入ってるメンバー（紐づけられているメンバー全員）を持ってくる）
-    public function alternative_pay_action(){
-        //$group_id = $event->getGroupId();
+    public function alternative_pay_action($event){
+        $group_id = $event->getGroupId();
         $group = new Group;
-        $group = $group->first();
-        //$group = $group->where('groupID', $group_id)->first();
+        // $group = $group->first();
+        $group = $group->where('groupID', $group_id)->first();
         $members = $group->users()->get();
         $columns = array();
         
         foreach($members as $member){
           $columns = array('thumbnailImageUrl' => $member->avatar,
                       'title'   => $member->name,
+                      'text'    => '立替した人を確認できたら下記の「指名する」ボタンを押してください。',
                       'actions' => array(array('type' => 'message', 'label' => '指名する', 'text' => $member->name)) 
                  );
         //array_push($columns, $carousel);
         }
-       dd($columns);
         $this->curl_Basic($event, $columns);
     }
-
 }
 
