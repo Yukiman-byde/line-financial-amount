@@ -37,7 +37,7 @@ class LineMessengerController extends Controller
            switch(strval($event->getText())){
                case '特定の人へ！':
                 //   $response = $this->replyTextMessage($bot, $event->getReplyToken(), 'どなたの立替を行なったか下記のボタンで指名してください');
-                   $response = $this->alternative_pay_action($bot,$event);
+                   $response = $this->alternative_pay_action($bot, $event);
                    break;
                    
                case '割り勘で！':
@@ -57,7 +57,7 @@ class LineMessengerController extends Controller
                                  array('type'=>'uri', 'label'=>'Webで登録する', 'uri'=>'https://amount-money.herokuapp.com/' )
                                 )
                 );
-                   $response = $this->curl_Basic($event, $template);
+                   $response = $this->curl_Basic($event, $template, $column = null);
                    break;
                 
                case '結果を見る':
@@ -117,7 +117,9 @@ class LineMessengerController extends Controller
                                 );
                 $body = json_encode(array('replyToken' => $reply_token,
                                           'messages'   => array($message)));
-            }elseif($column){
+            }
+            
+            if($column){
                 $template = array('type'    => 'carousel',
                              'columns' => $columns,
                             );
@@ -163,7 +165,7 @@ class LineMessengerController extends Controller
                  );
         array_push($columns, $carousel);
         }
-        $this->curl_Basic($event,$template = null, $columns);
+        $this->curl_Basic($event, $template = null, $columns);
     }
 
 }
