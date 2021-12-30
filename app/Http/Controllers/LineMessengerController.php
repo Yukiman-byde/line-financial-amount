@@ -147,10 +147,10 @@ class LineMessengerController extends Controller
     }
     
     //グループに入ってるメンバー（紐づけられているメンバー全員）を持ってくる）
-    public function alternative_pay_action($bot, $replyToken, $event){
-       // $group_id = $event->getGroupId();
+    public function alternative_pay_action($bot, $event){
         $group_id = $event->getGroupId();
         $group = new Group;
+        //$group = $group->first();
         $group = $group->where('groupID', $group_id)->first();
         $members = $group->users()->get();
         $columns = array();
@@ -162,6 +162,7 @@ class LineMessengerController extends Controller
                  );
         array_push($columns, $carousel);
         }
+       
         $this->curl_Basic($event, $columns);
     }
 
