@@ -37,6 +37,7 @@ class LineMessengerController extends Controller
            switch(strval($event->getText())){
                case '特定の人へ！':
                    $response = $this->replyTextMessage($bot, $event->getReplyToken(), 'どなたの立替を行なったか下記のボタンで指名してください');
+                   $response = $this->alternative_pay_action($bot, $event->getReplyToken(), $event);
                    break;
                    
                case '割り勘で！':
@@ -147,10 +148,11 @@ class LineMessengerController extends Controller
     }
     
     //グループに入ってるメンバー（紐づけられているメンバー全員）を持ってくる）
-    public function alternative_pay_action(){
+    public function alternative_pay_action($bot, $replyToken, $event){
        // $group_id = $event->getGroupId();
+        $group_id = $event->getGroupId();
         $group = new Group;
-        $group= $group->first();
+        $group = $group->where('groupID', $group_id)->first();
         $members = $group->users()->get();
         $columns = array();
         
@@ -161,7 +163,7 @@ class LineMessengerController extends Controller
                  );
         array_push($columns, $carousel);
         }
-        $this->curl_Basic($columns);
+        $this->curl_Basic($event, $columns);
     }
 
 }
