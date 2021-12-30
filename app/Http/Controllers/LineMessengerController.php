@@ -123,9 +123,6 @@ class LineMessengerController extends Controller
                 $template = array('type'    => 'carousel',
                              'columns' => $columns,
                             );
-                $template = array('type'    => 'carousel',
-                             'columns' => $columns,
-                            );
 
                 $message = array('type'     => 'template',
                              'altText'  => '代替テキスト',
