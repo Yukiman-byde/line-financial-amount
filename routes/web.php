@@ -29,7 +29,7 @@ Route::post('/line/webhook', 'LineMessengerController@webhook')->name('line.webh
 
 // LINE メッセージ送信用
 Route::get('/line/message', 'LineMessengerController@message');
-Route::get('/addition', 'CalculateController@addition');
+Route::get('/try', 'LineMessengerController@try');
 Route::get('/subtraction', 'CalculateController@subtraction');
 Route::get('/payedAction', 'CalculateController@payedAction');
 

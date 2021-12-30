@@ -107,7 +107,7 @@ class LineMessengerController extends Controller
                   'title'   => 'タイトル最大40文字' ,
                   'text'    => 'テキストメッセージ。タイトルがないときは最大160文字、タイトルがあるときは最大60文字',
                   'actions' => array(
-                                 array('type'=>'message', 'label'=>'ラベルです', 'text'=>'アクションを実行した時に送信されるメッセージ' )
+                                 array('type'=>'uri', 'label'=>'Webで登録する', 'uri'=>'https://amount-money.herokuapp.com/' )
                                 )
                 );
 
@@ -130,5 +130,6 @@ class LineMessengerController extends Controller
                 curl_exec($curl);
                 curl_close($curl);
     }
+
 }
 
