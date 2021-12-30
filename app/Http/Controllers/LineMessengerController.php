@@ -122,7 +122,7 @@ class LineMessengerController extends Controller
         $template = array('type'    => 'carousel',
                   'columns' => $columns,
                 );
-        $this->curl_Basic($event, $columns);
+        $this->curl_Basic($event, $template);
     }
 
     public function curl_Basic($event, $template){
