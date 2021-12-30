@@ -49,15 +49,31 @@ class LineMessengerController extends Controller
                    break;
                
                case 'LINE登録':
-                    $template = array('type'    => 'buttons',
-                  'thumbnailImageUrl' => 'https://d1f5hsy4d47upe.cloudfront.net/79/79e452da8d3a9ccaf899814db5de9b76_t.jpeg',
-                  'title'   => 'LINE登録' ,
-                  'text'    => 'ご利用になる前に、下記のWebで登録するボタンを押してLINE登録を行ってください。',
-                  'actions' => array(
-                                 array('type'=>'uri', 'label'=>'Webで登録する', 'uri'=>'https://amount-money.herokuapp.com/' )
-                                )
-                );
-                   $response = $this->curl_Basic($event, $column = null, $template);
+                //     $template = array('type'    => 'buttons',
+                //   'thumbnailImageUrl' => 'https://d1f5hsy4d47upe.cloudfront.net/79/79e452da8d3a9ccaf899814db5de9b76_t.jpeg',
+                //   'title'   => 'LINE登録' ,
+                //   'text'    => 'ご利用になる前に、下記のWebで登録するボタンを押してLINE登録を行ってください。',
+                //   'actions' => array(
+                //                  array('type'=>'uri', 'label'=>'Webで登録する', 'uri'=>'https://amount-money.herokuapp.com/' )
+                //                 )
+                // );
+                $columns = array(
+                 array('thumbnailImageUrl' => '画像のURL',
+                       'title'   => 'タイトル最大４０文字',
+                       'text'    => 'タイトルか画像がある場合は最大60文字、どちらもない場合は最大120文字',
+                       'actions' => array(array('type' => 'message', 'label' => 'ラベルです', 'text' => 'メッセージ')) 
+                 ),
+                 array('thumbnailImageUrl' => '画像のURL',
+                       'title'   => 'タイトル最大４０文字',
+                       'text'    => 'タイトルか画像がある場合は最大60文字、どちらもない場合は最大120文字',
+                       'actions' => array(array('type' => 'message', 'label' => 'ラベルです', 'text' => 'メッセージ')) 
+                 )            
+            );
+                
+                $template = array('type'    => 'carousel',
+                                  'columns' => $columns,
+                                );
+                   $response = $this->curl_Basic($event, $template);
                    break;
                 
                case '結果を見る':
@@ -102,7 +118,7 @@ class LineMessengerController extends Controller
       }
     }
 
-    public function curl_Basic($event, $columns, $template){
+    public function curl_Basic($event, $template){
                 $raw = file_get_contents('php://input');
                 $receive = json_decode($raw, true);
          
@@ -110,36 +126,20 @@ class LineMessengerController extends Controller
                 
                 $headers = array('Content-Type: application/json',
                                  'Authorization: Bearer ' . config('services.line.channel_token'));
-            // if($template){
-            //     $message = array('type'     => 'template',
-            //                      'altText'  => '代替テキスト',
-            //                      'template' => $template
-            //                     );
-            //     $body = json_encode(array('replyToken' => $reply_token,
-            //                               'messages'   => array($message)));
-            // }
             if($template){
-               $columns = array(
-                 array('thumbnailImageUrl' => '画像のURL',
-                       'title'   => 'タイトル最大４０文字',
-                       'text'    => 'タイトルか画像がある場合は最大60文字、どちらもない場合は最大120文字',
-                       'actions' => array(array('type' => 'message', 'label' => 'ラベルです', 'text' => 'メッセージ')) 
-                 ),
-                 array('thumbnailImageUrl' => '画像のURL',
-                       'title'   => 'タイトル最大４０文字',
-                       'text'    => 'タイトルか画像がある場合は最大60文字、どちらもない場合は最大120文字',
-                       'actions' => array(array('type' => 'message', 'label' => 'ラベルです', 'text' => 'メッセージ')) 
-                 )      
-            );
-                 $body = json_encode(array('replyToken' => $reply_token,
+                $message = array('type'     => 'template',
+                                 'altText'  => '代替テキスト',
+                                 'template' => $template
+                                );
+                $body = json_encode(array('replyToken' => $reply_token,
                                           'messages'   => array($message)));
             }
                 
-                $options = array(CURLOPT_URL            => 'https://api.line.me/v2/bot/message/reply',
-                                 CURLOPT_CUSTOMREQUEST  => 'POST',
-                                 CURLOPT_RETURNTRANSFER => true,
-                                 CURLOPT_HTTPHEADER     => $headers,
-                                 CURLOPT_POSTFIELDS     => $body);
+             $options = array(CURLOPT_URL            => 'https://api.line.me/v2/bot/message/reply',
+                             CURLOPT_CUSTOMREQUEST  => 'POST',
+                             CURLOPT_RETURNTRANSFER => true,
+                             CURLOPT_HTTPHEADER     => $headers,
+                             CURLOPT_POSTFIELDS     => $body);
                 
                 $curl = curl_init();
                 curl_setopt_array($curl, $options);
