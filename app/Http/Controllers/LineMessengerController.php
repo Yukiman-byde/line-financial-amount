@@ -58,23 +58,17 @@ class LineMessengerController extends Controller
                    $response = $this->replyTextMessage($bot, $event->getReplyToken(), 'こちらが結果になります');
                    break;
                    
-               case Group::where('name', $event->getText()) !== null:
-                   $response = $this->replyTextMessage($bot, $event->getReplyToken(), 'こちらが結果になります');
-                   break;
-                   
                default:
+                   $this->content_analyze($event, $bot);
                    $response = $this->replyTextMessage($bot, $event->getReplyToken(), '申し訳ございません。メニューの方からの入力のみとなっておりますので、そちらからお願いします.');
                    break;
              }
-        
-          switch($this->postbackEvent->getPostbackData()){
-              case $this->postbackEvent->getPostbackData():
-                  $response = $this->replyTextMessage($bot, $event->getReplyToken(), '成功しました');
-                 break;
-          }
            }
         echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
     }
+    
+    
+    
     
      // シングルメッセージ 
       private function replyTextMessage($bot, $replyToken, $text){
@@ -86,6 +80,9 @@ class LineMessengerController extends Controller
             error_log($response->getHTTPStatus. ' ' . $response->getRawBody());
           }
       }
+      
+      
+      
            
     public function groupstore($bot, $replyToken, $event){
        $group_id = $event->getGroupId();
@@ -105,15 +102,8 @@ class LineMessengerController extends Controller
           $attach_user->groups()->attach($attach_group->id);
       }
     }
-    
-    //こちゃで送りたいためユーザーで判断。
-    //ユーザーが所属しているグループを抜き出す（登録ずみ）。
-    //グループを選んでもらった後ユーザーも同じ内容で選んでもらう。
+
     public function alternative_pay_action($event){
-        // $group_id = $event->getGroupId();
-        // $group = new Group;
-        // $group = $group->where('groupID', $group_id)->first();
-        // $members = $group->users()->get();
          $columns = array();
         
         $user_id = $event->getUserId();
@@ -164,12 +154,15 @@ class LineMessengerController extends Controller
                 curl_close($curl);
     }
     
-    public function retrive_chars(){
-        $event = 'ゆーき万　１００円';
-        [$target_name, $money] = explode('　', trim($event));
-        dd($money);
-        
+    
+    
+    public function content_analyze($event, $bot){
+        $content = $event->getText()->getJSONDecodedBody();
+        $response = replyTextMessage($bot, $event->getReplyToken(), $content);
     }
+    
+    
+    
     
     public function try_session_data(){
         $name = 'ゆーき万';
