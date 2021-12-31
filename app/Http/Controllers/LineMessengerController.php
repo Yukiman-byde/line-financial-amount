@@ -9,6 +9,8 @@ use LINE\LINEBot\Constant\HTTPHeader;
 use LINE\LINEBot\SignatureValidator;
 use Illuminate\Http\Request;
 use App\Group;
+use LINE\LINEBot\Event\PostbackEvent;
+
 
 class LineMessengerController extends Controller
 {
@@ -61,8 +63,8 @@ class LineMessengerController extends Controller
                    break;
              }
         
-          switch(strval($event->getPostbackData())){
-              case $event->getPostbackData():
+          switch($event instanceof PostbackEvent){
+              case $event instanceof PostbackEvent:
                   $response = $this->replyTextMessage($bot, $event->getReplyToken(), '成功しました');
                  break;
           }
