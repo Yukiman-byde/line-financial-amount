@@ -32,4 +32,9 @@ class Group extends Model
            ]);  
        }
     }
+    
+    public function content_query(string $content){
+       $group = $this->where('name', $content)->get();
+       return $group;
+    }
 }
