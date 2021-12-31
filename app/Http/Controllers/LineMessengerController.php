@@ -56,7 +56,7 @@ class LineMessengerController extends Controller
                    $response = $this->replyTextMessage($bot, $event->getReplyToken(), 'こちらが結果になります');
                    break;
                case 'ユーザーを指名します':
-                   $response = $this->replyTextMessage($bot, $event->getReplyToken(), $event->getPostbackData());
+                   $response = $this->replyTextMessage($bot, $event->getReplyToken(), $event->postbackEvent->getPostbackData());
                    break;
                    
                default:
