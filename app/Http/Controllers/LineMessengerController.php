@@ -61,7 +61,7 @@ class LineMessengerController extends Controller
                    break;
              }
         
-          switch(strval($event->getPostbackData())){
+          switch($event->getPostbackData()){
               case $event->getPostbackData():
                   $response = $this->replyTextMessage($bot, $event->getReplyToken(), '成功しました');
                  break;
