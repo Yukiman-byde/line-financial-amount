@@ -55,8 +55,8 @@ class LineMessengerController extends Controller
                case '結果を見る':
                    $response = $this->replyTextMessage($bot, $event->getReplyToken(), 'こちらが結果になります');
                    break;
-               case $event->getPostbackData() !== null:
-                   $response = $this->replyTextMessage($bot, $event->getReplyToken(), 'います');
+               case $event->getPostbackData():
+                   $response = $this->replyTextMessage($bot, $event->getReplyToken(), '次の動作を実行します');
                    break;
                    
                default:
