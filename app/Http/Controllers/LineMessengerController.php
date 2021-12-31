@@ -157,8 +157,8 @@ class LineMessengerController extends Controller
     
     
     public function content_analyze($event, $bot, Group $group){
-        $content = $event->getText();
-        $user = $group->content_query($content)->users()->first();
+        $content = trim($event->getText());
+        $user = $group->content_query(strval($content))->users()->first();
         $response = $this->replyTextMessage($bot, $event->getReplyToken(), $user);
     }
     
