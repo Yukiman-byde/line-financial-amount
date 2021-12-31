@@ -55,8 +55,8 @@ class LineMessengerController extends Controller
                case '結果を見る':
                    $response = $this->replyTextMessage($bot, $event->getReplyToken(), 'こちらが結果になります');
                    break;
-               case $event->getPostbackData():
-                   $response = $this->replyTextMessage($bot, $event->getReplyToken(), '次の動作を実行します');
+               case 'ユーザーを指名します':
+                   $response = $this->replyTextMessage($bot, $event->getReplyToken(), $event->getPostbackData());
                    break;
                    
                default:
@@ -116,7 +116,7 @@ class LineMessengerController extends Controller
           $carousel = array('thumbnailImageUrl' => 'https://d1f5hsy4d47upe.cloudfront.net/79/79e452da8d3a9ccaf899814db5de9b76_t.jpeg',
                       'title'   => $group->name,
                       'text'    => 'グループを選んでください',
-                      'actions' => array(array('type' => 'postback', 'label' => '指名する', 'data' => $group->groupID, 'text' => '送りました')) 
+                      'actions' => array(array('type' => 'postback', 'label' => '指定する', 'data' => $group->groupID, 'text' => 'ユーザーを指名します')) 
                  );
         array_push($columns, $carousel);
         }
