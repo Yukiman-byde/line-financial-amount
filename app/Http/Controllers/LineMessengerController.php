@@ -58,7 +58,7 @@ class LineMessengerController extends Controller
                    $response = $this->replyTextMessage($bot, $event->getReplyToken(), 'こちらが結果になります');
                    break;
                    
-               case Group::where('name', $event->getText())->first() !== null:
+               case Group::where('name', $event->getText()) !== null:
                    $response = $this->replyTextMessage($bot, $event->getReplyToken(), 'こちらが結果になります');
                    break;
                    
@@ -125,7 +125,7 @@ class LineMessengerController extends Controller
           $carousel = array('thumbnailImageUrl' => 'https://d1f5hsy4d47upe.cloudfront.net/79/79e452da8d3a9ccaf899814db5de9b76_t.jpeg',
                       'title'   => $group->name,
                       'text'    => 'グループを選んでください',
-                      'actions' => array(array('type' => 'postback', 'label' => '指定する', 'data' => $group->groupID, 'text' => $group->name)) 
+                      'actions' => array(array('type' => 'message', 'label' => '指定する','text' => $group->name)) 
                  );
         array_push($columns, $carousel);
         }
