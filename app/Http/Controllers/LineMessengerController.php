@@ -158,7 +158,7 @@ class LineMessengerController extends Controller
     
     public function content_analyze($event, $bot){
         $content = $event->getText()->getJSONDecodedBody();
-        $response = replyTextMessage($bot, $event->getReplyToken(), $content);
+        $response = $this->replyTextMessage($bot, $event->getReplyToken(), $content);
     }
     
     
