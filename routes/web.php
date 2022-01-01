@@ -14,7 +14,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/House', 'HomeController@house')->name('house');
+Route::get('/AuthUser', 'HomeController@auth_user');
 Route::get('/calculate', 'HomeController@calculate')->name('calculate');
 Route::post('/calculate', 'HomeController@calculate')->name('calculate');
 

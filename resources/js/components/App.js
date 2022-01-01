@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React,{useState, useEffect} from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -13,12 +13,19 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Avatar from '@material-ui/core/Avatar';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import LaravelApi from './LaravelApi';
 
 function App(){
     const [state, setState] = useState(false);
+    const [user, setUser] = useState([]);
     const menues = ['House', 'Insert', 'Edit', 'Payed', 'User'];
+    
+    useEffect(() => {
+        LaravelApi.get('/AuthUser').then((response) => {
+            setUser(response.data);
+        })
+    },[]);
     
     const toggleDrawer = () => {
         setState(!state);
@@ -31,7 +38,7 @@ function App(){
                 <List>
                     {menues.map((menu, index) => (
                     <div>
-                        <ListItem button key={menu}>
+                        <ListItem button key={menu} key={index}>
                            <StyledLink to={menu}>{menu}</StyledLink>
                         </ListItem>
                         <Divider />
@@ -49,7 +56,7 @@ function App(){
                 <StyledNav>
                    <MenuIcon onClick={toggleDrawer}/>
                    <div>Line-Amount-App</div>
-                   <StyledAvatar />
+                   <StyledAvatar src={user.avatar}/>
                 </StyledNav>
         
                 {/* A <Switch> looks through its children <Route>s and
@@ -65,6 +72,7 @@ function App(){
                     <LeftDrawer />
                   </Drawer>
               </div>
+                <PictureStyled></PictureStyled>
            </Router>
   );
 }
@@ -93,10 +101,14 @@ const StyledAvatar = styled(Avatar)({
     fontSize: 20,
 });
 
-const StyleListItemText = styled(ListItemText)({
-    color: '#00B900',
-    marginTop: 10,
-});
+
+const PictureStyled = styled('div')({
+    widht: '100%',
+    height: '240px',
+    backgroundImage: 'linear-gradient(180deg, rgba(232,249,229,0) 41%, rgba(255,255,255,0.9794292717086834) 88%), url("https://cdn.pixabay.com/photo/2017/12/17/14/12/bitcoin-3024279_1280.jpg")',
+    backgroundSize: 'contain',
+    backgroundRepeat: 'no-repeat',
+})
 
 
 

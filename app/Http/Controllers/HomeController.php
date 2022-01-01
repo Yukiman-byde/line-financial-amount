@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -21,13 +22,14 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function house()
+    public function index()
     {
+        
         return view('house');
     }
     
-    public function calculate(Request $request)
-    {
-        
+    
+    public function auth_user(){
+        return Auth::user()->toJson();
     }
 }
