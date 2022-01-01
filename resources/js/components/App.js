@@ -41,8 +41,6 @@ const StyledNav = styled('nav')({
     borderBottom: '1px solid gray',
     boxShadow: '2px 2px 2px lightgray',
     overflow: 'scroll',
-    paddingLeft: '50px',
-    marginRight: 'auto',
 });
 
 const StyledLink = styled(Link)({
