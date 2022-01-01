@@ -87180,7 +87180,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 
 /* harmony default export */ __webpack_exports__["default"] = (axios__WEBPACK_IMPORTED_MODULE_0___default.a.create({
-  baseURL: 'https://0adeb2dd125c4667904a644ca5ae92f8.vfs.cloud9.ap-northeast-1.amazonaws.com/'
+  baseURL: 'https://amount-money.herokuapp.com/'
 }));
 
 /***/ }),
