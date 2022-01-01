@@ -111,7 +111,8 @@ class LineMessengerController extends Controller
 
     public function alternative_pay_action($event){
          $columns = array();
-        
+        $group = new Group;
+        $group_id = $group->groupID;
         $user_id = $event->getUserId();
         $user = new User;
         $user = $user->where('provided_user_id', $user_id)->first();
@@ -121,7 +122,7 @@ class LineMessengerController extends Controller
           $carousel = array('thumbnailImageUrl' => 'https://d1f5hsy4d47upe.cloudfront.net/79/79e452da8d3a9ccaf899814db5de9b76_t.jpeg',
                       'title'   => $group->name,
                       'text'    => 'グループを選んでください',
-                      'actions' => array(array('type' => 'postback', 'label' => '指定する', 'data' => "groupID=${group->groupID}", 'text' => $group->name)) 
+                      'actions' => array(array('type' => 'postback', 'label' => '指定する', 'data' => "groupID=${group_id}", 'text' => $group->name)) 
                  );
         array_push($columns, $carousel);
         }
