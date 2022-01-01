@@ -72,7 +72,6 @@ function App(){
                     <LeftDrawer />
                   </Drawer>
               </div>
-                <PictureStyled></PictureStyled>
            </Router>
   );
 }
@@ -102,13 +101,6 @@ const StyledAvatar = styled(Avatar)({
 });
 
 
-const PictureStyled = styled('div')({
-    widht: '100%',
-    height: '240px',
-    backgroundImage: 'linear-gradient(180deg, rgba(232,249,229,0) 41%, rgba(255,255,255,0.9794292717086834) 88%), url("https://cdn.pixabay.com/photo/2017/12/17/14/12/bitcoin-3024279_1280.jpg")',
-    backgroundSize: 'contain',
-    backgroundRepeat: 'no-repeat',
-})
 
 
 

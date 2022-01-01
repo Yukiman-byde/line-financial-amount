@@ -87097,7 +87097,7 @@ function App() {
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Routes"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Drawer__WEBPACK_IMPORTED_MODULE_2__["default"], {
     open: state,
     onClick: toggleDrawer
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(LeftDrawer, null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(PictureStyled, null));
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(LeftDrawer, null))));
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (App);
@@ -87118,13 +87118,6 @@ var StyledLink = Object(styled_components__WEBPACK_IMPORTED_MODULE_4__["default"
 });
 var StyledAvatar = Object(styled_components__WEBPACK_IMPORTED_MODULE_4__["default"])(_material_ui_core_Avatar__WEBPACK_IMPORTED_MODULE_7__["default"])({
   fontSize: 20
-});
-var PictureStyled = Object(styled_components__WEBPACK_IMPORTED_MODULE_4__["default"])('div')({
-  widht: '100%',
-  height: '240px',
-  backgroundImage: 'linear-gradient(180deg, rgba(232,249,229,0) 41%, rgba(255,255,255,0.9794292717086834) 88%), url("https://cdn.pixabay.com/photo/2017/12/17/14/12/bitcoin-3024279_1280.jpg")',
-  backgroundSize: 'contain',
-  backgroundRepeat: 'no-repeat'
 }); //   <Route path='/users' element={<UserPage />} />
 //                   <Route path='/:id/insert' element={<UserPage />} />
 //   <StyledLink to="/">Home</StyledLink>
@@ -87180,7 +87173,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 
 /* harmony default export */ __webpack_exports__["default"] = (axios__WEBPACK_IMPORTED_MODULE_0___default.a.create({
-  baseURL: 'https://amount-money.herokuapp.com/'
+  baseURL: 'https://0adeb2dd125c4667904a644ca5ae92f8.vfs.cloud9.ap-northeast-1.amazonaws.com/'
 }));
 
 /***/ }),
