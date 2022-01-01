@@ -59,8 +59,8 @@ class LineMessengerController extends Controller
                    break;
                    
                default:
-                   $this->content_analyze($event, $bot);
-                   $response = $this->replyTextMessage($bot, $event->getReplyToken(), '申し訳ございません。メニューの方からの入力のみとなっておりますので、そちらからお願いします.');
+                   $this->content_analyze($event, $bot, $event->getText());
+                //   $response = $this->replyTextMessage($bot, $event->getReplyToken(), '申し訳ございません。メニューの方からの入力のみとなっておりますので、そちらからお願いします.');
                    break;
              }
            }
@@ -68,8 +68,8 @@ class LineMessengerController extends Controller
     }
     
         
-    public function content_analyze($event, $bot, Group $group){
-        $content = $event->getText();
+    public function content_analyze($event, $bot, $content){
+        $group = new Group;
         $user = $group->content_query($content);
         $response = $this->replyTextMessage($bot, $event->getReplyToken(), $user);
     }
@@ -111,8 +111,6 @@ class LineMessengerController extends Controller
 
     public function alternative_pay_action($event){
          $columns = array();
-        $group = new Group;
-        $group_id = $group->groupID;
         $user_id = $event->getUserId();
         $user = new User;
         $user = $user->where('provided_user_id', $user_id)->first();
@@ -122,13 +120,15 @@ class LineMessengerController extends Controller
           $carousel = array('thumbnailImageUrl' => 'https://d1f5hsy4d47upe.cloudfront.net/79/79e452da8d3a9ccaf899814db5de9b76_t.jpeg',
                       'title'   => $group->name,
                       'text'    => 'グループを選んでください',
-                      'actions' => array(array('type' => 'postback', 'label' => '指定する', 'data' => "groupID=${group_id}", 'text' => $group->name)) 
+                      'actions' => array(array('type' => 'message', 'label' => '指定する', 'text' => $group->name)) 
                  );
-        array_push($columns, $carousel);
+          array_push($columns, $carousel);
         }
+        
         $template = array('type'    => 'carousel',
                   'columns' => $columns,
                 );
+                
         $this->curl_Basic($event, $template);
     }
 
