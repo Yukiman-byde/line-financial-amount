@@ -68575,9 +68575,7 @@ var StyledNav = Object(styled_components__WEBPACK_IMPORTED_MODULE_2__["default"]
   textAlign: 'center',
   borderBottom: '1px solid gray',
   boxShadow: '2px 2px 2px lightgray',
-  overflow: 'scroll',
-  paddingLeft: '50px',
-  marginRight: 'auto'
+  overflowX: 'scroll'
 });
 var StyledLink = Object(styled_components__WEBPACK_IMPORTED_MODULE_2__["default"])(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"])({
   margin: '24px',

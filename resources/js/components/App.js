@@ -40,7 +40,7 @@ const StyledNav = styled('nav')({
     textAlign: 'center',
     borderBottom: '1px solid gray',
     boxShadow: '2px 2px 2px lightgray',
-    overflow: 'scroll',
+    overflowX: 'scroll',
 });
 
 const StyledLink = styled(Link)({
