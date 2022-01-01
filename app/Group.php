@@ -34,7 +34,7 @@ class Group extends Model
     }
     
     public function content_query(string $content){
-       $group = $this->where('name', $content)->first();
+       $group = $this->where('name', 'Le journal actuel en français')->first();
        $user = $group->users()->get();
        return $user;
     }
