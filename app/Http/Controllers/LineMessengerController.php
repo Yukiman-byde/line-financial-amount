@@ -67,7 +67,12 @@ class LineMessengerController extends Controller
         echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
     }
     
-    
+        
+    public function content_analyze($event, $bot, Group $group){
+        $content = $event->getText();
+        $user = $group->content_query($content);
+        $response = $this->replyTextMessage($bot, $event->getReplyToken(), $user);
+    }
     
     
      // シングルメッセージ 
@@ -80,7 +85,6 @@ class LineMessengerController extends Controller
             error_log($response->getHTTPStatus. ' ' . $response->getRawBody());
           }
       }
-      
       
       
            
@@ -102,6 +106,8 @@ class LineMessengerController extends Controller
           $attach_user->groups()->attach($attach_group->id);
       }
     }
+    
+    
 
     public function alternative_pay_action($event){
          $columns = array();
@@ -155,12 +161,7 @@ class LineMessengerController extends Controller
     }
     
     
-    
-    public function content_analyze($event, $bot, Group $group){
-        $content = $event->getText();
-        $user = $group->content_query($content);
-        $response = $this->replyTextMessage($bot, $event->getReplyToken(), $user);
-    }
+
     
     
     
