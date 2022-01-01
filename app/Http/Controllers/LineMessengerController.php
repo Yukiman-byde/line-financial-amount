@@ -121,7 +121,7 @@ class LineMessengerController extends Controller
           $carousel = array('thumbnailImageUrl' => 'https://d1f5hsy4d47upe.cloudfront.net/79/79e452da8d3a9ccaf899814db5de9b76_t.jpeg',
                       'title'   => $group->name,
                       'text'    => 'グループを選んでください',
-                      'actions' => array(array('type' => 'postback', 'label' => '指定する', 'data' => "groupID", 'text' => $group->name)) 
+                      'actions' => array(array('type' => 'postback', 'label' => '指定する', 'data' => "groupID=${group->groupID}", 'text' => $group->name)) 
                  );
         array_push($columns, $carousel);
         }
