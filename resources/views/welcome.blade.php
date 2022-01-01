@@ -47,7 +47,7 @@
     </head>
     <body>
         <div class="flex-center full-height">
-           <a class="box" href="{{ route('linelogin',['provider' => 'line']) }}">登録</a>
+           <a class="box" href="{{ route('linelogin',['provider' => 'line']) }}">ENTER</a>
         </div>
     </body>
 </html>
