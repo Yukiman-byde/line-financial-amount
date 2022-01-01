@@ -12,7 +12,7 @@
         <!-- Styles -->
         <style>
             html, body {
-                background-color: #fff;
+                background-color: #00B900;
                 color: #636b6f;
                 font-family: 'Nunito', sans-serif;
                 font-weight: 200;
@@ -29,43 +29,25 @@
                 display: flex;
                 justify-content: center;
             }
-
-            .position-ref {
-                position: relative;
+            
+            a {
+            background-color: #fff;
+            text-decoration: none;
+            color: #00A900;
+            font-size: 43px;
             }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
+            
+            .box {
+            border: 1px solid lightgray;
+            padding: 100px;
+            border-radius: 21px;
             }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
+            
         </style>
     </head>
     <body>
-        <div class="flex-center position-ref full-height">
-           <a href="{{ route('linelogin',['provider' => 'line']) }}">登録</a>
+        <div class="flex-center full-height">
+           <a class="box" href="{{ route('linelogin',['provider' => 'line']) }}">登録</a>
         </div>
     </body>
 </html>
