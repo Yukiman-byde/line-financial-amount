@@ -72,7 +72,7 @@ class LineMessengerController extends Controller
         $group = new Group;
         $s_content = strval($content);
         $user = $group->content_query($s_content);
-        $response = $this->replyTextMessage($bot, $event->getReplyToken(), $content);
+        $response = $this->replyTextMessage($bot, $event->getReplyToken(), $user);
     }
     
     
