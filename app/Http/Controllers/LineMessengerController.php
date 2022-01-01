@@ -158,26 +158,29 @@ class LineMessengerController extends Controller
     
     public function content_analyze($event, $bot, Group $group){
         $content = trim($event->getText());
-        $user = $group->content_query(strval($content))->users()->first();
+        $user = $group->content_query($content);;
         $response = $this->replyTextMessage($bot, $event->getReplyToken(), $user);
     }
     
     
     
     
-    public function try_session_data(){
-        $name = 'ゆーき万';
-        $user = new User;
-        $user = $user->where('name', $name)->first();
-        if($user){
-            session_start();
-            $_SESSION['amount'] = 600;
-            $_SESSION['lend_name'] = $user->name;
-            $_SESSION['borrow_name'] = 'うんこ';
-            $_SESSION['payed'] = false;
-            $_SESSION['content'] = 'トイレ代';
-        }
-        echo $_SESSION['borrow_name'];
+    public function try_session_data(Group $group){
+        // $name = 'ゆーき万';
+        // $user = new User;
+        // $user = $user->where('name', $name)->first();
+        // if($user){
+        //     session_start();
+        //     $_SESSION['amount'] = 600;
+        //     $_SESSION['lend_name'] = $user->name;
+        //     $_SESSION['borrow_name'] = 'うんこ';
+        //     $_SESSION['payed'] = false;
+        //     $_SESSION['content'] = 'トイレ代';
+        // }
+        // echo $_SESSION['borrow_name'];
+        $name = 'dsajonv';
+        $user = $group->content_query($name);
+        dd($user);
     }
     
     public function try_session_data_amount($number){
