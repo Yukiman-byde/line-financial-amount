@@ -79,6 +79,7 @@ function App(){
                   </Drawer>
               </div>
               <Routes>
+                  <Route exact path="/" element={<Home />} />
                   <Route exact path="/home" element={<Home />} />
               </Routes>
               <BodyStyled>

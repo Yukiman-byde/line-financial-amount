@@ -4,6 +4,7 @@ import LaravelApi from './LaravelApi';
 import Button from '@material-ui/core/Button';
 import RedirectToHome from './RedirectToHome';
 import {useParams} from 'react-router-dom';
+import styled from 'styled-components';
 
 
 function InputComponent({user}){
@@ -35,7 +36,11 @@ function InputComponent({user}){
         
           LaravelApi.post('/calculate', requests).then((response) => {
            if(response.status === 200){
-             return <RedirectToHome />
+             return (
+               <PaperStyled>
+               
+               </PaperStyled>
+               );
            }
           }).catch(error => {
             confirm(error.message);
@@ -100,3 +105,9 @@ function InputComponent({user}){
     }
     
     export default InputComponent;
+    
+    const PaperStyled = styled('div')({
+      backgroundColor: '#fff',
+      width: '80%',
+      height: '40vh',
+    });

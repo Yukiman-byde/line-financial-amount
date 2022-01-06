@@ -83,7 +83,7 @@ class HomeController extends Controller
      $amounts = [];
      //グループ
      foreach($g_users as $g_user){
-         $amount = $amount->where('lend_provider_user_id', $g_user->id);
+         $amount = $amount->where('borrow_provider_user_id', $g_user->id);
          
       array_push($amounts, $amount->get());
      }
@@ -116,10 +116,30 @@ class HomeController extends Controller
        return redirect('/home');
    }
    
-   public function divide($groupName, Request $request){
-      $users = $request->users;
-      $amount = $request->amount;
-      $answer = $amount / count($users);
-      dd($answer);
+   public function divide($groupName, Request $request, Amount $amount){
+      $selectUsers = $request->users;
+
+     // dd($user_names);
+      $setAmount = $request->amount;
+      $answer = $setAmount / count($selectUsers);
+      foreach($selectUsers as $selectUser){
+          $user = new User;
+          $user_id = $user->where('name', $selectUser['name'])->value('id');
+
+          
+          $amount->amount = $answer;
+          
+          $amount->lend_provider_user_id = Auth::user()->id;
+          
+          $amount->borrow_provider_user_id = $user_id;
+          
+          $amount->groupId = $groupName;
+          
+          $amount->payed = 0;
+          
+          $amount->content = "割り勘";
+          
+          $amount->save();
+      }
    }
 }

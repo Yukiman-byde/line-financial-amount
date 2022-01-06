@@ -29,15 +29,6 @@ class LineMessengerController extends Controller
         foreach($events as $event){
            //実際の措置 
            switch(strval($event->getText())){
-               case '特定の人へ！':
-                //   $response = $this->replyTextMessage($bot, $event->getReplyToken(), 'どなたの立替を行なったか下記のボタンで指名してください');
-                   $response = $this->alternative_pay_action($event);
-                   break;
-                   
-               case '割り勘で！':
-                   $response = $this->replyTextMessage($bot, $event->getReplyToken(), 'fofofofo');
-                   break;
-                   
                case '登録':
                    $response = $this->groupstore($bot, $event->getReplyToken(), $event);
                    break;
@@ -52,15 +43,6 @@ class LineMessengerController extends Controller
                                 )
                 );
                    $response = $this->curl_Basic($event, $template);
-                   break;
-                
-               case '結果を見る':
-                   $response = $this->replyTextMessage($bot, $event->getReplyToken(), 'こちらが結果になります');
-                   break;
-                   
-               default:
-                   $this->content_analyze($event, $bot, $event->getText());
-                //   $response = $this->replyTextMessage($bot, $event->getReplyToken(), '申し訳ございません。メニューの方からの入力のみとなっておりますので、そちらからお願いします.');
                    break;
              }
            }

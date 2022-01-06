@@ -14,7 +14,6 @@ function Devide(){
     const [selectUsers, setSelectUsers] = useState([]);
     const [number, setNumber] = useState(0);
     
-    
      const HandlePost = (user) => {
         if(selectUsers.includes(user)){
          return null;
@@ -34,18 +33,19 @@ function Devide(){
     
      let count = 0;
     const HandleRequest = () => {
-     if(selectUsers && (count < 1)){
+     // if(selectUsers && (count < 1)){
          count++;
          const request = {
             users: selectUsers,
             amount: number,
+            groupName: groupName
          }
        LaravelApi.post(`/Divide/${groupName}`, request).then((response) => {
         navigate(`/Divide/${groupName}`);
        }).catch(error => confirm(error.message));   
-     }else{
-      confirm('割り勘するメンバーを指名してください')
-     }
+     // }else{
+     //  confirm('割り勘するメンバーを指名してください')
+     // }
     };
     
     
