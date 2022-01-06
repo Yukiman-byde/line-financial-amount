@@ -6,6 +6,8 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Group;
+use App\Amount;
+use Auth;
 
 class User extends Authenticatable
 {
@@ -50,4 +52,16 @@ class User extends Authenticatable
              $user->groups()->attach($group->id);
          }
         }
+    public function provider_to_id($query){
+     return  $this->where('provided_user_id', $query)->value('id');
+    }
+    
+    public function name_to_id($query){
+     return  $this->where('name', $query)
+                  ->value('id');
+    }
+
+    public function amounts(){
+      return  $this->belongsTo('App\Amount', 'lend_provider_user_id');
+    }
 }

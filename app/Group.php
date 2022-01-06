@@ -34,7 +34,7 @@ class Group extends Model
     }
     
     public function content_query(string $content){
-       $group = $this->where('name', 'Line-amount-app')->first();
+       $group = $this->where('name', $content)->first();
        $user = $group->users()->get();
        return $user;
     }

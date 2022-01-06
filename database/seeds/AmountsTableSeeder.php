@@ -14,8 +14,8 @@ class AmountsTableSeeder extends Seeder
         DB::table('amounts')->insert([
             [//もう終わってる
                 'amount' => 0,
-                'lend_provider_user_id' => 'hsd@',
-                'borrow_provider_user_id' => 'df@ojosv',
+                'lend_provider_user_id' => 1,
+                'borrow_provider_user_id' => 1,
                 'payed' => false,
                 'content' => 'トイレ貸した分のお金。'
             ],

@@ -13,10 +13,19 @@
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
 Route::get('/AuthUser', 'HomeController@auth_user');
+Route::get('/getUserName/{groupName}', 'HomeController@get_user_name');
 Route::get('/calculate', 'HomeController@calculate')->name('calculate');
 Route::post('/calculate', 'HomeController@calculate')->name('calculate');
+Route::get('/results/{groupName}', 'HomeController@results')->name('calculate');
+Route::get('/amounts', 'HomeController@about_amount');
+Route::get('/amounts', 'HomeController@about_amount');
+
+Route::get('/Edit/delete', 'HomeController@delete');
+Route::post('/Edit/delete', 'HomeController@delete');
+Route::get('/Divide/{groupName}', 'HomeController@divide');
+Route::post('/Divide/{groupName}', 'HomeController@divide');
 
 Route::get('/login/{provider}', 'Auth\LoginController@redirectToProvider')->name('linelogin');
 Route::get('/login/{provider}/callback', 'Auth\LoginController@handleProviderCallback');

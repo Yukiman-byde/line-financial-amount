@@ -1,35 +1,44 @@
 import React,{useState, useEffect} from "react";
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Routes,
   Route,
   Link
 } from "react-router-dom";
+import GroupSelect from './GroupSelect';
+import Edit from './Edit';
+import UsersSelect from './UsersSelect';
 import Drawer from '@material-ui/core/Drawer';
-import Button from '@material-ui/core/Button';
 import styled from 'styled-components';
 import List from '@material-ui/core/List';
 import MenuIcon from '@material-ui/icons/Menu';
 import Avatar from '@material-ui/core/Avatar';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
 import LaravelApi from './LaravelApi';
+import Home from './Home';
+import User from './User';
+import Devide from './Devide';
 
 function App(){
     const [state, setState] = useState(false);
     const [user, setUser] = useState([]);
-    const menues = ['House', 'Insert', 'Edit', 'Payed', 'User'];
+    const [groups, setGroups] = useState([]);
+    const menues = ['home', 'Insert', 'Edit', 'Divide', 'User'];
     
     useEffect(() => {
         LaravelApi.get('/AuthUser').then((response) => {
-            setUser(response.data);
-        })
+            setGroups(response.data[0]);
+            setUser(response.data[1]);
+        });
     },[]);
+    
     
     const toggleDrawer = () => {
         setState(!state);
-    }
+    };
+    
+    
     
     function LeftDrawer(){
         return(
@@ -50,19 +59,16 @@ function App(){
     }
     
     
+    
+    
     return(
           <Router>
               <div>
                 <StyledNav>
                    <MenuIcon onClick={toggleDrawer}/>
-                   <div>Line-Amount-App</div>
+                   <div style={{color: '#00B900'}}>Line-Amount-App</div>
                    <StyledAvatar src={user.avatar}/>
                 </StyledNav>
-        
-                {/* A <Switch> looks through its children <Route>s and
-                    renders the first one that matches the current URL. */}
-                <Routes>
-                </Routes>
               </div>
               <div>
                   <Drawer
@@ -72,6 +78,19 @@ function App(){
                     <LeftDrawer />
                   </Drawer>
               </div>
+              <Routes>
+              </Routes>
+              <BodyStyled>
+                   <Routes>
+                    <Route exact path="/Insert" element={<GroupSelect groups={groups}/>} />
+                    <Route exact path="/Edit" element={<GroupSelect groups={groups}/>} />
+                    <Route exact path="/Divide" element={<GroupSelect groups={groups}/>} />
+                    <Route exact path="/User" element={<User user={user} groups={groups}/>} />
+                    <Route exact path="/Insert/:groupName" element={<UsersSelect />} />
+                    <Route exact path="/Edit/:groupName" element={<Edit />} />
+                    <Route exact path="/Divide/:groupName" element={<Devide />} />
+                  </Routes>
+              </BodyStyled>
            </Router>
   );
 }
@@ -100,9 +119,12 @@ const StyledAvatar = styled(Avatar)({
     fontSize: 20,
 });
 
-
-
-
+const BodyStyled = styled('div')({
+    width: '70%',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    textAlign: 'center',
+});
 
 
 
@@ -113,3 +135,13 @@ const StyledAvatar = styled(Avatar)({
 //                   <StyledLink to="/about">Edit</StyledLink>
 //                   <StyledLink to="/about">Payed</StyledLink>
 //                   <StyledLink to="/users">User</StyledLink>
+            //   {/* A <Switch> looks through its children <Route>s and
+            //         renders the first one that matches the current URL. */}
+            //     <Routes>
+            //     </Routes>
+            
+            
+            
+            // <Routes>
+            //         <Route path="/group" element={<GroupSelect />} />
+            //       </Routes>

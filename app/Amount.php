@@ -13,6 +13,10 @@ class Amount extends Model
         'amount', 'lend_provider_user_id', 'borrow_provider_user_id', 'payed'
     ];
     
+    public function users(){
+        return $this->belongsTo('App\User');
+    }
+    
     public function add_money(int $number, string $lend, string $borrow, string $content){
         $this->amount = $number;
         $this->lend_provider_user_id = $lend;
