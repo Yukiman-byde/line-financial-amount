@@ -101,6 +101,7 @@ class HomeController extends Controller
     //   array_push($user_name, $user_info);
     // }
     //ここまで
+    $amount = array();
     
     $group = $group->where('name', $groupName)->first();
     $users = $group->users()->get();
@@ -110,13 +111,13 @@ class HomeController extends Controller
     
     foreach($filterd_users as $filterd_user){
       $amounts = $amount->where('lend_provider_user_id', $filterd_user->id)->get();
-      dd($amounts);
+      array_push($amount, $amounts);
     }
     
    // dd($user_name);
     
      return response([
-         'amount'    => $amounts,
+         'amount'    => $amount,
          'user_name' => $user_name,
          ]);
    }
