@@ -16,7 +16,7 @@ function User({user, groups}){
     useEffect(() => {
         LaravelApi.get('/amounts').then((response) => {
             console.log(response.data);
-        })
+        });
     },[]);
     
     return(

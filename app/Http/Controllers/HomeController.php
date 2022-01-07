@@ -79,26 +79,41 @@ class HomeController extends Controller
    //borrowを表示する形にして、他にも名前、日付（amount）、内容(amount)、金額（amount）を持ってくる
    //グループも持ってきて！
    public function results(User $user, Amount $amount, $groupName, Group $group){
-     $g_users = $group->content_query($groupName);
-     $amounts = [];
-     //グループ
-     foreach($g_users as $g_user){
-         $amount = $amount->where('borrow_provider_user_id', $g_user->id);
-         
-      array_push($amounts, $amount->get());
-     }
-
+   //ここから
+    //  $g_users = $group->content_query($groupName);
      
-    $amounts = $amounts[0];
-    $user_name = array();
+    //  $amounts = [];
+    //  //グループ
+    //  foreach($g_users as $g_user){
+    //     // $amount = $amount->where('borrow_provider_user_id', $g_user->id);
+    //      $user = $g_user->amounts();
+    //      dd($user->get());
+    //      array_push($amounts, $amount->get());
+    //  }
+    // dd($amounts);
+     
+    // $amounts = $amounts[0];
+    // $user_name = array();
     
-    foreach($amounts as $amount){
-       $id = $amount->borrow_provider_user_id;
-       $user_info = $user->where('id', $id)->first();
-      array_push($user_name, $user_info);
+    // foreach($amounts as $amount){
+    //   $id = $amount->borrow_provider_user_id;
+    //   $user_info = $user->where('id', $id)->first();
+    //   array_push($user_name, $user_info);
+    // }
+    //ここまで
+    
+    $group = $group->where('name', $groupName)->first();
+    $users = $group->users()->get();
+    $filterd_users = $users->filter(function($value, $key){
+        return $value->name !== Auth::user()->name;
+    });
+    
+    foreach($filterd_users as $filterd_user){
+      $amounts = $amount->where('lend_provider_user_id', $filterd_user->id)->get();
+      dd($amounts);
     }
     
-    //dd($user_name);
+   // dd($user_name);
     
      return response([
          'amount'    => $amounts,

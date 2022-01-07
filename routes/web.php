@@ -20,7 +20,6 @@ Route::get('/calculate', 'HomeController@calculate')->name('calculate');
 Route::post('/calculate', 'HomeController@calculate')->name('calculate');
 Route::get('/results/{groupName}', 'HomeController@results')->name('calculate');
 Route::get('/amounts', 'HomeController@about_amount');
-Route::get('/amounts', 'HomeController@about_amount');
 
 Route::get('/Edit/delete', 'HomeController@delete');
 Route::post('/Edit/delete', 'HomeController@delete');

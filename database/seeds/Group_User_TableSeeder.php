@@ -13,8 +13,8 @@ class Group_User_TableSeeder extends Seeder
     {
         DB::table('group_user')->insert([
             [//もう終わってる
-                'user_id' => 1,
-                'group_id' => 2,
+                'user_id' => 2,
+                'group_id' => 1,
             ],
       ]);
     }

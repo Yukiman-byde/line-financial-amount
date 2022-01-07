@@ -13,11 +13,12 @@ class AmountsTableSeeder extends Seeder
     {
         DB::table('amounts')->insert([
             [//もう終わってる
-                'amount' => 0,
-                'lend_provider_user_id' => 1,
+                'amount' => 400,
+                'lend_provider_user_id' => 2,
                 'borrow_provider_user_id' => 1,
+                'groupID' => 'dioshv',
                 'payed' => false,
-                'content' => 'トイレ貸した分のお金。'
+                'content' => 'test。'
             ],
     ]);
     }

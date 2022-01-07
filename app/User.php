@@ -62,6 +62,6 @@ class User extends Authenticatable
     }
 
     public function amounts(){
-      return  $this->belongsTo('App\Amount', 'lend_provider_user_id');
+      return  $this->hasMany('App\Amount', 'lend_provider_user_id');
     }
 }
