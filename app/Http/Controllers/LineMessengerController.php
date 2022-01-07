@@ -39,7 +39,7 @@ class LineMessengerController extends Controller
                   'title'   => 'LINE登録' ,
                   'text'    => 'ご利用になる前に、下記のWebで登録するボタンを押してLINE登録を行ってください。',
                   'actions' => array(
-                                 array('type'=>'uri', 'label'=>'Webで登録する', 'uri'=>'https://amount-money.herokuapp.com/' )
+                                 array('type'=>'uri', 'label'=>'Webで見る', 'uri'=>'https://amount-money.herokuapp.com/' )
                                 )
                 );
                    $response = $this->curl_Basic($event, $template);

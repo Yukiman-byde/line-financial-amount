@@ -80,44 +80,41 @@ class HomeController extends Controller
    //グループも持ってきて！
    public function results(User $user, Amount $amount, $groupName, Group $group){
    //ここから
-    //  $g_users = $group->content_query($groupName);
+     $g_users = $group->content_query($groupName);
      
-    //  $amounts = [];
-    //  //グループ
-    //  foreach($g_users as $g_user){
-    //     // $amount = $amount->where('borrow_provider_user_id', $g_user->id);
-    //      $user = $g_user->amounts();
-    //      dd($user->get());
-    //      array_push($amounts, $amount->get());
-    //  }
-    // dd($amounts);
+     $amounts = [];
+     //グループ
+     foreach($g_users as $g_user){
+        // $amount = $amount->where('borrow_provider_user_id', $g_user->id);
+         $user = $g_user->amounts();
+         array_push($amounts, $amount->get());
+     }
      
-    // $amounts = $amounts[0];
-    // $user_name = array();
+    $amounts = $amounts[0];
+    $user_name = array();
     
-    // foreach($amounts as $amount){
-    //   $id = $amount->borrow_provider_user_id;
-    //   $user_info = $user->where('id', $id)->first();
-    //   array_push($user_name, $user_info);
-    // }
-    //ここまで
-    $amount = array();
-    
-    $group = $group->where('name', $groupName)->first();
-    $users = $group->users()->get();
-    $filterd_users = $users->filter(function($value, $key){
-        return $value->name !== Auth::user()->name;
-    });
-    
-    foreach($filterd_users as $filterd_user){
-      $amounts = $amount->where('lend_provider_user_id', $filterd_user->id)->get();
-      array_push($amount, $amounts);
+    foreach($amounts as $amount){
+      $id = $amount->borrow_provider_user_id;
+      $user_info = $user->where('id', $id)->first();
+      array_push($user_name, $user_info);
     }
+    //ここまで
+//     $amounts = array();
     
-   // dd($user_name);
+//     $group = $group->where('name', $groupName)->first();
+//     $users = $group->users()->get();
+//     $filterd_users = $users->filter(function($value, $key){
+//         return $value->name !== Auth::user()->name;
+//     });
     
+//     foreach($filterd_users as $filterd_user){
+//       $amount = $amount->where('lend_provider_user_id', $filterd_user->id)->get();
+//       dd($amount[]->borrow_provider_user_id);
+//       array_push($amounts, $amount);
+//     }
+//   // dd($user_name);
      return response([
-         'amount'    => $amount,
+         'amount'    => $amounts,
          'user_name' => $user_name,
          ]);
    }
