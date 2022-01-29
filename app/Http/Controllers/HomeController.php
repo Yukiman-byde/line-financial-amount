@@ -28,7 +28,18 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $client = new \GuzzleHttp\Client();
         
+        $url = 'https://teratail.com/api/v1/questions';
+        
+        $response = $client->request
+            'GET',
+            $url,
+            ['Bearer' => config('services.teratail.token')]
+        );
+        
+        $questions = json_decode($response->getBody(), true);
+       dd($questions);
         return view('house');
     }
     

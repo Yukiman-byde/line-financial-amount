@@ -39,4 +39,7 @@ return [
         'line_user'   => env('LINE_USER_ID'),
     ],
 
+      'teratail' => [
+        'token' => env('TERATAIL_ACCESS_TOKEN')
+    ],
 ];
